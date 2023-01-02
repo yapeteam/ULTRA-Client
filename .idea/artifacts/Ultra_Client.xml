@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ultra-Client">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ultra_Client</output-path>
+    <root id="archive" name="Ultra-Client.jar">
+      <element id="module-output" name="Ultra Client" />
+      <element id="directory" name="com">
+        <element id="dir-copy" path="$PROJECT_DIR$/addition/com" />
+      </element>
+    </root>
+  </artifact>
+</component>
