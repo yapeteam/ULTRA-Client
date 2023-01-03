@@ -2,11 +2,12 @@ package cn.timer.ultra.module;
 
 import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventKey;
-import cn.timer.ultra.module.modules.combat.*;
-import cn.timer.ultra.module.modules.movement.*;
-import cn.timer.ultra.module.modules.player.*;
+import cn.timer.ultra.module.modules.chest.combat.*;
+import cn.timer.ultra.module.modules.chest.movement.*;
+import cn.timer.ultra.module.modules.chest.player.*;
+import cn.timer.ultra.module.modules.chest.world.*;
 import cn.timer.ultra.module.modules.render.*;
-import cn.timer.ultra.module.modules.world.*;
+import cn.timer.ultra.module.modules.render.alt.AltManager;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class ModuleManager {
         this.modules.add(new CPSModule());
         this.modules.add(new MusicPlayer());
         this.modules.add(new MusicOverlay());
+        this.modules.add(new AltManager());
         //World
         this.modules.add(new Scaffold());
     }

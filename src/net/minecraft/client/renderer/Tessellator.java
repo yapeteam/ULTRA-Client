@@ -38,4 +38,8 @@ public class Tessellator
     {
         return this.worldRenderer;
     }
+
+    /**
+     * Adds a vertex specifying both x,y,z and the texture u,v for it.
+     */
 }

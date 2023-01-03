@@ -5,12 +5,10 @@ import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
 import cn.timer.ultra.module.ModuleManager;
-import cn.timer.ultra.module.modules.render.MusicPlayer;
 import cn.timer.ultra.utils.ColorUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.InputStream;
 import java.util.Objects;
 
 public class Client {
@@ -42,11 +40,11 @@ public class Client {
         this.trayIcon.setImageAutoSize(true);
         this.trayIcon.setToolTip("Ultra Client  ~ ");
 
-        try {
+        /*try {
             SystemTray.getSystemTray().add(this.trayIcon);
         } catch (AWTException var3) {
             renderMsg("Unable to add tray icon.");
-        }
+        }*/
 
         this.trayIcon.displayMessage("Ultra Client", "Thank you for using Ultra Client", TrayIcon.MessageType.NONE);
 

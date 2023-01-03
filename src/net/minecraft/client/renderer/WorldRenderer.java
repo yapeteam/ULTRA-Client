@@ -562,10 +562,8 @@ public class WorldRenderer
         }
     }
 
-    public void addVertexData(int[] vertexData)
-    {
-        if (Config.isShaders())
-        {
+    public void addVertexData(int[] vertexData) {
+        if (Config.isShaders()) {
             SVertexBuilder.beginAddVertexData(this, vertexData);
         }
 
@@ -574,8 +572,7 @@ public class WorldRenderer
         this.rawIntBuffer.put(vertexData);
         this.vertexCount += vertexData.length / this.vertexFormat.getIntegerSize();
 
-        if (Config.isShaders())
-        {
+        if (Config.isShaders()) {
             SVertexBuilder.endAddVertexData(this);
         }
     }
