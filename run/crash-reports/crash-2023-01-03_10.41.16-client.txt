@@ -1,0 +1,114 @@
+---- Minecraft Crash Report ----
+// I let you down. Sorry :(
+
+Time: 23-1-3 上午10:41
+Description: Updating screen events
+
+java.lang.RuntimeException: java.lang.RuntimeException: Unable to construct Application instance: class cn.timer.ultra.module.modules.render.alt.WebView
+	at cn.timer.ultra.module.modules.render.alt.AltManager.onEnable(AltManager.java:35)
+	at cn.timer.ultra.module.Module.setEnabled(Module.java:49)
+	at cn.timer.ultra.gui.ClickUI.component.impl.ModuleComponent.mouseClicked(ModuleComponent.java:57)
+	at cn.timer.ultra.gui.ClickUI.ClickUIScreen.mouseClicked(ClickUIScreen.java:189)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:619)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:588)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1597)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1041)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:471)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+Caused by: java.lang.RuntimeException: Unable to construct Application instance: class cn.timer.ultra.module.modules.render.alt.WebView
+	at com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:907)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication$155(LauncherImpl.java:182)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoSuchMethodException: cn.timer.ultra.module.modules.render.alt.WebView.<init>()
+	at java.lang.Class.getConstructor0(Class.java:3082)
+	at java.lang.Class.getConstructor(Class.java:1825)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$161(LauncherImpl.java:818)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$175(PlatformImpl.java:326)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$173(PlatformImpl.java:295)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$174(PlatformImpl.java:294)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$148(WinApplication.java:191)
+	... 1 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at cn.timer.ultra.module.modules.render.alt.AltManager.onEnable(AltManager.java:35)
+	at cn.timer.ultra.module.Module.setEnabled(Module.java:49)
+	at cn.timer.ultra.gui.ClickUI.component.impl.ModuleComponent.mouseClicked(ModuleComponent.java:57)
+	at cn.timer.ultra.gui.ClickUI.ClickUIScreen.mouseClicked(ClickUIScreen.java:189)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:619)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:588)
+
+-- Affected screen --
+Details:
+	Screen name: cn.timer.ultra.module.modules.render.alt.GuiTipScreen
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player863'/139, l='MpServer', x=-344.06, y=4.00, z=-500.58]]
+	Chunk stats: MultiplayerChunkCache: 289, 289
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: -355.00,4.00,-513.00 - World: (-355,4,-513), Chunk: (at 13,0,15 in -23,-33; contains blocks -368,0,-528 to -353,255,-513), Region: (-1,-2; contains chunks -32,-64 to -1,-33, blocks -512,0,-1024 to -1,255,-513)
+	Level time: 1794 game time, 1794 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 67 total; [EntitySlime['Slime'/128, l='MpServer', x=-263.97, y=4.91, z=-526.60], EntityPlayerSP['Player863'/139, l='MpServer', x=-344.06, y=4.00, z=-500.58], EntitySlime['Slime'/22, l='MpServer', x=-421.25, y=4.00, z=-562.50], EntityChicken['Chicken'/25, l='MpServer', x=-417.50, y=4.00, z=-552.50], EntityChicken['Chicken'/26, l='MpServer', x=-416.41, y=4.00, z=-552.28], EntityRabbit['Rabbit'/27, l='MpServer', x=-417.50, y=4.00, z=-540.50], EntityRabbit['Rabbit'/28, l='MpServer', x=-419.66, y=4.00, z=-539.66], EntityRabbit['Rabbit'/29, l='MpServer', x=-416.66, y=4.00, z=-539.66], EntitySlime['Slime'/33, l='MpServer', x=-422.63, y=4.00, z=-511.44], EntitySlime['Slime'/34, l='MpServer', x=-423.44, y=4.00, z=-439.34], EntitySlime['Slime'/35, l='MpServer', x=-424.38, y=4.00, z=-448.19], EntitySlime['Slime'/36, l='MpServer', x=-415.09, y=4.00, z=-431.09], EntityChicken['Chicken'/37, l='MpServer', x=-415.50, y=4.00, z=-547.50], EntityChicken['Chicken'/38, l='MpServer', x=-415.47, y=4.00, z=-552.53], EntityRabbit['Rabbit'/39, l='MpServer', x=-409.66, y=4.00, z=-551.44], EntitySlime['Slime'/40, l='MpServer', x=-407.38, y=4.76, z=-552.68], EntitySlime['Slime'/41, l='MpServer', x=-407.13, y=4.00, z=-544.41], EntitySlime['Slime'/42, l='MpServer', x=-414.45, y=4.93, z=-525.88], EntitySheep['Sheep'/43, l='MpServer', x=-409.09, y=4.00, z=-523.25], EntitySheep['Sheep'/44, l='MpServer', x=-406.34, y=4.00, z=-527.84], EntitySheep['Sheep'/45, l='MpServer', x=-402.19, y=4.00, z=-518.50], EntitySheep['Sheep'/46, l='MpServer', x=-408.06, y=4.00, z=-506.06], EntitySlime['Slime'/47, l='MpServer', x=-405.40, y=4.16, z=-482.46], EntitySlime['Slime'/175, l='MpServer', x=-278.50, y=4.09, z=-564.34], EntitySheep['Sheep'/55, l='MpServer', x=-389.09, y=4.00, z=-567.16], EntitySheep['Sheep'/56, l='MpServer', x=-386.50, y=4.00, z=-565.50], EntitySlime['Slime'/57, l='MpServer', x=-388.84, y=4.00, z=-486.81], EntitySheep['Sheep'/61, l='MpServer', x=-380.84, y=4.00, z=-565.98], EntitySheep['Sheep'/62, l='MpServer', x=-382.50, y=4.00, z=-567.84], EntitySlime['Slime'/66, l='MpServer', x=-362.03, y=4.00, z=-550.56], EntitySlime['Slime'/67, l='MpServer', x=-354.34, y=4.00, z=-537.53], EntitySlime['Slime'/68, l='MpServer', x=-352.17, y=4.14, z=-526.34], EntityRabbit['Rabbit'/73, l='MpServer', x=-344.47, y=4.00, z=-574.72], EntitySlime['Slime'/74, l='MpServer', x=-350.34, y=4.00, z=-562.25], EntitySlime['Slime'/75, l='MpServer', x=-342.41, y=4.00, z=-547.69], EntitySlime['Slime'/76, l='MpServer', x=-340.38, y=4.00, z=-548.13], EntityRabbit['Rabbit'/78, l='MpServer', x=-325.66, y=4.00, z=-580.66], EntityRabbit['Rabbit'/79, l='MpServer', x=-335.34, y=4.00, z=-578.66], EntitySlime['Slime'/80, l='MpServer', x=-330.78, y=3.91, z=-476.00], EntitySlime['Slime'/81, l='MpServer', x=-325.72, y=4.00, z=-472.19], EntityCow['Cow'/82, l='MpServer', x=-325.50, y=4.00, z=-457.22], EntityCow['Cow'/83, l='MpServer', x=-323.50, y=4.00, z=-460.50], EntityCow['Cow'/84, l='MpServer', x=-321.50, y=4.00, z=-460.50], EntityCow['Cow'/85, l='MpServer', x=-321.50, y=4.00, z=-457.50], EntitySlime['Slime'/86, l='MpServer', x=-327.95, y=4.00, z=-443.75], EntityRabbit['Rabbit'/90, l='MpServer', x=-317.41, y=4.00, z=-580.47], EntitySlime['Slime'/91, l='MpServer', x=-305.16, y=4.00, z=-478.69], EntitySlime['Slime'/92, l='MpServer', x=-316.03, y=4.00, z=-455.22], EntityChicken['Chicken'/93, l='MpServer', x=-304.72, y=4.00, z=-430.41], EntityChicken['Chicken'/94, l='MpServer', x=-310.09, y=4.00, z=-426.09], EntitySlime['Slime'/97, l='MpServer', x=-296.56, y=4.00, z=-534.25], EntitySlime['Slime'/98, l='MpServer', x=-298.00, y=4.00, z=-483.19], EntitySlime['Slime'/99, l='MpServer', x=-296.66, y=4.00, z=-467.16], EntitySlime['Slime'/100, l='MpServer', x=-295.88, y=4.00, z=-473.44], EntitySlime['Slime'/101, l='MpServer', x=-287.44, y=4.00, z=-478.81], EntitySlime['Slime'/102, l='MpServer', x=-293.56, y=4.00, z=-475.63], EntitySlime['Slime'/103, l='MpServer', x=-302.00, y=4.00, z=-464.69], EntitySlime['Slime'/104, l='MpServer', x=-301.53, y=4.00, z=-463.78], EntityHorse['Horse'/105, l='MpServer', x=-301.88, y=4.00, z=-437.72], EntitySlime['Slime'/106, l='MpServer', x=-295.30, y=4.27, z=-436.40], EntityHorse['Horse'/107, l='MpServer', x=-300.19, y=4.00, z=-425.69], EntitySlime['Slime'/109, l='MpServer', x=-291.88, y=4.00, z=-429.94], EntitySlime['Slime'/120, l='MpServer', x=-280.56, y=4.00, z=-580.94], EntitySlime['Slime'/121, l='MpServer', x=-284.94, y=4.00, z=-571.28], EntitySlime['Slime'/122, l='MpServer', x=-287.75, y=4.00, z=-563.59], EntitySlime['Slime'/123, l='MpServer', x=-281.09, y=4.00, z=-533.81], EntitySlime['Slime'/127, l='MpServer', x=-267.81, y=4.00, z=-536.13]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:403)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2366)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:484)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_131, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 166582320 bytes (158 MB) / 421003264 bytes (401 MB) up to 1881145344 bytes (1794 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: Intel(R) UHD Graphics 630 GL version 4.6.0 - Build 26.20.100.7642, Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 6x Intel(R) Core(TM) i5-9400 CPU @ 2.90GHz
+	OptiFine Version: OptiFine_1.8.9_HD_U_M6_pre1
+	OptiFine Build: ~~NULL~~
+	Render Distance Chunks: 8
+	Mipmaps: 4
+	Anisotropic Filtering: 1
+	Antialiasing: 0
+	Multitexture: false
+	Shaders: null
+	OpenGlVersion: 4.6.0 - Build 26.20.100.7642
+	OpenGlRenderer: Intel(R) UHD Graphics 630
+	OpenGlVendor: Intel
+	CpuCount: 6
