@@ -38,7 +38,7 @@ public class ParticleEngine {
             if (p.opacity > 32) {
                 p.opacity = 32;
             }
-            Color c = new Color(190, 175, 70, (int) p.opacity);
+            Color c = new Color(190, 175, 70, (int) p.opacity + 50);
             //Color c = new Color(255, 255, 255, (int) p.opacity);
             RenderingUtil.drawBorderedCircle(p.x + Math.sin(p.ticks / 2) * 50 + -xOffset / 5, (p.ticks * p.speed) * p.ticks / 10 + -yOffset / 5, p.radius * (p.opacity / 32), c.getRGB(), c.getRGB());
             p.ticks += 0.05;// +(0.005*1.777*(GLUtils.getMouseX()-lastMouseX) + 0.005*(GLUtils.getMouseY()-lastMouseY));

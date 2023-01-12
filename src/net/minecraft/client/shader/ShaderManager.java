@@ -148,7 +148,7 @@ public class ShaderManager
                 for (String s2 : this.attributes)
                 {
                     int l = OpenGlHelper.glGetAttribLocation(this.program, s2);
-                    this.attribLocations.add(Integer.valueOf(l));
+                    this.attribLocations.add(l);
                 }
             }
         }

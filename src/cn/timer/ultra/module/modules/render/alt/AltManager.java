@@ -2,14 +2,11 @@ package cn.timer.ultra.module.modules.render.alt;
 
 import cn.timer.ultra.module.Category;
 import cn.timer.ultra.module.Module;
-import javafx.scene.web.WebEngine;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class AltManager extends Module {
     public static String code = null, msg = null;

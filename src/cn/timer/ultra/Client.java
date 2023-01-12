@@ -2,10 +2,15 @@ package cn.timer.ultra;
 
 import cn.timer.ultra.command.CommandManager;
 import cn.timer.ultra.event.EventManager;
+import cn.timer.ultra.event.EventTarget;
+import cn.timer.ultra.event.events.EventTick;
 import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
 import cn.timer.ultra.module.ModuleManager;
+import cn.timer.ultra.utils.BlurUtil;
 import cn.timer.ultra.utils.ColorUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,23 +40,28 @@ public class Client {
         }
         this.commandManager.init();
         this.moduleManager.init();
-        EventManager.instance.register(this.moduleManager, this.commandManager);
+        EventManager.instance.register(this, this.moduleManager, this.commandManager);
 
         this.trayIcon.setImageAutoSize(true);
         this.trayIcon.setToolTip("Ultra Client  ~ ");
 
-        /*try {
+        try {
             SystemTray.getSystemTray().add(this.trayIcon);
         } catch (AWTException var3) {
             renderMsg("Unable to add tray icon.");
-        }*/
+        }
 
         this.trayIcon.displayMessage("Ultra Client", "Thank you for using Ultra Client", TrayIcon.MessageType.NONE);
-
     }
 
     public void Shutdown() {
         this.trayIcon.displayMessage("Ultra Client - Notification", "See you soon.", TrayIcon.MessageType.ERROR);
+    }
+
+    @EventTarget
+    public void update(EventTick e) {
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        //BlurUtil.blur(0, 0, sr.getScaledWidth(), sr.getScaledHeight());
     }
 
     public ModuleManager getModuleManager() {

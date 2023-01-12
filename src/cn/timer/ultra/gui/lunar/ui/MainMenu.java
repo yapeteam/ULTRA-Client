@@ -7,10 +7,7 @@ import cn.timer.ultra.gui.particles.ParticleEngine;
 import cn.timer.ultra.gui.lunar.ui.buttons.ImageButton;
 import cn.timer.ultra.gui.lunar.ui.buttons.MainButton;
 import cn.timer.ultra.gui.lunar.ui.buttons.QuitButton;
-import cn.timer.ultra.utils.AnimationUtils;
-import cn.timer.ultra.utils.ColorUtil;
-import cn.timer.ultra.utils.GradientUtil;
-import cn.timer.ultra.utils.RenderUtil;
+import cn.timer.ultra.utils.*;
 import cn.timer.ultra.utils.jello.GLUtils;
 import net.minecraft.client.gui.*;
 import org.lwjgl.opengl.GL11;
@@ -102,14 +99,16 @@ public class MainMenu extends GuiScreen {
     }
 
     public ParticleEngine pe = new ParticleEngine();
-    private AnimationUtils animationUtils = new AnimationUtils();
+    private final AnimationUtils animationUtils = new AnimationUtils();
     float aniX, aniY;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        GlStateManager.disableAlpha();
-        this.renderSkybox(partialTicks);
-        GlStateManager.enableAlpha();
+        //GlStateManager.disableAlpha();
+        RenderUtil.drawImage(new ResourceLocation("client/background.jpg"), -mouseX / 4f, -mouseY / 4f, 2560 / 2f, 1440 / 2f);
+        //BlurUtil.blur(0, 0, width, height);
+        //this.renderSkybox(partialTicks);
+        //GlStateManager.enableAlpha();
 
         GlStateManager.enableBlend();
         GlStateManager.color(1.0F, 1.0F, 1.0F);
@@ -117,7 +116,7 @@ public class MainMenu extends GuiScreen {
         Color[] clientColors = getClientColors();
         GradientUtil.applyGradientHorizontal((this.width - FontUtil.LOGO.getFont().getWidth("ULTRA")) / 2f, this.height / 2f - 32, (float) FontUtil.LOGO.getFont().getWidth("ULTRA"), FontUtil.LOGO.getFont().getHeight(), 1, clientColors[0], clientColors[1], () -> {
             RenderUtil.setAlphaLimit(0);
-            FontUtil.LOGO.getFont().drawString("ULTRA", (this.width - FontUtil.LOGO.getFont().getWidth("ULTRA")) / 2f + 0.5f, this.height / 2f - 32 + 0.5f, 0x00000000);
+            //FontUtil.LOGO.getFont().drawString("ULTRA", (this.width - FontUtil.LOGO.getFont().getWidth("ULTRA")) / 2f + 0.5f, this.height / 2f - 32 + 0.5f, 0x00000000);
             FontUtil.LOGO.getFont().drawString("ULTRA", (this.width - FontUtil.LOGO.getFont().getWidth("ULTRA")) / 2f, this.height / 2f - 32, 0xffffffff);
         });
         //Gui.drawModalRectWithCustomSizedTexture(this.width / 2 - 25, this.height / 2 - 68, 0, 0, 49, 49, 49, 49);
