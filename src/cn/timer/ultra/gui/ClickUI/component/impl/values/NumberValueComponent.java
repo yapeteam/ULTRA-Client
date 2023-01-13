@@ -22,7 +22,7 @@ public class NumberValueComponent implements Component {
         this.x = x;
         this.y = y;
         float lx = ClickUIScreen.x + ClickUIScreen.width - (ClickUIScreen.currentModule != null ? ClickUIScreen.rightWidth : 0) + 5;
-        FontLoaders.jello14.drawString(value.getName() + ":" + String.format("%.1f", value.getValue()), lx, y, new Color(0, 0, 0).getRGB());
+        FontLoaders.jello14.drawString(value.getName() + ":" + String.format("%.1f", value.getValueF()), lx, y, new Color(0, 0, 0).getRGB());
 
         FontLoaders.jello14.drawString("-", lx, y + 11, new Color(94, 94, 94).getRGB());
         FontLoaders.jello14.drawString("+", lx + ClickUIScreen.rightWidth - 12, y + 11, new Color(66, 66, 66).getRGB());

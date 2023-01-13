@@ -28,7 +28,7 @@ public class Numbers<V extends Number> extends Value<V> {
         return Float.parseFloat(String.valueOf(max));
     }
     public float getValueF(){
-        return Float.parseFloat(String.valueOf(getValue()));
+        return Float.parseFloat(String.valueOf(value));
     }
 
     public void setMin(V min) {

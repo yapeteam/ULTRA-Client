@@ -1,0 +1,29 @@
+{
+  "MicrosoftAuthLogin": {
+    "key": 0
+  },
+  "ClickGUI": {
+    "key": 54
+  },
+  "FreeCam": {
+    "key": 21
+  },
+  "HUD": {
+    "key": 0
+  },
+  "CPS": {
+    "key": 0
+  },
+  "FPS": {
+    "key": 0
+  },
+  "MusicPlayer": {
+    "key": 0
+  },
+  "MusicOverlay": {
+    "key": 0
+  },
+  "MotionBlur": {
+    "key": 0
+  }
+}

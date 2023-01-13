@@ -1,7 +1,7 @@
 package cn.timer.ultra.values;
 
 public class Value<V> {
-    private V value;
+    public V value;
     private final String name;
 
     public Value(String name) {

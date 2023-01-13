@@ -36,7 +36,7 @@ public class ClickUIScreen extends GuiScreen {
     public static float rightWidth = 200;
     public static ArrayList<Component> components = new ArrayList<>();
 
-    private Category currentCategory = Category.Combat;
+    private Category currentCategory = Category.Render;
     public static ModuleComponent currentModule;
     public static Color backgroundColor = new Color(255, 255, 255);
     public static Color boxColor = new Color(244, 244, 244);

@@ -1,36 +1,11 @@
 {
-  "Criticals": {},
-  "KillAura": {
-    "Priority": "Distance",
-    "Range": 5.151899486780167,
-    "AutoBlock": false,
-    "CPS": 10.0
-  },
-  "Velocity": {},
-  "Fly": {
-    "Mode": "Glide",
-    "MotionSpeed": 1.0
-  },
-  "InvMove": {},
-  "NoSlow": {
-    "Mode": "Vanilla"
-  },
-  "Speed": {
-    "Mode": "BHop"
-  },
-  "Sprint": {
-    "Mode": "AllDirection"
-  },
-  "Step": {
-    "Mode": "Vanilla"
-  },
-  "NoFall": {},
+  "MicrosoftAuthLogin": {},
   "ClickGUI": {},
   "FreeCam": {},
   "HUD": {},
   "CPS": {
     "posX": 0.0,
-    "posY": 260.5569763183594,
+    "posY": 264.0,
     "HorizontalFacing": "Middle",
     "VerticalFacing": "Free",
     "Show Background": false
@@ -44,6 +19,7 @@
   },
   "MusicPlayer": {},
   "MusicOverlay": {},
-  "MicrosoftAuthLogin": {},
-  "Scaffold": {}
+  "MotionBlur": {
+    "FrameMultiplier": 3.8101279735565186
+  }
 }

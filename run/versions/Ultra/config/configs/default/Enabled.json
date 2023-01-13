@@ -1,0 +1,29 @@
+{
+  "MicrosoftAuthLogin": {
+    "enable": false
+  },
+  "ClickGUI": {
+    "enable": false
+  },
+  "FreeCam": {
+    "enable": false
+  },
+  "HUD": {
+    "enable": true
+  },
+  "CPS": {
+    "enable": true
+  },
+  "FPS": {
+    "enable": true
+  },
+  "MusicPlayer": {
+    "enable": false
+  },
+  "MusicOverlay": {
+    "enable": false
+  },
+  "MotionBlur": {
+    "enable": true
+  }
+}

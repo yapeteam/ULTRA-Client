@@ -4,10 +4,6 @@ import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventDrawGui;
 import cn.timer.ultra.event.events.EventKey;
 import cn.timer.ultra.event.events.EventRender2D;
-import cn.timer.ultra.module.modules.chest.combat.*;
-import cn.timer.ultra.module.modules.chest.movement.*;
-import cn.timer.ultra.module.modules.chest.player.*;
-import cn.timer.ultra.module.modules.chest.world.*;
 import cn.timer.ultra.module.modules.player.*;
 import cn.timer.ultra.module.modules.render.*;
 
@@ -17,7 +13,7 @@ public class ModuleManager {
     public final ArrayList<Module> modules = new ArrayList<>();
 
     public void init() {
-        //Combat
+        /*//Combat
         this.modules.add(new Criticals());
         this.modules.add(new KillAura());
         this.modules.add(new Velocity());
@@ -30,6 +26,12 @@ public class ModuleManager {
         this.modules.add(new Step());
         //Player
         this.modules.add(new NoFall());
+        //World
+        this.modules.add(new Scaffold());
+        */
+
+        //Player
+        this.modules.add(new MicrosoftAuthLogin());
         //Render
         this.modules.add(new ClickGUI());
         this.modules.add(new FreeCam());
@@ -38,9 +40,7 @@ public class ModuleManager {
         this.modules.add(new FPSModule());
         this.modules.add(new MusicPlayer());
         this.modules.add(new MusicOverlay());
-        this.modules.add(new MicrosoftAuthLogin());
-        //World
-        this.modules.add(new Scaffold());
+        this.modules.add(new MotionBlur());
     }
 
     @EventTarget

@@ -99,11 +99,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         for (int i = 0; i < this.buttonList.size(); ++i) {
-            ((GuiButton) this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
+            this.buttonList.get(i).drawButton(this.mc, mouseX, mouseY);
         }
 
         for (int j = 0; j < this.labelList.size(); ++j) {
-            ((GuiLabel) this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
+            this.labelList.get(j).drawLabel(this.mc, mouseX, mouseY);
         }
     }
 
@@ -113,7 +113,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      */
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
 
             if (this.mc.currentScreen == null) {
                 this.mc.setIngameFocus();
@@ -534,10 +534,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      * Handles keyboard input.
      */
     public void handleKeyboardInput() throws IOException {
-        if (Keyboard.getEventKeyState()) {
-            this.keyTyped(Keyboard.getEventCharacter(), Keyboard.getEventKey());
+        char eventCharacter = Keyboard.getEventCharacter();
+        int eventKey = Keyboard.getEventKey();
+        if (Keyboard.getEventKeyState() || eventCharacter >= ' ' && eventKey == 0) {
+            this.keyTyped(eventCharacter, eventKey);
         }
-
         this.mc.dispatchKeypresses();
     }
 

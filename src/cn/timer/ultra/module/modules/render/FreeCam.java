@@ -32,7 +32,7 @@ public class FreeCam extends Module {
 
     @Override
     public void onDisable() {
-        if (mc.thePlayer == null || mc.theWorld == null) return;
+        if (mc.thePlayer == null || mc.theWorld == null || entity == null) return;
         mc.thePlayer.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
         mc.theWorld.removeEntity(entity);
         super.onDisable();

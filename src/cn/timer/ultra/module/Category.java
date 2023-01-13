@@ -1,9 +1,9 @@
 package cn.timer.ultra.module;
 
 public enum Category {
-    Combat,
-    Movement,
+    /*Combat,
+    Movement,*/
     Render,
     Player,
-    World
+    //World
 }
