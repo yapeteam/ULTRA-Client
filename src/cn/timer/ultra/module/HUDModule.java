@@ -17,10 +17,6 @@ import java.awt.*;
 public abstract class HUDModule extends Module {
     public float subXPosition = 0;
     public float subYPosition = 0;
-    public float lastXPosition = 0;
-    public float lastYPosition = 0;
-    public float startXPosition = 0;
-    public float startYPosition = 0;
     public boolean dragging = false;
     public float width = 0;
     public float height = 0;

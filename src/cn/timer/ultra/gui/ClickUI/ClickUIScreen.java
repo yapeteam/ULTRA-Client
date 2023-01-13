@@ -1,6 +1,9 @@
 package cn.timer.ultra.gui.ClickUI;
 
 import cn.timer.ultra.Client;
+import cn.timer.ultra.event.EventManager;
+import cn.timer.ultra.event.EventTarget;
+import cn.timer.ultra.event.events.EventTick;
 import cn.timer.ultra.gui.ClickUI.component.impl.ModuleComponent;
 import cn.timer.ultra.gui.Font.FontLoaders;
 import cn.timer.ultra.gui.lunar.font.FontUtil;
@@ -10,8 +13,10 @@ import cn.timer.ultra.utils.AnimationUtils;
 import cn.timer.ultra.utils.ColorUtil;
 import cn.timer.ultra.utils.GradientUtil;
 import cn.timer.ultra.utils.RenderUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -41,7 +46,47 @@ public class ClickUIScreen extends GuiScreen {
     float dragX, dragY;
     boolean dragging;
     boolean sizeDragging;
+    public float outro;
+    public float lastOutro;
+    public float lastPercent;
+    public float percent;
+    public float percent2;
+    public float lastPercent2;
+    AnimationUtils as = new AnimationUtils();
 
+    public ClickUIScreen() {
+        EventManager.instance.register(this);
+    }
+
+    @EventTarget
+    public void onTick(EventTick e) {
+        if (mc == null) return;
+        if (!(mc.currentScreen instanceof ClickUIScreen)) {
+            lastOutro = outro;
+            if (outro < 1.7) {
+                outro += 0.1f;
+
+                outro += ((1.7 - outro) / (3f)) - 0.001;
+            }
+            if (outro > 1.7) {
+                outro = 1.7f;
+            }
+            if (outro < 1) {
+                outro = 1;
+            }
+        }
+        if (!(mc.currentScreen instanceof ClickUIScreen)) return;
+        lastPercent = percent;
+        lastPercent2 = percent2;
+        if (percent > .98) {
+            percent += ((.98 - percent) / (1.45f)) - 0.001;
+        }
+        if (percent <= .98) {
+            if (percent2 < 1) {
+                percent2 += ((1 - percent2) / (2.8f)) + 0.002;
+            }
+        }
+    }
 
     @Override
     public void initGui() {
@@ -56,6 +101,16 @@ public class ClickUIScreen extends GuiScreen {
                 components.add(new ModuleComponent(mod));
             }
         }
+        //percent = 1.23f;
+        //lastPercent = 1.23f;
+        percent = 1.23f;
+        lastPercent = 0.98f;
+        percent2 = 0.98f;
+        lastPercent2 = 1.23f;
+        //percent2 = 0.98f;
+        //lastPercent2 = 0.98f;
+        outro = 1;
+        lastOutro = 1;
     }
 
     float ami;
@@ -84,9 +139,68 @@ public class ClickUIScreen extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        GlStateManager.pushMatrix();
+        ScaledResolution sr = new ScaledResolution(this.mc);
+        float outro = smoothTrans(this.outro, lastOutro);
+        if (mc.currentScreen == null) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(outro, outro, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        }
+
+        float percent = smoothTrans(this.percent, lastPercent);
+        float percent2 = smoothTrans(this.percent2, lastPercent2);
+
+
+        if (percent > 0.98) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(percent, percent, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        } else {
+            if (percent2 <= 1) {
+                GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+                GlStateManager.scale(percent2, percent2, 0);
+                GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+            }
+        }
+        GlStateManager.enableBlend();
+        //music.drawPanel(mouseX, mouseY, (float) (mc.currentScreen == null ? Math.min(1, Math.max(((1 - (outro - 1) - .4) * 1.66667), 0)) : (float) Math.max(Math.min(-(((percent - 1.23) * 4)), 1), 0)), false, 0, 0);
+
+        if (percent > 0.98) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(1 / percent, 1 / percent, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        } else {
+            if (percent2 <= 1) {
+                GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+                GlStateManager.scale(1 / percent2, 1 / percent2, 0);
+                GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+            }
+        }
+        if (mc.currentScreen == null) {
+
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(1 / outro, 1 / outro, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        }
+        GlStateManager.color(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, (float) (mc.currentScreen == null ? Math.min(1, Math.max(((1 - (outro - 1) - .4) * 1.66667), 0)) : (float) Math.max(Math.min(-(((percent - 1.23) * 4)), 1), 0)));
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        RenderUtil.doGlScissor(x, y, width, height);
+        if (mc.currentScreen == null) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(outro, outro, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        }
+        if (percent > 0.98) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(percent, percent, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        } else if (percent2 <= 1) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(percent2, percent2, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        }
+        RenderUtil.doGlScissor(x - 5, y - 5, width + 10, height + 10);
         if (dragging) {
             x = mouseX - dragX;
             y = mouseY - dragY;
@@ -135,8 +249,7 @@ public class ClickUIScreen extends GuiScreen {
                     }
                 }
             }
-            if (currentCategory == c)
-                RenderUtil.drawRect(x, cy - 2, x + leftWidth, cy + 18, themeColor.getRGB());
+            if (currentCategory == c) RenderUtil.drawRect(x, cy - 2, x + leftWidth, cy + 18, themeColor.getRGB());
             RenderUtil.drawImage(new ResourceLocation("client/icons/category/" + c.name() + ".png"), x + 5, cy, 16, 16, currentCategory == c ? new Color(255, 255, 255) : new Color(0, 0, 0));
             FontLoaders.arial18.drawString(c.name(), x + 23, cy + 4, currentCategory == c ? new Color(255, 255, 255).getRGB() : new Color(0, 0, 0).getRGB());
             cy += 20;
@@ -162,6 +275,7 @@ public class ClickUIScreen extends GuiScreen {
         } else if (dWheel > 0 && (scrollY + 10) <= 0) {
             scrollY += 25;
         }
+        GlStateManager.popMatrix();
     }
 
     public boolean isHovered(float x, float y, float width, float height, float mouseX, float mouseY) {
@@ -203,5 +317,9 @@ public class ClickUIScreen extends GuiScreen {
     @Override
     public boolean doesGuiPauseGame() {
         return false;
+    }
+
+    public float smoothTrans(double current, double last) {
+        return (float) (current * Minecraft.getMinecraft().timer.renderPartialTicks + (last * (1.0f - Minecraft.getMinecraft().timer.renderPartialTicks)));
     }
 }
