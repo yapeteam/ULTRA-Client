@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.render.alt;
+package cn.timer.ultra.module.modules.player.alt;
 
 import devlogin.DevLogin;
 

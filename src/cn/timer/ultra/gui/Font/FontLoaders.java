@@ -33,7 +33,7 @@ public class FontLoaders {
     public static FontRenderer getSyyh(int size, boolean antiAlias) { //only use .ttf Font (java8)
         Font font;
         try {
-            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("client/Fonts/syyh.ttf")).getInputStream();
+            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("client/Fonts/syyh.otf")).getInputStream();
             font = Font.createFont(0, is);
             font = font.deriveFont(Font.PLAIN, size);
         } catch (Exception ex) {

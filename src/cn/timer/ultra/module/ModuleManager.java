@@ -1,13 +1,15 @@
 package cn.timer.ultra.module;
 
 import cn.timer.ultra.event.EventTarget;
+import cn.timer.ultra.event.events.EventDrawGui;
 import cn.timer.ultra.event.events.EventKey;
+import cn.timer.ultra.event.events.EventRender2D;
 import cn.timer.ultra.module.modules.chest.combat.*;
 import cn.timer.ultra.module.modules.chest.movement.*;
 import cn.timer.ultra.module.modules.chest.player.*;
 import cn.timer.ultra.module.modules.chest.world.*;
+import cn.timer.ultra.module.modules.player.*;
 import cn.timer.ultra.module.modules.render.*;
-import cn.timer.ultra.module.modules.render.alt.AltManager;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class ModuleManager {
         this.modules.add(new CPSModule());
         this.modules.add(new MusicPlayer());
         this.modules.add(new MusicOverlay());
-        this.modules.add(new AltManager());
+        this.modules.add(new MicrosoftAuthLogin());
         //World
         this.modules.add(new Scaffold());
     }
@@ -62,5 +64,23 @@ public class ModuleManager {
             if (module.getCategory() == currentCategory)
                 rmodules.add(module);
         return rmodules;
+    }
+
+    @EventTarget
+    private void HUD_onDraw(EventRender2D drawEvent) {
+        this.modules.forEach(module -> {
+            if (module instanceof HUDModule && module.isEnabled()) {
+                ((HUDModule) module).drawHUD();
+            }
+        });
+    }
+
+    @EventTarget
+    private void HUD_onGuiScreen(EventDrawGui e) {
+        this.modules.forEach(module -> {
+            if (module instanceof HUDModule && module.isEnabled()) {
+                ((HUDModule) module).onGuiScreen(e);
+            }
+        });
     }
 }

@@ -33,14 +33,7 @@ public class MainMenu extends GuiScreen {
 
     private QuitButton btnQuit;
 
-    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[]{
-            new ResourceLocation("lunar/panorama/panorama_0.png"),
-            new ResourceLocation("lunar/panorama/panorama_1.png"),
-            new ResourceLocation("lunar/panorama/panorama_2.png"),
-            new ResourceLocation("lunar/panorama/panorama_3.png"),
-            new ResourceLocation("lunar/panorama/panorama_4.png"),
-            new ResourceLocation("lunar/panorama/panorama_5.png")
-    };
+    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[]{new ResourceLocation("lunar/panorama/panorama_0.png"), new ResourceLocation("lunar/panorama/panorama_1.png"), new ResourceLocation("lunar/panorama/panorama_2.png"), new ResourceLocation("lunar/panorama/panorama_3.png"), new ResourceLocation("lunar/panorama/panorama_4.png"), new ResourceLocation("lunar/panorama/panorama_5.png")};
 
     private static int panoramaTimer;
     private ResourceLocation backgroundTexture;
@@ -106,6 +99,7 @@ public class MainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         //GlStateManager.disableAlpha();
         RenderUtil.drawImage(new ResourceLocation("client/background.jpg"), -mouseX / 4f, -mouseY / 4f, 2560 / 2f, 1440 / 2f);
+        BlurUtil.setStrength(0);
         //BlurUtil.blur(0, 0, width, height);
         //this.renderSkybox(partialTicks);
         //GlStateManager.enableAlpha();

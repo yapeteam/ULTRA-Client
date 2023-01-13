@@ -1,6 +1,6 @@
 package devlogin;
 
-import cn.timer.ultra.module.modules.render.alt.AltManager;
+import cn.timer.ultra.module.modules.player.MicrosoftAuthLogin;
 import devlogin.data.*;
 import devlogin.http.HttpEngine;
 import devlogin.http.HttpResponse;
@@ -37,8 +37,8 @@ public class MicrosoftOAuth {
         String s = deviceAuth.message;
         System.out.println("[DevLogin]: " + s);
         String code = s.substring(97, s.length() - 17);
-        AltManager.code = code;
-        AltManager.msg = s;
+        MicrosoftAuthLogin.code = code;
+        MicrosoftAuthLogin.msg = s;
         StringSelection stsel = new StringSelection(code);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stsel, stsel);
         long expires = (System.currentTimeMillis() / 1000) + deviceAuth.expiresIn;

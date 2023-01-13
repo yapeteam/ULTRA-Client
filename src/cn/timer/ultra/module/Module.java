@@ -7,14 +7,14 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Module {
+public abstract class Module {
     private String name;//名字
     private int key;//按键
     private final Category category;//类型
     private String suffix;//后缀
     private boolean enabled;
     public static Minecraft mc = Minecraft.getMinecraft();
-    private final ArrayList<Value> values = new ArrayList<>();
+    private final ArrayList<Value<?>> values = new ArrayList<>();
 
     public Module(String name, int key, Category category) {
         this.name = name;
@@ -68,11 +68,11 @@ public class Module {
         this.name = name;
     }
 
-    public void addValues(Value... values) {
+    public void addValues(Value<?>... values) {
         Collections.addAll(this.values, values);
     }
 
-    public ArrayList<Value> getValues() {
+    public ArrayList<Value<?>> getValues() {
         return values;
     }
 

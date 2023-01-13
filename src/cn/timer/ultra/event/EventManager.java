@@ -33,7 +33,7 @@ public class EventManager {//用于管理events
                 if (method.getParameterCount() == 1 && method.isAnnotationPresent(EventTarget.class)) {
                     Class<?> eventClass = method.getParameterTypes()[0];
                     if (!this.events.containsKey(eventClass)) {
-                        this.events.put((Class<? extends Event>)eventClass, new CopyOnWriteArrayList<>());
+                        this.events.put((Class<? extends Event>) eventClass, new CopyOnWriteArrayList<>());
                     }
                     this.events.get(eventClass).add(new Handler(method, object, method.getDeclaredAnnotation(EventTarget.class).priority()));
                     this.events.get(eventClass).sort(Comparator.comparingInt(e -> e.priority));

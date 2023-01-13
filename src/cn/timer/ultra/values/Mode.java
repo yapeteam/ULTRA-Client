@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
 public class Mode<V extends String> extends Value<V> {
-    private V[] modes;
+    private final V[] modes;
     public Mode(String name, V[] modes, V mode) {
         super(name);
         this.modes = modes;

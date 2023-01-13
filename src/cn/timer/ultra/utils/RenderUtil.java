@@ -535,4 +535,72 @@ public class RenderUtil {
         GL11.glHint(3154, 4352);
         GL11.glHint(3155, 4352);
     }
+
+    public static void drawRoundedBorder(final double x, final double y, final double x2, final double y2, final double radius, final float width, final int color) {
+        final double X1 = Math.min(x, x2);
+        final double X2 = Math.max(x, x2);
+        final double Y1 = Math.min(y, y2);
+        final double Y2 = Math.max(y, y2);
+
+        if (radius * 2 > X2 - X1 || radius * 2 > Y2 - Y1) return;
+
+        /*
+             A      1      B
+             ↓      ↓      ↓
+             /-------------\
+         2->|             | <-3
+             |             |
+             \-------------/
+             ↑      ↑      ↑
+             C      4      D
+        */
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        color(color);
+        drawLine(X1 + radius, Y1, X2 - radius, Y1, width); // 1
+        drawLine(X1, Y1 + radius, X1, Y2 - radius, width); // 2
+        drawLine(X2, Y1 + radius, X2, Y2 - radius, width); // 3
+        drawLine(X1 + radius, Y2, X2 - radius, Y2, width); // 4
+        GL11.glDisable(GL11.GL_BLEND);
+
+        arc(X1 + radius, Y1 + radius, 180, 270, radius, width, color); //A
+        arc(X2 - radius, Y1 + radius, 270, 360, radius, width, color); //B
+        arc(X1 + radius, Y2 - radius, 90, 180, radius, width, color); //C
+        arc(X2 - radius, Y2 - radius, 0, 90, radius, width, color); //D
+    }
+
+    public static void drawLine(final double x, final double y, final double x1, final double y1, final float width) {
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glLineWidth(width);
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x1, y1);
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+    }
+
+    public static void arc(final double x, final double y, int angle1, int angle2, final double radius, final float width, final int color) {
+        if (angle1 > angle2) {
+            int temp = angle2;
+            angle2 = angle1;
+            angle1 = temp;
+        }
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GL11.glLineWidth(width);
+        color(color);
+        GL11.glBegin(GL11.GL_LINE_STRIP);
+
+        for (double i = angle2; i >= angle1; i -= 1) {
+            double ldx = Math.cos(i * Math.PI / 180.0) * radius;
+            double ldy = Math.sin(i * Math.PI / 180.0) * radius;
+            GL11.glVertex2d(x + ldx, y + ldy);
+        }
+
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_BLEND);
+    }
 }

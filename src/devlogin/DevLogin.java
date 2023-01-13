@@ -1,8 +1,7 @@
 package devlogin;
 
 import cn.timer.ultra.Client;
-import cn.timer.ultra.module.modules.render.alt.AltManager;
-import cn.timer.ultra.module.modules.render.alt.GuiTipScreen;
+import cn.timer.ultra.module.modules.player.alt.GuiTipScreen;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import devlogin.data.Account;

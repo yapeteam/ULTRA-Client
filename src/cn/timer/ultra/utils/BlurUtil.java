@@ -20,10 +20,10 @@ public class BlurUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //blur(0.0f, 0.0f, (float) sr.getScaledWidth(), (float) sr.getScaledHeight());
     }
 
     public static void setStrength(int strength) {
+        if (blurShader == null) return;
         blurShader.getListShaders().get(0).getShaderManager().getShaderUniform("Radius").set(strength);
         blurShader.getListShaders().get(1).getShaderManager().getShaderUniform("Radius").set(strength);
     }

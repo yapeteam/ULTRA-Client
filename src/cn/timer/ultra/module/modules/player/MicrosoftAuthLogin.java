@@ -1,18 +1,20 @@
-package cn.timer.ultra.module.modules.render.alt;
+package cn.timer.ultra.module.modules.player;
 
 import cn.timer.ultra.module.Category;
 import cn.timer.ultra.module.Module;
+import cn.timer.ultra.module.modules.player.alt.GuiTipScreen;
+import cn.timer.ultra.module.modules.player.alt.LoginThread;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.net.URI;
 
-public class AltManager extends Module {
+public class MicrosoftAuthLogin extends Module {
     public static String code = null, msg = null;
 
-    public AltManager() {
-        super("AltManager", Keyboard.KEY_NONE, Category.Render);
+    public MicrosoftAuthLogin() {
+        super("MicrosoftAuthLogin", Keyboard.KEY_NONE, Category.Player);
     }
 
     public static LoginThread t;
@@ -20,7 +22,6 @@ public class AltManager extends Module {
     @Override
     public void onEnable() {
         this.setEnabled(false);
-        //mc.displayGuiScreen(Client.altmanagerUI);
         t = new LoginThread();
         t.start();
         GuiTipScreen.su = false;

@@ -173,7 +173,6 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -1087,7 +1086,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.framebufferMc.framebufferRender(this.displayWidth, this.displayHeight);
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
-        this.entityRenderer.renderStreamIndicator(this.timer.renderPartialTicks);
+        this.entityRenderer.renderStreamIndicator();
         GlStateManager.popMatrix();
         this.mcProfiler.startSection("root");
         this.updateDisplay();
