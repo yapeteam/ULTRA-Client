@@ -1,0 +1,94 @@
+---- Minecraft Crash Report ----
+// My bad.
+
+Time: 23-1-13 下午4:06
+Description: Rendering screen
+
+java.lang.ClassCastException: java.lang.Float cannot be cast to java.lang.Double
+	at cn.timer.ultra.gui.ClickUI.component.impl.values.NumberValueComponent.draw(NumberValueComponent.java:33)
+	at cn.timer.ultra.gui.ClickUI.component.impl.ModuleComponent.drawSubComponents(ModuleComponent.java:48)
+	at cn.timer.ultra.gui.ClickUI.ClickUIScreen.drawScreen(ClickUIScreen.java:193)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1192)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1064)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:470)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at cn.timer.ultra.gui.ClickUI.component.impl.values.NumberValueComponent.draw(NumberValueComponent.java:33)
+	at cn.timer.ultra.gui.ClickUI.component.impl.ModuleComponent.drawSubComponents(ModuleComponent.java:48)
+	at cn.timer.ultra.gui.ClickUI.ClickUIScreen.drawScreen(ClickUIScreen.java:193)
+
+-- Screen render details --
+Details:
+	Screen name: cn.timer.ultra.gui.ClickUI.ClickUIScreen
+	Mouse location: Scaled: (128, 116). Absolute: (256, 247)
+	Screen size: Scaled: (427, 240). Absolute: (854, 480). Scale factor of 2
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player192'/149, l='MpServer', x=-313.32, y=4.00, z=-434.93]]
+	Chunk stats: MultiplayerChunkCache: 289, 289
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: -355.00,4.00,-513.00 - World: (-355,4,-513), Chunk: (at 13,0,15 in -23,-33; contains blocks -368,0,-528 to -353,255,-513), Region: (-1,-2; contains chunks -32,-64 to -1,-33, blocks -512,0,-1024 to -1,255,-513)
+	Level time: 67581 game time, 48233 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 43 total; [EntityXPOrb['Experience Orb'/64, l='MpServer', x=-345.41, y=4.00, z=-438.25], EntitySlime['Slime'/129, l='MpServer', x=-236.81, y=4.00, z=-408.97], EntityItem['item.item.arrow'/71, l='MpServer', x=-320.63, y=4.00, z=-440.72], EntityItem['item.item.bone'/72, l='MpServer', x=-320.63, y=4.00, z=-441.22], EntityItem['item.item.arrow'/73, l='MpServer', x=-323.03, y=4.00, z=-425.13], EntityItem['item.item.arrow'/74, l='MpServer', x=-324.00, y=4.00, z=-383.22], EntityCreeper['Creeper'/78, l='MpServer', x=-319.41, y=4.00, z=-431.09], EntityChicken['Chicken'/79, l='MpServer', x=-311.75, y=4.00, z=-390.59], EntitySlime['Slime'/80, l='MpServer', x=-321.03, y=4.00, z=-389.63], EntityCreeper['Creeper'/81, l='MpServer', x=-305.75, y=4.00, z=-379.16], EntitySpider['Spider'/82, l='MpServer', x=-307.03, y=4.00, z=-372.03], EntitySpider['Spider'/83, l='MpServer', x=-304.50, y=4.00, z=-375.50], EntitySlime['Slime'/84, l='MpServer', x=-316.03, y=4.00, z=-372.13], EntitySlime['Slime'/88, l='MpServer', x=-285.75, y=4.00, z=-491.72], EntitySlime['Slime'/89, l='MpServer', x=-297.78, y=3.91, z=-467.53], EntityItem['item.item.arrow'/90, l='MpServer', x=-290.97, y=4.00, z=-436.03], EntityItem['item.item.bone'/91, l='MpServer', x=-291.28, y=4.00, z=-436.38], EntitySlime['Slime'/92, l='MpServer', x=-296.19, y=4.00, z=-437.81], EntityPlayerSP['Player192'/149, l='MpServer', x=-313.32, y=4.00, z=-434.93], EntitySlime['Slime'/100, l='MpServer', x=-286.42, y=4.14, z=-474.74], EntitySpider['Spider'/101, l='MpServer', x=-282.41, y=4.00, z=-443.22], EntitySlime['Slime'/102, l='MpServer', x=-286.03, y=4.00, z=-415.63], EntityItem['item.item.rottenFlesh'/103, l='MpServer', x=-277.31, y=4.00, z=-389.47], EntitySlime['Slime'/44, l='MpServer', x=-389.00, y=4.00, z=-399.78], EntityItem['item.item.bone'/111, l='MpServer', x=-258.25, y=4.00, z=-437.09], EntityCreeper['Creeper'/112, l='MpServer', x=-258.94, y=4.00, z=-412.38], EntitySlime['Slime'/48, l='MpServer', x=-382.53, y=4.00, z=-413.50], EntityCreeper['Creeper'/113, l='MpServer', x=-249.44, y=4.00, z=-509.66], EntitySlime['Slime'/114, l='MpServer', x=-241.91, y=4.00, z=-504.63], EntityRabbit['Rabbit'/115, l='MpServer', x=-240.50, y=4.00, z=-448.50], EntityRabbit['Rabbit'/116, l='MpServer', x=-253.16, y=4.00, z=-451.44], EntityRabbit['Rabbit'/117, l='MpServer', x=-250.28, y=4.00, z=-437.28], EntityItem['item.item.arrow'/54, l='MpServer', x=-362.97, y=4.00, z=-472.44], EntityCreeper['Creeper'/118, l='MpServer', x=-251.50, y=4.00, z=-404.50], EntityItem['item.item.bone'/55, l='MpServer', x=-364.00, y=4.00, z=-472.69], EntityItem['item.item.arrow'/119, l='MpServer', x=-251.25, y=4.00, z=-409.91], EntityItem['item.item.rottenFlesh'/56, l='MpServer', x=-363.88, y=3.00, z=-478.88], EntityItem['item.item.bone'/120, l='MpServer', x=-251.44, y=4.00, z=-410.59], EntityItem['item.item.rottenFlesh'/57, l='MpServer', x=-355.06, y=4.00, z=-461.66], EntityItem['item.item.rottenFlesh'/58, l='MpServer', x=-353.50, y=4.00, z=-461.78], EntityItem['item.item.rottenFlesh'/59, l='MpServer', x=-365.38, y=4.00, z=-440.44], EntitySlime['Slime'/123, l='MpServer', x=-235.28, y=4.00, z=-510.31], EntityRabbit['Rabbit'/127, l='MpServer', x=-236.19, y=4.00, z=-462.59]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:403)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2365)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:483)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_131, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 164041408 bytes (156 MB) / 393740288 bytes (375 MB) up to 1881145344 bytes (1794 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: Intel(R) UHD Graphics 630 GL version 4.6.0 - Build 26.20.100.7642, Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 6x Intel(R) Core(TM) i5-9400 CPU @ 2.90GHz
+	OptiFine Version: OptiFine_1.8.9_HD_U_M6_pre1
+	OptiFine Build: ~~NULL~~
+	Render Distance Chunks: 8
+	Mipmaps: 4
+	Anisotropic Filtering: 1
+	Antialiasing: 0
+	Multitexture: false
+	Shaders: null
+	OpenGlVersion: 4.6.0 - Build 26.20.100.7642
+	OpenGlRenderer: Intel(R) UHD Graphics 630
+	OpenGlVendor: Intel
+	CpuCount: 6
