@@ -1,6 +1,7 @@
 package cn.timer.ultra;
 
 import cn.timer.ultra.command.CommandManager;
+import cn.timer.ultra.config.ConfigManager;
 import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
@@ -14,10 +15,12 @@ import java.util.Objects;
 public class Client {
     public static final String CLIENT_NAME = "Ultra";
     public static Client instance = new Client();
-    public ClickUIScreen clickgui;
+    public static String NowConfig = "default";
+    public ClickUIScreen clickGui;
     public MusicPlayerUI musicPlayerUI;
     private ModuleManager moduleManager;
     private CommandManager commandManager;
+    private ConfigManager configManager;
     private TrayIcon trayIcon;
 
     public static void renderMsg(String s) {
@@ -26,30 +29,34 @@ public class Client {
     public void Startup() {
         this.commandManager = new CommandManager();
         this.moduleManager = new ModuleManager();
-        this.clickgui = new ClickUIScreen();
+        this.configManager = new ConfigManager();
+        this.clickGui = new ClickUIScreen();
         this.musicPlayerUI = new MusicPlayerUI();
+
+        this.commandManager.init();
+        this.moduleManager.init();
+        this.configManager.init();
+
+        EventManager.instance.register(this.moduleManager, this.commandManager);
+        this.configManager.load();
+
         try {
             this.trayIcon = new TrayIcon(ImageIO.read(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/client/logob.png"))));
         } catch (Exception var4) {
             var4.printStackTrace();
         }
-        this.commandManager.init();
-        this.moduleManager.init();
-        EventManager.instance.register(this.moduleManager, this.commandManager);
-
         this.trayIcon.setImageAutoSize(true);
         this.trayIcon.setToolTip("Ultra Client  ~ ");
-
         try {
             SystemTray.getSystemTray().add(this.trayIcon);
         } catch (AWTException var3) {
             renderMsg("Unable to add tray icon.");
         }
-
         this.trayIcon.displayMessage("Ultra Client", "Thank you for using Ultra Client", TrayIcon.MessageType.NONE);
     }
 
     public void Shutdown() {
+        this.configManager.save();
         this.trayIcon.displayMessage("Ultra Client - Notification", "See you soon.", TrayIcon.MessageType.ERROR);
     }
 
@@ -59,6 +66,10 @@ public class Client {
 
     public CommandManager getCommandManager() {
         return this.commandManager;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
     public final Color getClientColor() {

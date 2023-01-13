@@ -1,0 +1,106 @@
+---- Minecraft Crash Report ----
+// Uh... Did I do that?
+
+Time: 23-1-13 下午12:37
+Description: Rendering screen
+
+java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at cn.timer.ultra.utils.BlurUtil.setValues(BlurUtil.java:36)
+	at cn.timer.ultra.utils.BlurUtil.blur(BlurUtil.java:67)
+	at net.minecraft.client.gui.GuiScreen.drawWorldBackground(GuiScreen.java:565)
+	at net.minecraft.client.gui.GuiScreen.drawDefaultBackground(GuiScreen.java:560)
+	at net.minecraft.client.gui.inventory.GuiContainer.drawScreen(GuiContainer.java:129)
+	at net.minecraft.client.renderer.InventoryEffectRenderer.drawScreen(InventoryEffectRenderer.java:49)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawScreen(GuiContainerCreative.java:603)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1192)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1064)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:470)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at cn.timer.ultra.utils.BlurUtil.setValues(BlurUtil.java:36)
+	at cn.timer.ultra.utils.BlurUtil.blur(BlurUtil.java:67)
+	at net.minecraft.client.gui.GuiScreen.drawWorldBackground(GuiScreen.java:565)
+	at net.minecraft.client.gui.GuiScreen.drawDefaultBackground(GuiScreen.java:560)
+	at net.minecraft.client.gui.inventory.GuiContainer.drawScreen(GuiContainer.java:129)
+	at net.minecraft.client.renderer.InventoryEffectRenderer.drawScreen(InventoryEffectRenderer.java:49)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawScreen(GuiContainerCreative.java:603)
+
+-- Screen render details --
+Details:
+	Screen name: net.minecraft.client.gui.inventory.GuiContainerCreative
+	Mouse location: Scaled: (480, 252). Absolute: (960, 504)
+	Screen size: Scaled: (960, 505). Absolute: (1920, 1009). Scale factor of 2
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player130'/82, l='MpServer', x=-619.52, y=4.00, z=-754.43]]
+	Chunk stats: MultiplayerChunkCache: 110, 110
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: -355.00,4.00,-513.00 - World: (-355,4,-513), Chunk: (at 13,0,15 in -23,-33; contains blocks -368,0,-528 to -353,255,-513), Region: (-1,-2; contains chunks -32,-64 to -1,-33, blocks -512,0,-1024 to -1,255,-513)
+	Level time: 46834 game time, 27486 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 28 total; [EntitySlime['Slime'/128, l='MpServer', x=-629.24, y=4.67, z=-796.95], EntitySlime['Slime'/0, l='MpServer', x=-555.94, y=4.47, z=-687.28], EntitySlime['Slime'/129, l='MpServer', x=-635.88, y=4.61, z=-782.12], EntitySlime['Slime'/130, l='MpServer', x=-633.03, y=4.94, z=-736.30], EntitySlime['Slime'/131, l='MpServer', x=-630.39, y=4.04, z=-751.76], EntitySlime['Slime'/132, l='MpServer', x=-635.03, y=4.64, z=-735.45], EntitySlime['Slime'/133, l='MpServer', x=-631.63, y=4.64, z=-733.54], EntitySlime['Slime'/135, l='MpServer', x=-612.35, y=4.70, z=-800.36], EntitySlime['Slime'/136, l='MpServer', x=-616.05, y=4.61, z=-740.40], EntityItem['item.item.arrow'/137, l='MpServer', x=-596.94, y=4.00, z=-754.06], EntityItem['item.item.bone'/138, l='MpServer', x=-595.84, y=4.00, z=-753.88], EntityItem['item.item.rottenFlesh'/140, l='MpServer', x=-590.47, y=4.00, z=-759.03], EntitySlime['Slime'/141, l='MpServer', x=-571.97, y=4.32, z=-687.55], EntityItem['item.item.rottenFlesh'/83, l='MpServer', x=-615.88, y=4.00, z=-758.66], EntityPlayerSP['Player130'/82, l='MpServer', x=-619.52, y=4.00, z=-754.43], EntityXPOrb['Experience Orb'/101, l='MpServer', x=-699.56, y=4.00, z=-788.06], EntityXPOrb['Experience Orb'/102, l='MpServer', x=-702.66, y=4.00, z=-788.16], EntitySlime['Slime'/105, l='MpServer', x=-673.19, y=5.15, z=-788.97], EntitySlime['Slime'/106, l='MpServer', x=-684.82, y=4.76, z=-743.93], EntitySlime['Slime'/107, l='MpServer', x=-677.84, y=4.76, z=-739.41], EntitySlime['Slime'/108, l='MpServer', x=-672.22, y=4.45, z=-723.50], EntitySlime['Slime'/113, l='MpServer', x=-664.88, y=4.99, z=-767.72], EntitySlime['Slime'/114, l='MpServer', x=-666.43, y=4.69, z=-756.23], EntitySlime['Slime'/115, l='MpServer', x=-664.40, y=4.70, z=-732.55], EntitySlime['Slime'/116, l='MpServer', x=-660.60, y=4.32, z=-675.85], EntitySlime['Slime'/124, l='MpServer', x=-647.28, y=4.70, z=-756.92], EntitySlime['Slime'/125, l='MpServer', x=-647.36, y=4.98, z=-743.50], EntitySlime['Slime'/126, l='MpServer', x=-654.03, y=4.73, z=-689.63]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:403)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2365)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:483)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:7)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_131, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 205695848 bytes (196 MB) / 415236096 bytes (396 MB) up to 1881145344 bytes (1794 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: Intel(R) UHD Graphics 630 GL version 4.6.0 - Build 26.20.100.7642, Intel
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 6x Intel(R) Core(TM) i5-9400 CPU @ 2.90GHz
+	OptiFine Version: OptiFine_1.8.9_HD_U_M6_pre1
+	OptiFine Build: ~~NULL~~
+	Render Distance Chunks: 8
+	Mipmaps: 4
+	Anisotropic Filtering: 1
+	Antialiasing: 0
+	Multitexture: false
+	Shaders: null
+	OpenGlVersion: 4.6.0 - Build 26.20.100.7642
+	OpenGlRenderer: Intel(R) UHD Graphics 630
+	OpenGlVendor: Intel
+	CpuCount: 6

@@ -46,8 +46,6 @@ public class ClickUIScreen extends GuiScreen {
     float dragX, dragY;
     boolean dragging;
     boolean sizeDragging;
-    public float outro;
-    public float lastOutro;
     public float lastPercent;
     public float percent;
     public float percent2;
@@ -61,20 +59,6 @@ public class ClickUIScreen extends GuiScreen {
     @EventTarget
     public void onTick(EventTick e) {
         if (mc == null) return;
-        if (!(mc.currentScreen instanceof ClickUIScreen)) {
-            lastOutro = outro;
-            if (outro < 1.7) {
-                outro += 0.1f;
-
-                outro += ((1.7 - outro) / (3f)) - 0.001;
-            }
-            if (outro > 1.7) {
-                outro = 1.7f;
-            }
-            if (outro < 1) {
-                outro = 1;
-            }
-        }
         if (!(mc.currentScreen instanceof ClickUIScreen)) return;
         lastPercent = percent;
         lastPercent2 = percent2;
@@ -101,16 +85,10 @@ public class ClickUIScreen extends GuiScreen {
                 components.add(new ModuleComponent(mod));
             }
         }
-        //percent = 1.23f;
-        //lastPercent = 1.23f;
         percent = 1.23f;
-        lastPercent = 0.98f;
+        lastPercent = 1.23f;
         percent2 = 0.98f;
-        lastPercent2 = 1.23f;
-        //percent2 = 0.98f;
-        //lastPercent2 = 0.98f;
-        outro = 1;
-        lastOutro = 1;
+        lastPercent2 = 0.98f;
     }
 
     float ami;
@@ -139,58 +117,9 @@ public class ClickUIScreen extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        GlStateManager.pushMatrix();
-        ScaledResolution sr = new ScaledResolution(this.mc);
-        float outro = smoothTrans(this.outro, lastOutro);
-        if (mc.currentScreen == null) {
-            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-            GlStateManager.scale(outro, outro, 0);
-            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-        }
-
         float percent = smoothTrans(this.percent, lastPercent);
         float percent2 = smoothTrans(this.percent2, lastPercent2);
-
-
-        if (percent > 0.98) {
-            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-            GlStateManager.scale(percent, percent, 0);
-            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-        } else {
-            if (percent2 <= 1) {
-                GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-                GlStateManager.scale(percent2, percent2, 0);
-                GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-            }
-        }
-        GlStateManager.enableBlend();
-        //music.drawPanel(mouseX, mouseY, (float) (mc.currentScreen == null ? Math.min(1, Math.max(((1 - (outro - 1) - .4) * 1.66667), 0)) : (float) Math.max(Math.min(-(((percent - 1.23) * 4)), 1), 0)), false, 0, 0);
-
-        if (percent > 0.98) {
-            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-            GlStateManager.scale(1 / percent, 1 / percent, 0);
-            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-        } else {
-            if (percent2 <= 1) {
-                GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-                GlStateManager.scale(1 / percent2, 1 / percent2, 0);
-                GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-            }
-        }
-        if (mc.currentScreen == null) {
-
-            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-            GlStateManager.scale(1 / outro, 1 / outro, 0);
-            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-        }
-        GlStateManager.color(1, 1, 1, 1);
-        GlStateManager.color(1, 1, 1, (float) (mc.currentScreen == null ? Math.min(1, Math.max(((1 - (outro - 1) - .4) * 1.66667), 0)) : (float) Math.max(Math.min(-(((percent - 1.23) * 4)), 1), 0)));
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        if (mc.currentScreen == null) {
-            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-            GlStateManager.scale(outro, outro, 0);
-            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
-        }
+        ScaledResolution sr = new ScaledResolution(this.mc);
         if (percent > 0.98) {
             GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
             GlStateManager.scale(percent, percent, 0);
@@ -200,6 +129,7 @@ public class ClickUIScreen extends GuiScreen {
             GlStateManager.scale(percent2, percent2, 0);
             GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
         }
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
         RenderUtil.doGlScissor(x - 5, y - 5, width + 10, height + 10);
         if (dragging) {
             x = mouseX - dragX;
@@ -229,7 +159,6 @@ public class ClickUIScreen extends GuiScreen {
                 FontLoaders.jello14.drawString(s, x + width - rightWidth + (rightWidth - FontLoaders.jello14.getStringWidth(s)) / 2f, y + (height - FontLoaders.jello14.getHeight()) / 2f, new Color(66, 66, 66).getRGB());
             }
         }
-        //RenderUtil.drawImage(new ResourceLocation("client/icons/logo.png"), x + 5, y + 5, (537 / 5.5f), (211 / 5.5f));
         Color[] clientColors = getClientColors();
         GradientUtil.applyGradientHorizontal(x + 5, y + 30, (float) FontLoaders.logo.getWidth("ULTRA"), FontLoaders.logo.getHeight(), 1, clientColors[0], clientColors[1], () -> {
             RenderUtil.setAlphaLimit(0);
@@ -275,7 +204,6 @@ public class ClickUIScreen extends GuiScreen {
         } else if (dWheel > 0 && (scrollY + 10) <= 0) {
             scrollY += 25;
         }
-        GlStateManager.popMatrix();
     }
 
     public boolean isHovered(float x, float y, float width, float height, float mouseX, float mouseY) {

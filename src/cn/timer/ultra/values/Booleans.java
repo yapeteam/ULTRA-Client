@@ -1,7 +1,7 @@
 package cn.timer.ultra.values;
 
-public class Booleans<V> extends Value<V> {
-    public Booleans(String name, V value) {
+public class Booleans extends Value<Boolean> {
+    public Booleans(String name, Boolean value) {
         super(name);
         this.setValue(value);
     }

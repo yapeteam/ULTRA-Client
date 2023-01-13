@@ -21,6 +21,7 @@ public class Fly extends Module {
 
     @Override
     public void onDisable() {
+        if (mc.thePlayer == null) return;
         mc.thePlayer.capabilities.allowFlying = false;
         mc.thePlayer.capabilities.isFlying = false;
         super.onDisable();

@@ -2,7 +2,7 @@ package cn.timer.ultra.values;
 
 public class Value<V> {
     private V value;
-    private String name;
+    private final String name;
 
     public Value(String name) {
         this.name = name;
@@ -18,9 +18,5 @@ public class Value<V> {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

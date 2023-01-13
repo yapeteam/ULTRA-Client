@@ -22,24 +22,24 @@ public class NumberValueComponent implements Component {
         this.x = x;
         this.y = y;
         float lx = ClickUIScreen.x + ClickUIScreen.width - (ClickUIScreen.currentModule != null ? ClickUIScreen.rightWidth : 0) + 5;
-        FontLoaders.jello14.drawString(value.getName() + ":" + String.format("%.1f", value.getValue().floatValue()), lx, y, new Color(0, 0, 0).getRGB());
+        FontLoaders.jello14.drawString(value.getName() + ":" + String.format("%.1f", value.getValue()), lx, y, new Color(0, 0, 0).getRGB());
 
         FontLoaders.jello14.drawString("-", lx, y + 11, new Color(94, 94, 94).getRGB());
         FontLoaders.jello14.drawString("+", lx + ClickUIScreen.rightWidth - 12, y + 11, new Color(66, 66, 66).getRGB());
 
         float width = ClickUIScreen.rightWidth - 30f;
-        RenderUtil.drawRoundedRect(lx + 10, y + 15, (float) (lx + 10 + (width * (value.getMax() - value.getMin()) / (value.getMax() - value.getMin()))), y + 18, 1, new Color(222, 222, 222).getRGB());
-        RenderUtil.drawRoundedRect(lx + 10, y + 15, (float) (lx + 10 + (width * (value.getValue() - value.getMin()) / (value.getMax() - value.getMin()))), y + 18, 1, new Color(87, 175, 255).getRGB());
+        RenderUtil.drawRoundedRect(lx + 10, y + 15, lx + 10 + (width * (value.getMaxF() - value.getMinF()) / (value.getMaxF() - value.getMinF())), y + 18, 1, new Color(222, 222, 222).getRGB());
+        RenderUtil.drawRoundedRect(lx + 10, y + 15, lx + 10 + (width * (value.getValueF() - value.getMinF()) / (value.getMaxF() - value.getMinF())), y + 18, 1, new Color(87, 175, 255).getRGB());
         if (dragging) {
             if (isHovered(lx + 10, y + 15f, width, 3, mouseX, mouseY)) {
                 float percent = (mouseX - (lx + 10f)) / width;
-                value.setValue(value.getMin() + (value.getMax() - value.getMin()) * percent);
+                value.setValue((double) (value.getMinF() + (value.getMaxF() - value.getMinF()) * percent));
             }
             if (mouseX >= lx + 10 + width) {
-                value.setValue(value.getMax());
+                value.setValue((double) value.getMaxF());
             }
             if (mouseX <= lx + 10) {
-                value.setValue(value.getMin());
+                value.setValue((double) value.getMinF());
             }
         }
     }

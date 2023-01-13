@@ -12,6 +12,7 @@ import java.util.UUID;
 
 public class FreeCam extends Module {
     private EntityOtherPlayerMP entity;
+
     public FreeCam() {
         super("FreeCam", Keyboard.KEY_Y, Category.Render);
     }
@@ -31,6 +32,7 @@ public class FreeCam extends Module {
 
     @Override
     public void onDisable() {
+        if (mc.thePlayer == null || mc.theWorld == null) return;
         mc.thePlayer.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
         mc.theWorld.removeEntity(entity);
         super.onDisable();

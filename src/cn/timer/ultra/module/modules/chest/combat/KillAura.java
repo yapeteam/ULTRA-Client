@@ -30,7 +30,7 @@ public class KillAura extends Module {
     private Entity target = null;
     private long cpsTicker;
     private final Numbers<Double> range = new Numbers<>("Range", 3.0, 8.0, 0.1, 4.2);
-    private final Booleans<Boolean> autoBlock = new Booleans<>("AutoBlock", false);
+    private final Booleans autoBlock = new Booleans("AutoBlock", false);
     private final Mode<String> priority = new Mode<>("Priority", new String[]{"Distance", "Health"}, "Distance");
     private final Numbers<Double> cps = new Numbers<>("CPS", 1.0, 20.0, 0.2, 10.0);
 

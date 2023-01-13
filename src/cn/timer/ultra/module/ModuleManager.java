@@ -35,6 +35,7 @@ public class ModuleManager {
         this.modules.add(new FreeCam());
         this.modules.add(new HUD());
         this.modules.add(new CPSModule());
+        this.modules.add(new FPSModule());
         this.modules.add(new MusicPlayer());
         this.modules.add(new MusicOverlay());
         this.modules.add(new MicrosoftAuthLogin());
@@ -59,11 +60,11 @@ public class ModuleManager {
     }
 
     public ArrayList<Module> getByCategory(Category currentCategory) {
-        ArrayList<Module> rmodules = new ArrayList<>();
+        ArrayList<Module> Cmodules = new ArrayList<>();
         for (Module module : modules)
             if (module.getCategory() == currentCategory)
-                rmodules.add(module);
-        return rmodules;
+                Cmodules.add(module);
+        return Cmodules;
     }
 
     @EventTarget

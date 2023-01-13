@@ -19,30 +19,26 @@ import java.util.List;
 
 public class CPSModule extends HUDModule {
     private final List<Long> clicks;
-    private final Booleans<Boolean> showBackground;
-    private final Numbers<Double> textColor;
-    private final Numbers<Double> backgroundColor;
+    private final Booleans showBackground;
 
     public CPSModule() {
         super("CPS", Keyboard.KEY_NONE, Category.Render, 0, 0, 0, mc.fontRendererObj.FONT_HEIGHT, "Free", "Free");
         this.clicks = new ArrayList<>();
-        this.showBackground = new Booleans<>("Show Background", true);
-        this.textColor = new Numbers<>("Text Color", (double) 0x00000000, (double) 0xffffffff, (double) 0xffffffff, (double) 0xffffffff);
-        this.backgroundColor = new Numbers<>("Background Color", (double) 0x00000000, (double) 0xffffffff, (double) 0xffffffff, (double) 0x6F000000);
-        addValues(showBackground, textColor, backgroundColor);
+        this.showBackground = new Booleans("Show Background", true);
+        addValues(showBackground);
     }
 
     @Override
     public void drawHUD() {
         GL11.glPushMatrix();
         if (this.showBackground.getValue()) {
-            Gui.drawRect((int) getXPosition() - 1, (int) getYPosition() - 1, (int) (getXPosition() + width + 1), (int) (getYPosition() + height + 1), this.backgroundColor.getValue().intValue());
+            Gui.drawRect((int) getXPosition() - 1, (int) getYPosition() - 1, (int) (getXPosition() + width + 1), (int) (getYPosition() + height + 1), 0x6F000000);
             String string = this.clicks.size() + " CPS";
-            mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), this.textColor.getValue().intValue());
+            mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), 0xffffffff);
             this.width = mc.fontRendererObj.getStringWidth(string);
         } else {
             String string = "[" + this.clicks.size() + " CPS]";
-            mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), this.textColor.getValue().intValue(), true);
+            mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), 0xffffffff, true);
             this.width = mc.fontRendererObj.getStringWidth(string);
         }
         GL11.glPopMatrix();

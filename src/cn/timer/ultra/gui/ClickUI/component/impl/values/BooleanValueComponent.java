@@ -10,10 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 
 public class BooleanValueComponent implements Component {
-    Booleans<Boolean> value;
+    Booleans value;
     float x, y;
 
-    public BooleanValueComponent(Booleans<Boolean> setting) {
+    public BooleanValueComponent(Booleans setting) {
         this.value = setting;
     }
 

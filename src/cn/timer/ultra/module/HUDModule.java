@@ -1,13 +1,12 @@
 package cn.timer.ultra.module;
 
 import cn.timer.ultra.Client;
-import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventDrawGui;
-import cn.timer.ultra.event.events.EventRender2D;
 import cn.timer.ultra.gui.Font.FontLoaders;
 import cn.timer.ultra.utils.MathUtils;
 import cn.timer.ultra.utils.RenderUtil;
 import cn.timer.ultra.values.Mode;
+import cn.timer.ultra.values.Numbers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
@@ -15,24 +14,28 @@ import org.lwjgl.input.Mouse;
 import java.awt.*;
 
 public abstract class HUDModule extends Module {
-    public float subXPosition = 0;
-    public float subYPosition = 0;
     public boolean dragging = false;
     public float width = 0;
     public float height = 0;
     public int alpha = 0;
     public final Mode<String> horizontalFacing = new Mode<>("HorizontalFacing", new String[]{"Left", "Middle", "Right", "Free"}, "Free");
     public final Mode<String> verticalFacing = new Mode<>("VerticalFacing", new String[]{"Top", "Middle", "Bottom", "Free"}, "Free");
+    public final Numbers<Float> subXPosition;
+    public final Numbers<Float> subYPosition;
 
     public HUDModule(String name, int key, Category category) {
         super(name, key, category);
-        addValues(horizontalFacing, verticalFacing);
+        ScaledResolution sr = new ScaledResolution(mc);
+        this.subXPosition = new Numbers<>("posX", 0f, sr.getScaledWidth() - width, 1f, 0f);
+        this.subYPosition = new Numbers<>("posY", 0f, sr.getScaledHeight() - height, 1f, 0f);
+        addValues(this.subXPosition, this.subYPosition, this.horizontalFacing, this.verticalFacing);
     }
 
     public HUDModule(String name, int key, Category category, float xPosition, float yPosition, float width, float height, String horizontalFacing, String verticalFacing) {
         super(name, key, category);
-        this.subXPosition = xPosition;
-        this.subYPosition = yPosition;
+        ScaledResolution sr = new ScaledResolution(mc);
+        this.subXPosition = new Numbers<>("posX", 0f, sr.getScaledWidth() - width, 1f, xPosition);
+        this.subYPosition = new Numbers<>("posY", 0f, sr.getScaledHeight() - height, 1f, yPosition);
         this.width = width;
         this.height = height;
         for (String horizontalFacing1 : this.horizontalFacing.getModes()) {
@@ -45,7 +48,7 @@ public abstract class HUDModule extends Module {
                 this.verticalFacing.setValue(verticalFacing1);
             }
         }
-        addValues(this.horizontalFacing, this.verticalFacing);
+        addValues(this.subXPosition, this.subYPosition, this.horizontalFacing, this.verticalFacing);
     }
 
     private int fade(int target, int current, int speed) {
@@ -87,7 +90,7 @@ public abstract class HUDModule extends Module {
                 return sr.getScaledWidth() - width;
             }
         }
-        return subXPosition;
+        return subXPosition.getValueF();
     }
 
     public float getYPosition() {
@@ -103,11 +106,14 @@ public abstract class HUDModule extends Module {
                 return sr.getScaledHeight() - height;
             }
         }
-        return subYPosition;
+        return subYPosition.getValueF();
     }
 
     public void onGuiScreen(EventDrawGui e) {
-        if (e.getCurrentScreen() == Client.instance.clickgui) {
+        ScaledResolution sr = new ScaledResolution(mc);
+        subXPosition.setMax(sr.getScaledWidth() - width);
+        subYPosition.setMax(sr.getScaledHeight() - height);
+        if (e.getCurrentScreen() == Client.instance.clickGui) {
             drawOutline(e.getMouseX(), e.getMouseY());
             updateAlpha(isHovering(e.getMouseX(), e.getMouseY()));
             if (isHovering(e.getMouseX(), e.getMouseY()) && Mouse.isButtonDown(0)) {
@@ -117,10 +123,8 @@ public abstract class HUDModule extends Module {
                 this.dragging = false;
             }
             if (dragging) {
-                if (horizontalFacing.getValue().equals("Free"))
-                    this.subXPosition = e.getMouseX();
-                if (verticalFacing.getValue().equals("Free"))
-                    this.subYPosition = e.getMouseY();
+                if (horizontalFacing.getValue().equals("Free")) this.subXPosition.setValue((float) e.getMouseX());
+                if (verticalFacing.getValue().equals("Free")) this.subYPosition.setValue((float) e.getMouseY());
             }
         }
     }

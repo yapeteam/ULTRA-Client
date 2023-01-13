@@ -1,65 +1,121 @@
 package cn.timer.ultra.utils;
 
-import net.minecraft.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.shader.*;
-import org.lwjgl.opengl.*;
-import net.minecraft.client.renderer.*;
+import com.google.gson.JsonSyntaxException;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.client.shader.ShaderGroup;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
+import java.io.IOException;
 
 public class BlurUtil {
-    private static Framebuffer buffer;
-    private static final ResourceLocation shader;
-    private static ShaderGroup blurShader;
 
-    public static void initFboAndShader() {
-        final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static ShaderGroup shaderGroup;
+    private static Framebuffer framebuffer;
+
+    private static int lastFactor;
+    private static int lastWidth;
+    private static int lastHeight;
+
+    public static void init() {
         try {
-            (blurShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), BlurUtil.shader)).createBindFramebuffers(mc.displayWidth, mc.displayHeight);
-            buffer = BlurUtil.blurShader.mainFramebuffer;
-        } catch (Exception e) {
+            shaderGroup = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), new ResourceLocation("client/blur/blur.json"));
+            shaderGroup.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
+            framebuffer = shaderGroup.mainFramebuffer;
+        } catch (JsonSyntaxException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void setStrength(int strength) {
-        if (blurShader == null) return;
-        blurShader.getListShaders().get(0).getShaderManager().getShaderUniform("Radius").set(strength);
-        blurShader.getListShaders().get(1).getShaderManager().getShaderUniform("Radius").set(strength);
-    }
-
-    public static void crop(final float x, final float y, final float x2, final float y2) {
-        final Minecraft mc = Minecraft.getMinecraft();
-        final ScaledResolution scaledResolution = new ScaledResolution(mc);
-        final int factor = scaledResolution.getScaleFactor();
-        GL11.glScissor((int) (x * factor), (int) ((scaledResolution.getScaledHeight() - y2) * factor), (int) ((x2 - x) * factor), (int) ((y2 - y) * factor));
-    }
-
-    public static void blur(final float x, final float y, final float x2, final float y2) {
-        //GlStateManager.disableAlpha();
-        final Minecraft mc = Minecraft.getMinecraft();
-        if (BlurUtil.buffer == null || BlurUtil.blurShader == null) {
-            initFboAndShader();
+    private static void setValues(int strength) {
+        for (int i = 0; i < 2; i++) {
+            shaderGroup.getListShaders().get(i).getShaderManager().getShaderUniform("Radius").set(strength);
         }
-        GL11.glEnable(3089);
-        crop(x, y, x2, y2);
-        BlurUtil.buffer.framebufferHeight = mc.displayHeight;
-        BlurUtil.buffer.framebufferWidth = mc.displayWidth;
-        GlStateManager.resetColor();
-        BlurUtil.blurShader.loadShaderGroup(mc.timer.renderPartialTicks);
-        BlurUtil.buffer.bindFramebuffer(true);
-        mc.getFramebuffer().bindFramebuffer(true);
-        GL11.glDisable(3089);
-        //GlStateManager.enableAlpha();
     }
 
-    public static void blur2(final float x, final float y, final float x2, final float y2, final float h, final float w) {
+    public static void blur(double x, double y, double areaWidth, double areaHeight, int blurStrength) {
         GlStateManager.disableAlpha();
-        blur(x, y, x2 + w, y2 + h);
+        GlStateManager.enableBlend();
+        Stencil.write(false);
+        RenderUtil.drawRect2(x, y, areaWidth, areaHeight, 1);
+        Stencil.erase(true);
+        GlStateManager.enableBlend();
+        blur(blurStrength);
+        Stencil.dispose();
+
+    }
+
+    private static boolean sizeHasChanged(int scaleFactor, int width, int height) {
+        return (lastFactor != scaleFactor || lastWidth != width || lastHeight != height);
+    }
+
+    public static void blur(int blurStrength) {
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+        final int scaleFactor = scaledResolution.getScaleFactor();
+        final int width = scaledResolution.getScaledWidth();
+        final int height = scaledResolution.getScaledHeight();
+        if (sizeHasChanged(scaleFactor, width, height) || framebuffer == null || shaderGroup == null) {
+            init();
+        }
+        BlurUtil.lastFactor = scaleFactor;
+        lastWidth = width;
+        lastHeight = height;
+        setValues(blurStrength);
+        framebuffer.bindFramebuffer(true);
+        shaderGroup.loadShaderGroup(mc.timer.renderPartialTicks);
+        mc.getFramebuffer().bindFramebuffer(true);
         GlStateManager.enableAlpha();
     }
 
-    static {
-        shader = new ResourceLocation("client/blur/blur.json");
+    public static void blurMove(double x, double y, double areaWidth, double areaHeight, int blurStrength) {
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+        final int scaleFactor = scaledResolution.getScaleFactor();
+        final int width = scaledResolution.getScaledWidth();
+        final int height = scaledResolution.getScaledHeight();
+
+        if (sizeHasChanged(scaleFactor, width, height) || framebuffer == null || shaderGroup == null) {
+            init();
+        }
+
+        BlurUtil.lastFactor = scaleFactor;
+        lastWidth = width;
+        lastHeight = height;
+
+        setValues(blurStrength);
+        framebuffer.bindFramebuffer(true);
+        GlStateManager.disableAlpha();
+        GlStateManager.enableBlend();
+        Stencil.write(false);
+        RenderUtil.drawRect2(x, y, areaWidth, areaHeight, 1);
+        Stencil.erase(true);
+        GlStateManager.enableBlend();
+        shaderGroup.loadShaderGroup(mc.timer.renderPartialTicks);
+        Stencil.dispose();
+ 		
+ 		/*GL11.glScissor((int)(x * factor), (int)((mc.displayHeight - (f * factor) - height * facorbctor)) +1, (int)(width * factor),
+                (int)(height * factor));
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+
+        Stencil.write(false);
+        Gui.drawFloatRect(x, f, x+width, f+height, -1);
+        Stencil.erase(true);
+
+        setShaderConfigs(intensity, blurWidth, blurHeight, 1);
+        buffer.bindFramebuffer(true);*/
+
+        shaderGroup.loadShaderGroup(mc.timer.renderPartialTicks);
+
+        mc.getFramebuffer().bindFramebuffer(true);
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
+
+        mc.getFramebuffer().bindFramebuffer(true);
+
+        GlStateManager.enableAlpha();
+
     }
+
 }

@@ -11,6 +11,7 @@ import org.lwjgl.input.Keyboard;
 
 public class Step extends Module {
     private final Mode<String> mode = new Mode<>("Mode", new String[]{"Vanilla", "NCP"}, "Vanilla");
+
     public Step() {
         super("Step", Keyboard.KEY_Z, Category.Movement);
         this.addValues(this.mode);
@@ -32,6 +33,7 @@ public class Step extends Module {
 
     @Override
     public void onDisable() {
+        if (mc.thePlayer == null) return;
         mc.thePlayer.stepHeight = 0.6F;
         super.onDisable();
     }

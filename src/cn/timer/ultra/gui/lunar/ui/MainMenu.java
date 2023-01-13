@@ -99,7 +99,6 @@ public class MainMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         //GlStateManager.disableAlpha();
         RenderUtil.drawImage(new ResourceLocation("client/background.jpg"), -mouseX / 4f, -mouseY / 4f, 2560 / 2f, 1440 / 2f);
-        BlurUtil.setStrength(0);
         //BlurUtil.blur(0, 0, width, height);
         //this.renderSkybox(partialTicks);
         //GlStateManager.enableAlpha();
