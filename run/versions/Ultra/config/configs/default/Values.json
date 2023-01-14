@@ -1,11 +1,18 @@
 {
   "MicrosoftAuthLogin": {},
+  "Derp": {
+    "Spiny": true,
+    "Increment": 23.227855682373047,
+    "Fake Derp": true
+  },
   "ClickGUI": {},
   "FreeCam": {},
+  "SnapLook": {},
+  "FreeLook": {},
   "HUD": {},
   "CPS": {
     "posX": 0.0,
-    "posY": 264.0,
+    "posY": 259.0,
     "HorizontalFacing": "Middle",
     "VerticalFacing": "Free",
     "Show Background": false
@@ -20,6 +27,9 @@
   "MusicPlayer": {},
   "MusicOverlay": {},
   "MotionBlur": {
-    "FrameMultiplier": 3.8101279735565186
+    "FrameMultiplier": 7.379748344421387
+  },
+  "Rotations": {
+    "Silent": true
   }
 }

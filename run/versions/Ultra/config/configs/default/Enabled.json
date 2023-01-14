@@ -2,11 +2,20 @@
   "MicrosoftAuthLogin": {
     "enable": false
   },
+  "Derp": {
+    "enable": false
+  },
   "ClickGUI": {
     "enable": false
   },
   "FreeCam": {
     "enable": false
+  },
+  "SnapLook": {
+    "enable": true
+  },
+  "FreeLook": {
+    "enable": true
   },
   "HUD": {
     "enable": true
@@ -24,6 +33,9 @@
     "enable": false
   },
   "MotionBlur": {
+    "enable": true
+  },
+  "Rotations": {
     "enable": true
   }
 }

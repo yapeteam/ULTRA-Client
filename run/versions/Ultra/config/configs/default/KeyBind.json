@@ -2,11 +2,20 @@
   "MicrosoftAuthLogin": {
     "key": 0
   },
+  "Derp": {
+    "key": 0
+  },
   "ClickGUI": {
     "key": 54
   },
   "FreeCam": {
     "key": 21
+  },
+  "SnapLook": {
+    "key": 0
+  },
+  "FreeLook": {
+    "key": 0
   },
   "HUD": {
     "key": 0
@@ -24,6 +33,9 @@
     "key": 0
   },
   "MotionBlur": {
+    "key": 0
+  },
+  "Rotations": {
     "key": 0
   }
 }

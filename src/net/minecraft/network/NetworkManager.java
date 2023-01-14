@@ -140,14 +140,13 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         this.closeChannel(chatcomponenttranslation);
     }
 
-    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception {
+    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) {
         EventPacketReceive e = new EventPacketReceive(p_channelRead0_2_);
         EventManager.instance.call(e);
         if (this.channel.isOpen() && !e.isCancelled()) {
             try {
                 p_channelRead0_2_.processPacket(this.packetListener);
-            } catch (ThreadQuickExitException var4) {
-                ;
+            } catch (ThreadQuickExitException ignored) {
             }
         }
     }
@@ -165,7 +164,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     public void sendPacket(Packet packetIn) {
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener<? extends Future<? super Void>>[]) null);
+            this.dispatchPacket(packetIn, null);
         } else {
             this.readWriteLock.writeLock().lock();
 

@@ -32,15 +32,19 @@ public class ModuleManager {
 
         //Player
         this.modules.add(new MicrosoftAuthLogin());
+        this.modules.add(new Derp());
         //Render
         this.modules.add(new ClickGUI());
         this.modules.add(new FreeCam());
+        this.modules.add(new SnapLook());
+        this.modules.add(new FreeLook());
         this.modules.add(new HUD());
         this.modules.add(new CPSModule());
         this.modules.add(new FPSModule());
         this.modules.add(new MusicPlayer());
         this.modules.add(new MusicOverlay());
         this.modules.add(new MotionBlur());
+        this.modules.add(new Rotations());
     }
 
     @EventTarget
@@ -83,5 +87,13 @@ public class ModuleManager {
                 ((HUDModule) module).onGuiScreen(e);
             }
         });
+    }
+
+    public Module getByClass(Class<? extends Module> MClass) {
+        for (Module module : this.modules) {
+            if (module.getClass() == MClass)
+                return module;
+        }
+        return null;
     }
 }

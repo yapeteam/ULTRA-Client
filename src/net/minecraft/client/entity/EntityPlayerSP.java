@@ -234,8 +234,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
             double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = (double) (this.rotationYaw - this.lastReportedYaw);
-            double d4 = (double) (this.rotationPitch - this.lastReportedPitch);
+            double d3 = this.rotationYaw - this.lastReportedYaw;
+            double d4 = this.rotationPitch - this.lastReportedPitch;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -744,11 +744,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.capabilities.isFlying && this.isCurrentViewEntity()) {
             if (this.movementInput.sneak) {
-                this.motionY -= (double) (this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
             }
 
             if (this.movementInput.jump) {
-                this.motionY += (double) (this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY += this.capabilities.getFlySpeed() * 3.0F;
             }
         }
 

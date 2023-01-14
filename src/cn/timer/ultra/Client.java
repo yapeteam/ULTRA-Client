@@ -7,6 +7,7 @@ import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
 import cn.timer.ultra.module.ModuleManager;
 import cn.timer.ultra.utils.ColorUtil;
+import cn.timer.ultra.utils.RotationUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class Client {
     private CommandManager commandManager;
     private ConfigManager configManager;
     private TrayIcon trayIcon;
+    public RotationUtils rotationUtils = new RotationUtils();
 
     public static void renderMsg(String s) {
     }

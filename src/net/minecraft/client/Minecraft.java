@@ -3,6 +3,7 @@ package net.minecraft.client;
 import cn.timer.ultra.Client;
 import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.event.events.EventKey;
+import cn.timer.ultra.event.events.EventLoop;
 import cn.timer.ultra.event.events.EventTick;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -274,12 +275,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Display width
      */
-    private int tempDisplayWidth;
+    private final int tempDisplayWidth;
 
     /**
      * Display height
      */
-    private int tempDisplayHeight;
+    private final int tempDisplayHeight;
 
     /**
      * Instance of IntegratedServer.
@@ -379,7 +380,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private final MinecraftSessionService sessionService;
     private SkinManager skinManager;
     private final Queue<FutureTask<?>> scheduledTasks = Queues.<FutureTask<?>>newArrayDeque();
-    private long field_175615_aJ = 0L;
     private final Thread mcThread = Thread.currentThread();
     private ModelManager modelManager;
 
@@ -397,9 +397,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * String that shows the debug information
      */
     public String debug = "";
-    public boolean field_175613_B = false;
-    public boolean field_175614_C = false;
-    public boolean field_175611_D = false;
     public boolean renderChunksMany = true;
 
     /**
@@ -502,7 +499,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Starts the game: initializes the canvas, the title, the settings, etcetera.
      */
-    private void startGame() throws LWJGLException, IOException {
+    private void startGame() throws LWJGLException {
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
         this.startTimerHackThread();
@@ -1039,6 +1036,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         for (int j = 0; j < this.timer.elapsedTicks; ++j) {
             this.runTick();
         }
+        EventManager.instance.call(new EventLoop());
 
         this.mcProfiler.endStartSection("preRenderErrors");
         long i1 = System.nanoTime() - l;
