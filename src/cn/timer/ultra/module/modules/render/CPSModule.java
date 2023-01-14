@@ -18,12 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CPSModule extends HUDModule {
-    private final List<Long> clicks;
+    private final List<Long> Lclicks;
+    private final List<Long> Rclicks;
     private final Booleans showBackground;
 
     public CPSModule() {
         super("CPS", Keyboard.KEY_NONE, Category.Render, 0, 0, 0, mc.fontRendererObj.FONT_HEIGHT, "Free", "Free");
-        this.clicks = new ArrayList<>();
+        this.Lclicks = new ArrayList<>();
+        this.Rclicks = new ArrayList<>();
         this.showBackground = new Booleans("Show Background", true);
         addValues(showBackground);
     }
@@ -33,11 +35,11 @@ public class CPSModule extends HUDModule {
         GL11.glPushMatrix();
         if (this.showBackground.getValue()) {
             Gui.drawRect((int) getXPosition() - 1, (int) getYPosition() - 1, (int) (getXPosition() + width + 1), (int) (getYPosition() + height + 1), 0x6F000000);
-            String string = this.clicks.size() + " CPS";
+            String string = this.Lclicks.size() + " | " + this.Rclicks.size() + " CPS";
             mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), 0xffffffff);
             this.width = mc.fontRendererObj.getStringWidth(string);
         } else {
-            String string = "[" + this.clicks.size() + " CPS]";
+            String string = "[" + this.Lclicks.size() + " | " + this.Rclicks.size() + " CPS]";
             mc.fontRendererObj.drawString(string, (int) getXPosition(), (int) getYPosition(), 0xffffffff, true);
             this.width = mc.fontRendererObj.getStringWidth(string);
         }
@@ -46,13 +48,17 @@ public class CPSModule extends HUDModule {
 
     @EventTarget
     private void onTick(EventPreUpdate cBTickEvent) {
-        this.clicks.removeIf(l -> l < System.currentTimeMillis() - 1000L);
+        this.Lclicks.removeIf(l -> l < System.currentTimeMillis() - 1000L);
+        this.Rclicks.removeIf(t -> t < System.currentTimeMillis() - 1000L);
     }
 
     @EventTarget
     private void onClick(EventPreUpdate cBClickEvent) {
         if (Mouse.isButtonDown(0)) {
-            this.clicks.add(System.currentTimeMillis());
+            this.Lclicks.add(System.currentTimeMillis());
+        }
+        if (Mouse.isButtonDown(1)) {
+            this.Rclicks.add(System.currentTimeMillis());
         }
     }
 }

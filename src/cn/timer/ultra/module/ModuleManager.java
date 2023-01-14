@@ -45,6 +45,7 @@ public class ModuleManager {
         this.modules.add(new MusicOverlay());
         this.modules.add(new MotionBlur());
         this.modules.add(new Rotations());
+        this.modules.add(new KeyStrokes());
     }
 
     @EventTarget

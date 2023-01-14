@@ -27,9 +27,15 @@
   "MusicPlayer": {},
   "MusicOverlay": {},
   "MotionBlur": {
-    "FrameMultiplier": 7.379748344421387
+    "FrameMultiplier": 1.8354445695877075
   },
   "Rotations": {
     "Silent": true
+  },
+  "KeyStrokes": {
+    "posX": 789.0,
+    "posY": 273.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free"
   }
 }

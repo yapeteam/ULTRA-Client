@@ -71,7 +71,6 @@ public enum MusicOverlayRenderer {
                 //lyricFont.drawCenteredString(MusicManager.INSTANCE.lrcCur.contains("_EMPTY_") ? "等待中......." : MusicManager.INSTANCE.lrcCur, (int) (sr.getScaledWidth() / 2f - 0.5f), sr.getScaledHeight() - 140 - 80 + addonYlyr, col);
                 //lyricFont.drawCenteredString(MusicManager.INSTANCE.tlrcCur.contains("_EMPTY_") ? "Waiting......." : MusicManager.INSTANCE.tlrcCur, (int) (sr.getScaledWidth() / 2f), (int) (sr.getScaledHeight() - 125 + 0.5f - 80 + addonYlyr), col);
                 String s = MusicManager.INSTANCE.lrcCur.contains("_EMPTY_") ? "等待中......." : MusicManager.INSTANCE.lrcCur;
-                System.out.println(MusicManager.INSTANCE.lrcCur);
                 font.drawString(s, (sr.getScaledWidth() - font.getStringWidth(s)) / 2f, sr.getScaledHeight() - 40 - 10, col, true);
                 s = MusicManager.INSTANCE.tlrcCur.contains("_EMPTY_") ? "Waiting......." : MusicManager.INSTANCE.tlrcCur;
                 font.drawString(s, (sr.getScaledWidth() - font.getStringWidth(s)) / 2f, sr.getScaledHeight() - 30 - 10, col, true);
@@ -85,8 +84,8 @@ public enum MusicOverlayRenderer {
                 firstTime = false;
             }
 
-            FontRenderer wqy = FontLoaders.msFont18;
-            FontRenderer sans = FontLoaders.msFont18;
+            FontRenderer wqy = FontLoaders.arial18;
+            FontRenderer sans = FontLoaders.arial18;
 
             float width1 = wqy.getStringWidth(MusicManager.INSTANCE.getCurrentTrack().name);
             float width2 = sans.getStringWidth("Now playing");

@@ -30,12 +30,15 @@
     "enable": false
   },
   "MusicOverlay": {
-    "enable": false
+    "enable": true
   },
   "MotionBlur": {
     "enable": true
   },
   "Rotations": {
+    "enable": true
+  },
+  "KeyStrokes": {
     "enable": true
   }
 }
