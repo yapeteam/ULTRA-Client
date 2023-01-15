@@ -24,6 +24,8 @@ public class FontLoaders {
     public static FontRenderer jello16 = getFont("jellolight.ttf", 16, true);
     public static FontRenderer jello25 = getFont("jellolight.ttf", 25, true);
     public static FontRenderer jello30 = getFont("jellolight.ttf", 30, true);
+    public static FontRenderer jelloB18 = getFont("jellomedium.ttf", 18, true);
+    public static FontRenderer jelloC18 = getFont("jelloregular.ttf", 18, true);
     public static FontRenderer icon20 = getFont("icon.ttf", 20, true);
     public static FontRenderer jigsaw18 = getFont("Jigsaw-Regular.ttf", 18, true);
     public static FontRenderer jigsaw14 = getFont("Jigsaw-Regular.ttf", 14, true);

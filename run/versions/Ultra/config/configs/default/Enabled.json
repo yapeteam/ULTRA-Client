@@ -3,7 +3,7 @@
     "enable": false
   },
   "Derp": {
-    "enable": false
+    "enable": true
   },
   "ClickGUI": {
     "enable": false
@@ -39,6 +39,9 @@
     "enable": true
   },
   "KeyStrokes": {
+    "enable": true
+  },
+  "TabGUI": {
     "enable": true
   }
 }

@@ -3,6 +3,7 @@ package cn.timer.ultra.event;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EventManager {//用于管理events
     private final ConcurrentHashMap<Class<? extends Event>, List<Handler>> events = new ConcurrentHashMap<>();
+    public final List<Class<?>> classes = new ArrayList<>();
     private final MethodHandles.Lookup lookup = MethodHandles.lookup();
     public static EventManager instance = new EventManager();
 
@@ -29,6 +31,7 @@ public class EventManager {//用于管理events
 
     public void register(Object... objects) {//用于注册所需要响应的类/Module，目前我们只需要激活Modules和本类
         for (Object object : objects) {
+            if (classes.contains(object.getClass())) continue;
             for (Method method : object.getClass().getDeclaredMethods()) {
                 if (method.getParameterCount() == 1 && method.isAnnotationPresent(EventTarget.class)) {
                     Class<?> eventClass = method.getParameterTypes()[0];
@@ -39,17 +42,20 @@ public class EventManager {//用于管理events
                     this.events.get(eventClass).sort(Comparator.comparingInt(e -> e.priority));
                 }
             }
+            this.classes.add(object.getClass());
         }
     }
 
     public void unregister(Object... objects) {//用于取消注册所需要响应的类/Module，目前我们只需要激活Modules和本类
         for (Object object : objects) {
+            if (!classes.contains(object.getClass())) continue;
             for (List<Handler> events : this.events.values()) {
                 for (Handler handler : events) {
                     if (handler.parent != object) continue;
                     events.remove(handler);
                 }
             }
+            classes.remove(object.getClass());
         }
     }
 

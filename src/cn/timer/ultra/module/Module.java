@@ -46,12 +46,16 @@ public abstract class Module {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
         if (enabled) {
-            this.onEnable();
             EventManager.instance.register(this);
+            this.onEnable();
         } else {
             EventManager.instance.unregister(this);
             this.onDisable();
         }
+    }
+
+    public void Enable() {
+        this.setEnabled(!this.isEnabled());
     }
 
     public void onEnable() {
@@ -79,4 +83,6 @@ public abstract class Module {
     public Category getCategory() {
         return category;
     }
+
+
 }

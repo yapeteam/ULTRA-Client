@@ -46,6 +46,7 @@ public class ModuleManager {
         this.modules.add(new MotionBlur());
         this.modules.add(new Rotations());
         this.modules.add(new KeyStrokes());
+        this.modules.add(new TabGUI());
     }
 
     @EventTarget

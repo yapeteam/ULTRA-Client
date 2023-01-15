@@ -4,29 +4,33 @@ import cn.timer.ultra.Client;
 import cn.timer.ultra.event.events.EventKey;
 import cn.timer.ultra.event.events.EventLoop;
 import cn.timer.ultra.event.events.EventTick;
+import cn.timer.ultra.gui.Font.CFont.CFontLoaders;
 import cn.timer.ultra.gui.Font.FontLoaders;
 import cn.timer.ultra.module.Category;
 import cn.timer.ultra.module.Module;
-import cn.timer.ultra.utils.ColorUtils;
-import cn.timer.ultra.utils.GradientUtil;
-import cn.timer.ultra.utils.RenderUtil;
+import cn.timer.ultra.utils.*;
 import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventRender2D;
-import cn.timer.ultra.utils.Stencil;
 import cn.timer.ultra.utils.jello.CircleManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HUD extends Module {
     public HUD() {
         super("HUD", Keyboard.KEY_NONE, Category.Render);
         this.setEnabled(true);
+        for (int i = 0; i < 2; i++) {
+            CatA[i] = new AnimationUtils();
+        }
     }
 
     public static CircleManager Wcircles = new CircleManager();
@@ -53,6 +57,19 @@ public class HUD extends Module {
         if (e.getKey() == mc.gameSettings.keyBindRight.getKeyCode()) {
             Dcircles.addCircle(x + 24 + 1 + 24 + 1 + 24 / 2f, y + 24 + 1 + 24 / 2f, 26, 5, mc.gameSettings.keyBindRight.getKeyCode());
         }
+
+        if (e.getKey() == Keyboard.KEY_UP) {
+            Client.instance.tabgui.keyUp();
+        }
+        if (e.getKey() == Keyboard.KEY_DOWN) {
+            Client.instance.tabgui.keyDown();
+        }
+        if (e.getKey() == Keyboard.KEY_LEFT) {
+            Client.instance.tabgui.keyLeft();
+        }
+        if (e.getKey() == Keyboard.KEY_RIGHT) {
+            Client.instance.tabgui.keyRight();
+        }
     }
 
     @EventTarget
@@ -76,7 +93,20 @@ public class HUD extends Module {
         Dcircles.runCircles();
         Lcircles.runCircles();
         Rcircles.runCircles();
+        if (Client.instance.tabgui.showModules) {
+            int categoryIndex = Client.instance.tabgui.currentCategory;
+            Category category = Client.instance.tabgui.cats.get(categoryIndex);
+            List<Module> modules = Client.instance.getModuleManager().getByCategory(category);
+            int size = modules.size();
+            int currentModule = category.selectedIndex;
+
+            category.lastSelectedTrans = category.selectedTrans;
+
+            category.selectedTrans += (((currentModule * 15) - category.selectedTrans) / (2.5f)) + 0.01;
+        }
     }
+
+    AnimationUtils[] CatA = new AnimationUtils[2];
 
     @EventTarget
     public void onRender(EventRender2D e) {
@@ -155,5 +185,92 @@ public class HUD extends Module {
             FontLoaders.jello18.drawString(module.getName(), width - moduleWidth - 1, y, ColorUtils.rainbow(y * -20000000L, 1).getRGB());
             y += FontLoaders.jello18.FONT_HEIGHT;
         }
+        if (Client.instance.getModuleManager().getByClass(TabGUI.class).isEnabled()) {
+            Module module = Client.instance.getModuleManager().getByClass(TabGUI.class);
+            float TabX = ((TabGUI) module).getXPosition();
+            float TabY = ((TabGUI) module).getYPosition();
+            mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUIShadow.png"));
+            Gui.drawModalRectWithCustomSizedTexture(TabX - 4.5f, TabY - 4.5f, 0, 0, 84, 86, 84, 86);
+            GlStateManager.disableAlpha();
+            GlStateManager.enableBlend();
+            GL11.glEnable(3042);
+            GL11.glColor4f(1, 1, 1, 1);
+
+            if (Client.instance.tabgui.showModules) {
+                int categoryIndex = Client.instance.tabgui.currentCategory;
+                Category category = Client.instance.tabgui.cats.get(categoryIndex);
+                java.util.List<Module> modules = Client.instance.getModuleManager().getByCategory(category);
+                int size = modules.size();
+
+                float trans = category.selectedTrans;
+                float lastTrans = category.lastSelectedTrans;
+
+                float smoothTrans = smoothTrans(trans, lastTrans);
+
+                if (size != 0) {
+                    GlStateManager.disableAlpha();
+                    GlStateManager.enableBlend();
+                    GL11.glEnable(3042);
+                    GL11.glColor4f(1, 1, 1, 1);
+
+                    mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUISelector.png"));
+                    Gui.drawModalRectWithCustomSizedTexture(TabX + 80, TabY + smoothTrans, 0, 0, 75 + 10, 17.5f, 75, 17.5f);
+                }
+                int y1 = 0;
+                for (Module m : modules) {
+                    if (y1 == 0) {
+                        mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUIShadow2.png"));
+                        Gui.drawModalRectWithCustomSizedTexture(TabX + 0.5f + 75, TabY - 4.5f, 0, 0, 84 + 10, 20, 84 + 10, 86);
+                    } else if (y1 == size - 1) {
+                        mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUIShadow2.png"));
+                        Gui.drawModalRectWithCustomSizedTexture(TabX + 0.5f + 75, TabY - 4.5f + 15 * y1 + 5f, 0, 64.5f, 84 + 10,
+                                20, 84 + 10, 86);
+                    } else {
+                        mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUIShadow2.png"));
+                        Gui.drawModalRectWithCustomSizedTexture(TabX + 0.5f + 75, TabY - 4.5f + 15 * y1 + 5f, 0, 30, 84 + 10, 15,
+                                84 + 10, 86);
+
+                    }
+                    if (m.isEnabled()) {
+                        FontLoaders.jelloB18.drawString(m.getName(), TabX + 80 + 11 / 2f, TabY + 15 * y1 + 5, -1);
+                    } else {
+                        CFontLoaders.jello18.drawString(m.getName(), TabX + 80 + 11 / 2f, TabY + 15 * y1 + 5, -1);
+                    }
+                    y1++;
+                }
+            }
+
+            for (Category c : Client.instance.tabgui.cats) {
+                boolean selected = c.equals(Client.instance.tabgui.cats.get(Client.instance.tabgui.currentCategory));
+                if (selected) {
+                    if (!Float.isFinite(Client.instance.tabgui.seenTrans)) {
+                        Client.instance.tabgui.seenTrans = 0;
+                    }
+                    Client.instance.tabgui.seenTrans += (((Client.instance.tabgui.currentCategory * 15) - Client.instance.tabgui.seenTrans)
+                            / (5 * Minecraft.getDebugFPS() * 0.04)) - 0.001;
+                    Client.instance.tabgui.seenTrans += (((Client.instance.tabgui.currentCategory * 15) - Client.instance.tabgui.seenTrans)
+                            / (5 * Minecraft.getDebugFPS() * 0.04)) - 0.001;
+                    mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUISelector.png"));
+                    Gui.drawModalRectWithCustomSizedTexture(TabX, TabY + Client.instance.tabgui.seenTrans, 0, 0, 75, 17, 75, 17);
+                }
+            }
+
+            int x = 0;
+            for (Category c : Client.instance.tabgui.cats) {
+                boolean selected = c.equals(Client.instance.tabgui.cats.get(Client.instance.tabgui.currentCategory));
+
+                if (!Float.isFinite(c.seenTrans)) {
+                    c.seenTrans = 0;
+                }
+                c.seenTrans = CatA[x].animate(selected ? 7 : 0, c.seenTrans, 0.1f);
+                mc.getTextureManager().bindTexture(new ResourceLocation("Jello/" + c.location + ".png"));
+                Gui.drawModalRectWithCustomSizedTexture(TabX + c.seenTrans, TabY + x * 15, 0, 0, 75, 17, 75, 17);
+                x++;
+            }
+        }
+    }
+
+    public float smoothTrans(double current, double last) {
+        return (float) (current * Minecraft.getMinecraft().timer.renderPartialTicks + (last * (1.0f - Minecraft.getMinecraft().timer.renderPartialTicks)));
     }
 }

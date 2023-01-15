@@ -5,6 +5,7 @@ import cn.timer.ultra.config.ConfigManager;
 import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
+import cn.timer.ultra.gui.tabgui.TabGUI;
 import cn.timer.ultra.module.ModuleManager;
 import cn.timer.ultra.utils.ColorUtil;
 import cn.timer.ultra.utils.RotationUtils;
@@ -19,6 +20,7 @@ public class Client {
     public static String NowConfig = "default";
     public ClickUIScreen clickGui;
     public MusicPlayerUI musicPlayerUI;
+    public TabGUI tabgui = new TabGUI();
     private ModuleManager moduleManager;
     private CommandManager commandManager;
     private ConfigManager configManager;
