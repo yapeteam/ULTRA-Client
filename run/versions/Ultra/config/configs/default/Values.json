@@ -33,14 +33,14 @@
     "Silent": true
   },
   "KeyStrokes": {
-    "posX": 15.0,
-    "posY": 147.0,
+    "posX": 6.0,
+    "posY": 175.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   },
   "TabGUI": {
-    "posX": 15.0,
-    "posY": 44.0,
+    "posX": 10.0,
+    "posY": 73.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   }

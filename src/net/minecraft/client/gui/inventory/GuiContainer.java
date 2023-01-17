@@ -132,9 +132,12 @@ public abstract class GuiContainer extends GuiScreen {
         int i = this.guiLeft;
         int j = this.guiTop;
         ScaledResolution sr = new ScaledResolution(this.mc);
-        GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
-        GlStateManager.scale(sc, sc, 0);
-        GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+
+        if (sc < 0.99f) {
+            GlStateManager.translate(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, 0);
+            GlStateManager.scale(sc, sc, 0);
+            GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
+        }
         this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         GlStateManager.disableRescaleNormal();
         RenderHelper.disableStandardItemLighting();
