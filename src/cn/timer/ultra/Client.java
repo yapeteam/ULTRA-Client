@@ -3,12 +3,15 @@ package cn.timer.ultra;
 import cn.timer.ultra.command.CommandManager;
 import cn.timer.ultra.config.ConfigManager;
 import cn.timer.ultra.event.EventManager;
+import cn.timer.ultra.event.EventTarget;
+import cn.timer.ultra.event.events.EventPreUpdate;
 import cn.timer.ultra.gui.ClickUI.ClickUIScreen;
 import cn.timer.ultra.gui.cloudmusic.ui.MusicPlayerUI;
 import cn.timer.ultra.gui.tabgui.TabGUI;
 import cn.timer.ultra.module.ModuleManager;
 import cn.timer.ultra.utils.ColorUtil;
 import cn.timer.ultra.utils.RotationUtils;
+import net.minecraft.client.Minecraft;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -41,7 +44,7 @@ public class Client {
         this.moduleManager.init();
         this.configManager.init();
 
-        EventManager.instance.register(this.moduleManager, this.commandManager);
+        EventManager.instance.register(instance, this.moduleManager, this.commandManager);
         this.configManager.load();
 
         try {
@@ -62,6 +65,15 @@ public class Client {
     public void Shutdown() {
         this.configManager.save();
         this.trayIcon.displayMessage("Ultra Client - Notification", "See you soon.", TrayIcon.MessageType.ERROR);
+    }
+
+    @EventTarget
+    private void onUpdate(EventPreUpdate e) {
+        Minecraft mc = Minecraft.getMinecraft();
+        if (mc.thePlayer == null) return;
+        if (/*mc.thePlayer.getItemInUseCount() > 0 && */mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+            mc.thePlayer.FakeSwingItem();
+        }
     }
 
     public ModuleManager getModuleManager() {

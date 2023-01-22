@@ -47,6 +47,7 @@ public class ModuleManager {
         this.modules.add(new Rotations());
         this.modules.add(new KeyStrokes());
         this.modules.add(new TabGUI());
+        this.modules.add(new ArmorStatus());
     }
 
     @EventTarget

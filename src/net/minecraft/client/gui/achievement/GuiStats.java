@@ -234,7 +234,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         {
             super(mcIn, GuiStats.this.width, GuiStats.this.height, 32, GuiStats.this.height - 64, 20);
             this.setShowSelectionBox(false);
-            this.setHasListHeader(true, 20);
+            this.setHasListHeader(20);
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)

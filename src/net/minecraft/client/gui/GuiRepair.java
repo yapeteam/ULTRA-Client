@@ -23,9 +23,9 @@ import org.lwjgl.input.Keyboard;
 public class GuiRepair extends GuiContainer implements ICrafting
 {
     private static final ResourceLocation anvilResource = new ResourceLocation("textures/gui/container/anvil.png");
-    private ContainerRepair anvil;
+    private final ContainerRepair anvil;
     private GuiTextField nameField;
-    private InventoryPlayer playerInventory;
+    private final InventoryPlayer playerInventory;
 
     public GuiRepair(InventoryPlayer inventoryIn, World worldIn)
     {
@@ -70,17 +70,17 @@ public class GuiRepair extends GuiContainer implements ICrafting
     {
         GlStateManager.disableLighting();
         GlStateManager.disableBlend();
-        this.fontRendererObj.drawString(I18n.format("container.repair", new Object[0]), 60, 6, 4210752);
+        this.fontRendererObj.drawString(I18n.format("container.repair"), 60, 6, 4210752);
 
         if (this.anvil.maximumCost > 0)
         {
             int i = 8453920;
             boolean flag = true;
-            String s = I18n.format("container.repair.cost", new Object[] {Integer.valueOf(this.anvil.maximumCost)});
+            String s = I18n.format("container.repair.cost", this.anvil.maximumCost);
 
             if (this.anvil.maximumCost >= 40 && !this.mc.thePlayer.capabilities.isCreativeMode)
             {
-                s = I18n.format("container.repair.expensive", new Object[0]);
+                s = I18n.format("container.repair.expensive");
                 i = 16736352;
             }
             else if (!this.anvil.getSlot(2).getHasStack())
@@ -94,7 +94,7 @@ public class GuiRepair extends GuiContainer implements ICrafting
 
             if (flag)
             {
-                int j = -16777216 | (i & 16579836) >> 2 | i & -16777216;
+                int j = -16777216 | (i & 16579836) >> 2;
                 int k = this.xSize - 8 - this.fontRendererObj.getStringWidth(s);
                 int l = 67;
 

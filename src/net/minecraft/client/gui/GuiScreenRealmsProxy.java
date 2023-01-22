@@ -10,7 +10,7 @@ import net.minecraft.realms.RealmsScreen;
 
 public class GuiScreenRealmsProxy extends GuiScreen
 {
-    private RealmsScreen field_154330_a;
+    private final RealmsScreen field_154330_a;
 
     public GuiScreenRealmsProxy(RealmsScreen p_i1087_1_)
     {

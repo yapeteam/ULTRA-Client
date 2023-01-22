@@ -33,8 +33,8 @@ public class GuiStreamOptions extends GuiScreen
     public void initGui()
     {
         int i = 0;
-        this.field_152319_i = I18n.format("options.stream.title", new Object[0]);
-        this.field_152313_r = I18n.format("options.stream.chat.title", new Object[0]);
+        this.field_152319_i = I18n.format("options.stream.title");
+        this.field_152313_r = I18n.format("options.stream.chat.title");
 
         for (GameSettings.Options gamesettings$options : field_152312_a)
         {
@@ -72,8 +72,8 @@ public class GuiStreamOptions extends GuiScreen
             ++i;
         }
 
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height / 6 + 168, 150, 20, I18n.format("gui.done", new Object[0])));
-        GuiButton guibutton = new GuiButton(201, this.width / 2 + 5, this.height / 6 + 168, 150, 20, I18n.format("options.stream.ingestSelection", new Object[0]));
+        this.buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height / 6 + 168, 150, 20, I18n.format("gui.done")));
+        GuiButton guibutton = new GuiButton(201, this.width / 2 + 5, this.height / 6 + 168, 150, 20, I18n.format("options.stream.ingestSelection"));
         guibutton.enabled = this.mc.getTwitchStream().isReadyToBroadcast() && this.mc.getTwitchStream().func_152925_v().length > 0 || this.mc.getTwitchStream().func_152908_z();
         this.buttonList.add(guibutton);
     }

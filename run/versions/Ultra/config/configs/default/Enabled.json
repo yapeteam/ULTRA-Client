@@ -3,7 +3,7 @@
     "enable": false
   },
   "Derp": {
-    "enable": true
+    "enable": false
   },
   "ClickGUI": {
     "enable": false
@@ -42,6 +42,9 @@
     "enable": true
   },
   "TabGUI": {
+    "enable": true
+  },
+  "ArmorStatus": {
     "enable": true
   }
 }

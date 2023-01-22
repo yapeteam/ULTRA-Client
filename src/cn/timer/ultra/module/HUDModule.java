@@ -109,6 +109,8 @@ public abstract class HUDModule extends Module {
         return subYPosition.getValueF();
     }
 
+    private float dragX, dragY;
+
     public void onGuiScreen(EventDrawGui e) {
         ScaledResolution sr = new ScaledResolution(mc);
         subXPosition.setMax(sr.getScaledWidth() - width);
@@ -116,15 +118,19 @@ public abstract class HUDModule extends Module {
         if (e.getCurrentScreen() == Client.instance.clickGui) {
             drawOutline(e.getMouseX(), e.getMouseY());
             updateAlpha(isHovering(e.getMouseX(), e.getMouseY()));
-            if (isHovering(e.getMouseX(), e.getMouseY()) && Mouse.isButtonDown(0)) {
+            if (isHovering(e.getMouseX(), e.getMouseY()) && Mouse.isButtonDown(0) && !this.dragging) {
                 this.dragging = true;
+                this.dragX = e.getMouseX() - this.subXPosition.getValue();
+                this.dragY = e.getMouseY() - this.subYPosition.getValue();
             }
             if (!Mouse.isButtonDown(0)) {
                 this.dragging = false;
             }
             if (dragging) {
-                if (horizontalFacing.getValue().equals("Free")) this.subXPosition.setValue((float) e.getMouseX());
-                if (verticalFacing.getValue().equals("Free")) this.subYPosition.setValue((float) e.getMouseY());
+                if (horizontalFacing.getValue().equals("Free"))
+                    this.subXPosition.setValue((float) e.getMouseX() - this.dragX);
+                if (verticalFacing.getValue().equals("Free"))
+                    this.subYPosition.setValue((float) e.getMouseY() - this.dragY);
             }
         }
     }

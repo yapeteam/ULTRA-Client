@@ -45,7 +45,6 @@ public class GuiNewChat extends Gui {
                     flag = true;
                 }
                 final float f2 = this.getChatScale();
-                final int l = MathHelper.ceiling_float_int(this.getChatWidth() / f2);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(2.0f, 20.0f, 0.0f);
                 GlStateManager.scale(f2, f2, 1.0f);

@@ -43,5 +43,8 @@
   },
   "TabGUI": {
     "key": 0
+  },
+  "ArmorStatus": {
+    "key": 0
   }
 }

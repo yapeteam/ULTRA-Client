@@ -14,7 +14,7 @@
     "posX": 0.0,
     "posY": 259.0,
     "HorizontalFacing": "Middle",
-    "VerticalFacing": "Free",
+    "VerticalFacing": "Middle",
     "Show Background": false
   },
   "FPS": {
@@ -27,20 +27,26 @@
   "MusicPlayer": {},
   "MusicOverlay": {},
   "MotionBlur": {
-    "FrameMultiplier": 1.8354445695877075
+    "FrameMultiplier": 3.088608980178833
   },
   "Rotations": {
     "Silent": true
   },
   "KeyStrokes": {
-    "posX": 6.0,
-    "posY": 175.0,
+    "posX": 4.0,
+    "posY": 130.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   },
   "TabGUI": {
-    "posX": 10.0,
-    "posY": 73.0,
+    "posX": 9.0,
+    "posY": 51.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free"
+  },
+  "ArmorStatus": {
+    "posX": 12.0,
+    "posY": 224.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   }

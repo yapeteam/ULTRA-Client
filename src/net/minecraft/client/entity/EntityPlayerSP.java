@@ -13,7 +13,6 @@ import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiRepair;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
@@ -337,9 +336,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void closeScreenAndDropStack() {
-        this.inventory.setItemStack((ItemStack) null);
+        this.inventory.setItemStack(null);
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen) null);
+        this.mc.displayGuiScreen(null);
     }
 
     /**
@@ -418,9 +417,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     protected boolean pushOutOfBlocks(double x, double y, double z) {
-        if (this.noClip) {
-            return false;
-        } else {
+        if (!this.noClip) {
             BlockPos blockpos = new BlockPos(x, y, z);
             double d0 = x - (double) blockpos.getX();
             double d1 = z - (double) blockpos.getZ();
@@ -445,31 +442,30 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 }
 
                 if (this.isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
-                    d2 = 1.0D - d1;
                     i = 5;
                 }
 
                 float f = 0.1F;
 
                 if (i == 0) {
-                    this.motionX = (double) (-f);
+                    this.motionX = -f;
                 }
 
                 if (i == 1) {
-                    this.motionX = (double) f;
+                    this.motionX = f;
                 }
 
                 if (i == 4) {
-                    this.motionZ = (double) (-f);
+                    this.motionZ = -f;
                 }
 
                 if (i == 5) {
-                    this.motionZ = (double) f;
+                    this.motionZ = f;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     /**
@@ -657,7 +653,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.inPortal) {
             if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame()) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
             if (this.timeInPortal == 0.0F) {
