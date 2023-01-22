@@ -4,6 +4,9 @@ import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventDrawGui;
 import cn.timer.ultra.event.events.EventKey;
 import cn.timer.ultra.event.events.EventRender2D;
+import cn.timer.ultra.module.modules.cheat.AntiInvisible;
+import cn.timer.ultra.module.modules.cheat.Criticals;
+import cn.timer.ultra.module.modules.cheat.KillAura;
 import cn.timer.ultra.module.modules.player.*;
 import cn.timer.ultra.module.modules.render.*;
 
@@ -13,23 +16,6 @@ public class ModuleManager {
     public final ArrayList<Module> modules = new ArrayList<>();
 
     public void init() {
-        /*//Combat
-        this.modules.add(new Criticals());
-        this.modules.add(new KillAura());
-        this.modules.add(new Velocity());
-        //Movement
-        this.modules.add(new Fly());
-        this.modules.add(new InvMove());
-        this.modules.add(new NoSlow());
-        this.modules.add(new Speed());
-        this.modules.add(new Sprint());
-        this.modules.add(new Step());
-        //Player
-        this.modules.add(new NoFall());
-        //World
-        this.modules.add(new Scaffold());
-        */
-
         //Player
         this.modules.add(new MicrosoftAuthLogin());
         this.modules.add(new Derp());
@@ -48,6 +34,10 @@ public class ModuleManager {
         this.modules.add(new KeyStrokes());
         this.modules.add(new TabGUI());
         this.modules.add(new ArmorStatus());
+        //Cheat
+        this.modules.add(new KillAura());
+        this.modules.add(new Criticals());
+        this.modules.add(new AntiInvisible());
     }
 
     @EventTarget
@@ -67,11 +57,11 @@ public class ModuleManager {
     }
 
     public ArrayList<Module> getByCategory(Category currentCategory) {
-        ArrayList<Module> Cmodules = new ArrayList<>();
-        for (Module module : modules)
+        ArrayList<Module> modules = new ArrayList<>();
+        for (Module module : this.modules)
             if (module.getCategory() == currentCategory)
-                Cmodules.add(module);
-        return Cmodules;
+                modules.add(module);
+        return modules;
     }
 
     @EventTarget

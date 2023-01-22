@@ -4,8 +4,9 @@ public enum Category {
     /*Combat,
     Movement,*/
     Render(0,"Render"),
-    Player(1,"Player");
-    public final String location;
+    Player(1,"Player"),
+    Cheat(2,"Cheat");
+    public final String name;
     //World
     final int index;
     public int selectedIndex;
@@ -15,7 +16,7 @@ public enum Category {
 
     Category(int index, String name) {
         this.index = index;
-        this.location = name;
+        this.name = name;
     }
 
     public int getIndex() {

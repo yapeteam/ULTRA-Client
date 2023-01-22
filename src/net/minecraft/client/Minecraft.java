@@ -1576,11 +1576,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             } catch (Throwable throwable1) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
-                crashreportcategory.addCrashSectionCallable("Screen name", new Callable<String>() {
-                    public String call() throws Exception {
-                        return Minecraft.this.currentScreen.getClass().getCanonicalName();
-                    }
-                });
+                crashreportcategory.addCrashSectionCallable("Screen name", () -> Minecraft.this.currentScreen.getClass().getCanonicalName());
                 throw new ReportedException(crashreport);
             }
 

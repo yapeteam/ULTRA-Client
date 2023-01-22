@@ -12,6 +12,7 @@ import cn.timer.ultra.module.ModuleManager;
 import cn.timer.ultra.utils.ColorUtil;
 import cn.timer.ultra.utils.RotationUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class Client {
     public RotationUtils rotationUtils = new RotationUtils();
 
     public static void renderMsg(String s) {
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(s));
     }
 
     public void Startup() {
@@ -48,7 +50,7 @@ public class Client {
         this.configManager.load();
 
         try {
-            this.trayIcon = new TrayIcon(ImageIO.read(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/client/logob.png"))));
+            this.trayIcon = new TrayIcon(ImageIO.read(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/client/logo.png"))));
         } catch (Exception var4) {
             var4.printStackTrace();
         }
@@ -71,7 +73,7 @@ public class Client {
     private void onUpdate(EventPreUpdate e) {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.thePlayer == null) return;
-        if (/*mc.thePlayer.getItemInUseCount() > 0 && */mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        if (mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()) {
             mc.thePlayer.FakeSwingItem();
         }
     }
@@ -85,7 +87,7 @@ public class Client {
     }
 
     public ConfigManager getConfigManager() {
-        return configManager;
+        return this.configManager;
     }
 
     public final Color getClientColor() {

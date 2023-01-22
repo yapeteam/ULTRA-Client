@@ -120,12 +120,11 @@ public class CustomItems {
             astring = (String[]) ((String[]) Config.addObjectsToArray(astring, astring1));
         }
 
-        Arrays.sort((Object[]) astring);
+        Arrays.sort(astring);
         List list = makePropertyList(itemProperties);
         List list1 = makePropertyList(enchantmentProperties);
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             Config.dbg("CustomItems: " + s);
 
             try {

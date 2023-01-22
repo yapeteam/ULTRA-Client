@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.chest.combat;
+package cn.timer.ultra.module.modules.cheat;
 
 import cn.timer.ultra.Client;
 import cn.timer.ultra.module.Category;
@@ -13,9 +13,6 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.util.MathHelper;
@@ -33,10 +30,13 @@ public class KillAura extends Module {
     private final Booleans autoBlock = new Booleans("AutoBlock", false);
     private final Mode<String> priority = new Mode<>("Priority", new String[]{"Distance", "Health"}, "Distance");
     private final Numbers<Double> cps = new Numbers<>("CPS", 1.0, 20.0, 0.2, 10.0);
+    private final Booleans playerOnly = new Booleans("PlayerOnly", false);
+    private final Booleans team = new Booleans("Team", true);
+    private final Booleans attackInvisibleEntity = new Booleans("AttackInvisibleEntity", true);
 
     public KillAura() {
-        super("KillAura", Keyboard.KEY_R, Category.Combat);
-        this.addValues(this.priority, this.range, this.autoBlock, this.cps);
+        super("KillAura", Keyboard.KEY_R, Category.Cheat);
+        this.addValues(this.priority, this.range, this.autoBlock, this.cps, this.playerOnly, this.team, this.attackInvisibleEntity);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class KillAura extends Module {
 
     @EventTarget
     public void onPre(EventPreUpdate e) {//Pre获取目标
-        if (this.target instanceof EntityPlayer || this.target instanceof EntityAnimal || this.target instanceof EntityMob || this.target instanceof EntityVillager) {
+        if (this.target instanceof EntityLivingBase) {
             this.target = null;
         }
         this.targets = mc.theWorld.loadedEntityList.stream().filter(entity -> mc.thePlayer.getDistanceToEntity(entity) <= this.range.getValue() && this.isTarget(entity)).collect(Collectors.toList());//4.2为距离
@@ -83,7 +83,7 @@ public class KillAura extends Module {
     @EventTarget
     public void onPost(EventPostUpdate e) {//Post攻击
         if (this.target != null && this.shouldAttack()) {
-            Criticals criticals = (Criticals) Client.instance.getModuleManager().getModuleByName("Criticals");
+            Criticals criticals = (Criticals) Client.instance.getModuleManager().getByClass(Criticals.class);
             if (criticals.isEnabled()) {
                 criticals.packetCriticals();
             }
@@ -98,11 +98,11 @@ public class KillAura extends Module {
     }
 
     private boolean shouldAttack() {
-        return System.currentTimeMillis() - this.cpsTicker >= 1000 / cps.getValue();//cps
+        return System.currentTimeMillis() - this.cpsTicker >= 1000 / cps.getValue() && (!(this.target instanceof EntityPlayer) || mc.thePlayer.getTeam() != ((EntityPlayer) this.target).getTeam() || !this.team.getValue()) && (!this.playerOnly.getValue() || (this.target instanceof EntityPlayer)) && (this.attackInvisibleEntity.getValue() || !this.target.isInvisible());//cps & player
     }
 
     private boolean isTarget(Entity target) {
-        return target != mc.thePlayer && (target instanceof EntityPlayer || target instanceof EntityAnimal || target instanceof EntityMob || target instanceof EntityVillager);
+        return target != mc.thePlayer && (target instanceof EntityLivingBase);
     }
 
     @Override

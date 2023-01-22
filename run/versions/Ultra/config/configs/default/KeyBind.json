@@ -46,5 +46,14 @@
   },
   "ArmorStatus": {
     "key": 0
+  },
+  "KillAura": {
+    "key": 19
+  },
+  "Criticals": {
+    "key": 0
+  },
+  "AntiInvisible": {
+    "key": 0
   }
 }

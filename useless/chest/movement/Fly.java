@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.chest.movement;
+package cn.timer.ultra.module.modules.cheat.movement;
 
 import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventMove;

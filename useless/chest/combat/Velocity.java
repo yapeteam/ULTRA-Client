@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.chest.combat;
+package cn.timer.ultra.module.modules.cheat.combat;
 
 import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventPacketReceive;

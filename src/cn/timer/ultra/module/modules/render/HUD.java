@@ -28,7 +28,7 @@ public class HUD extends Module {
     public HUD() {
         super("HUD", Keyboard.KEY_NONE, Category.Render);
         this.setEnabled(true);
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < Category.values().length; i++) {
             CatA[i] = new AnimationUtils();
         }
     }
@@ -97,7 +97,6 @@ public class HUD extends Module {
             int categoryIndex = Client.instance.tabgui.currentCategory;
             Category category = Client.instance.tabgui.cats.get(categoryIndex);
             List<Module> modules = Client.instance.getModuleManager().getByCategory(category);
-            int size = modules.size();
             int currentModule = category.selectedIndex;
 
             category.lastSelectedTrans = category.selectedTrans;
@@ -106,7 +105,7 @@ public class HUD extends Module {
         }
     }
 
-    AnimationUtils[] CatA = new AnimationUtils[2];
+    AnimationUtils[] CatA = new AnimationUtils[Category.values().length];
 
     @EventTarget
     public void onRender(EventRender2D e) {
@@ -263,8 +262,9 @@ public class HUD extends Module {
                     c.seenTrans = 0;
                 }
                 c.seenTrans = CatA[x].animate(selected ? 7 : 0, c.seenTrans, 0.1f);
-                mc.getTextureManager().bindTexture(new ResourceLocation("Jello/" + c.location + ".png"));
-                Gui.drawModalRectWithCustomSizedTexture(TabX + c.seenTrans, TabY + x * 15, 0, 0, 75, 17, 75, 17);
+                //mc.getTextureManager().bindTexture(new ResourceLocation("Jello/" + c.name + ".png"));
+                //Gui.drawModalRectWithCustomSizedTexture(TabX + c.seenTrans, TabY + x * 15, 0, 0, 75, 17, 75, 17);
+                CFontLoaders.jello21.drawString(c.name, TabX + c.seenTrans + 4, TabY + x * 15 + (17 - CFontLoaders.jello21.getHeight()) / 2f, -1);
                 x++;
             }
         }

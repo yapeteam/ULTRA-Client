@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.chest.world;
+package cn.timer.ultra.module.modules.cheat.world;
 
 import cn.timer.ultra.event.EventTarget;
 import cn.timer.ultra.event.events.EventPreUpdate;

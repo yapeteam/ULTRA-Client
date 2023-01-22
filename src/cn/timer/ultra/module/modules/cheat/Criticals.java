@@ -1,4 +1,4 @@
-package cn.timer.ultra.module.modules.chest.combat;
+package cn.timer.ultra.module.modules.cheat;
 
 import cn.timer.ultra.module.Category;
 import cn.timer.ultra.module.Module;
@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 
 public class Criticals extends Module {
     public Criticals() {
-        super("Criticals", Keyboard.KEY_NONE, Category.Combat);
+        super("Criticals", Keyboard.KEY_NONE, Category.Cheat);
     }
 
     void packetCriticals() {

@@ -49,5 +49,16 @@
     "posY": 224.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
-  }
+  },
+  "KillAura": {
+    "Priority": "Distance",
+    "Range": 4.2,
+    "AutoBlock": false,
+    "CPS": 10.0,
+    "PlayerOnly": false,
+    "Team": true,
+    "attackInvisibleEntity": true
+  },
+  "Criticals": {},
+  "AntiInvisible": {}
 }

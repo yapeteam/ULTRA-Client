@@ -76,7 +76,7 @@ public class GuiNewChat extends Gui {
                                 }
                                 //RenderUtil.drawRect(i3, j3 - 9, i3 + l + 4, j3, l2 / 2 << 24);
                                 GlStateManager.enableBlend();
-                                font.drawString(s, i3 + chatline.x - width, (float) (j3 - 8), new Color(255, 255, 255, (int) (chatline.x / width * 255.0f)).getRGB());
+                                font.drawString(s, i3 + chatline.x - width, (float) (j3 - 8), new Color(255, 255, 255, (int) (chatline.x / width * 255.0f)).getRGB(),true);
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
