@@ -1,13 +1,11 @@
 package net.minecraft.client.gui;
 
 import cn.timer.ultra.utils.BlurUtil;
-import cn.timer.ultra.utils.RenderUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import java.awt.Toolkit;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -15,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +30,6 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
@@ -410,7 +406,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      */
-
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
             for (int i = 0; i < this.buttonList.size(); ++i) { // WARNING: Never believe IDEA!

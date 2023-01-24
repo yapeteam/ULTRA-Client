@@ -1,6 +1,8 @@
 package cn.timer.ultra.module.modules.render;
 
 import cn.timer.ultra.event.EventTarget;
+import cn.timer.ultra.event.events.EventClick;
+import cn.timer.ultra.event.events.EventLoop;
 import cn.timer.ultra.event.events.EventPreUpdate;
 import cn.timer.ultra.event.events.EventRender2D;
 import cn.timer.ultra.gui.Font.FontLoaders;
@@ -53,11 +55,11 @@ public class CPSModule extends HUDModule {
     }
 
     @EventTarget
-    private void onClick(EventPreUpdate cBClickEvent) {
-        if (Mouse.isButtonDown(0)) {
+    private void onClick(EventClick cBClickEvent) {
+        if (cBClickEvent.getMouseButton() == 0) {
             this.Lclicks.add(System.currentTimeMillis());
         }
-        if (Mouse.isButtonDown(1)) {
+        if (cBClickEvent.getMouseButton() == 1) {
             this.Rclicks.add(System.currentTimeMillis());
         }
     }
