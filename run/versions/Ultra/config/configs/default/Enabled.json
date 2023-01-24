@@ -48,7 +48,7 @@
     "enable": true
   },
   "KillAura": {
-    "enable": true
+    "enable": false
   },
   "Criticals": {
     "enable": false

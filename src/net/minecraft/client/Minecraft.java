@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cn.timer.ultra.Client;
 import cn.timer.ultra.event.EventManager;
+import cn.timer.ultra.event.events.EventClick;
 import cn.timer.ultra.event.events.EventKey;
 import cn.timer.ultra.event.events.EventLoop;
 import cn.timer.ultra.event.events.EventTick;
@@ -458,8 +459,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             return;
         }
 
-        while (true)
-        {
+        while (true) {
             try {
                 while (this.running) {
                     if (!this.hasCrashed || this.crashReporter == null) {
@@ -1604,6 +1604,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         this.ingameGUI.getSpectatorGui().func_175261_b();
                     } else {
                         KeyBinding.onTick(i - 100);
+                        EventManager.instance.call(new EventClick(i));
                     }
                 }
 

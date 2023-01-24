@@ -57,7 +57,7 @@
     "CPS": 10.0,
     "PlayerOnly": false,
     "Team": true,
-    "attackInvisibleEntity": true
+    "AttackInvisibleEntity": true
   },
   "Criticals": {},
   "AntiInvisible": {}
