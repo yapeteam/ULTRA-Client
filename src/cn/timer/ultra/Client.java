@@ -19,7 +19,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Client {
-    public static final String CLIENT_NAME = "Ultra";
+    public static final String CLIENT_NAME = "Ultra-Client";
     public static Client instance = new Client();
     public static String NowConfig = "default";
     public ClickUIScreen clickGui;
