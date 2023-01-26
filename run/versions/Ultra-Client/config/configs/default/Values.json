@@ -1,0 +1,64 @@
+{
+  "MicrosoftAuthLogin": {},
+  "Derp": {
+    "Spiny": true,
+    "Increment": 1.0,
+    "Fake Derp": true
+  },
+  "ClickGUI": {},
+  "FreeCam": {},
+  "SnapLook": {},
+  "FreeLook": {},
+  "HUD": {},
+  "CPS": {
+    "posX": 387.0,
+    "posY": 55.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free",
+    "Show Background": true
+  },
+  "FPS": {
+    "posX": 383.0,
+    "posY": 27.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free",
+    "Show Background": true
+  },
+  "MusicPlayer": {},
+  "MusicOverlay": {},
+  "MotionBlur": {
+    "FrameMultiplier": 0.0
+  },
+  "Rotations": {
+    "Silent": true
+  },
+  "KeyStrokes": {
+    "posX": 15.0,
+    "posY": 207.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free"
+  },
+  "TabGUI": {
+    "posX": 15.0,
+    "posY": 107.0,
+    "HorizontalFacing": "Free",
+    "VerticalFacing": "Free"
+  },
+  "ArmorStatus": {
+    "posX": 0.0,
+    "posY": 0.0,
+    "HorizontalFacing": "Right",
+    "VerticalFacing": "Bottom"
+  },
+  "KillAura": {
+    "Priority": "Distance",
+    "Range": 4.2,
+    "AutoBlock": false,
+    "CPS": 10.0,
+    "PlayerOnly": false,
+    "Team": true,
+    "AttackInvisibleEntity": true
+  },
+  "Criticals": {},
+  "AntiInvisible": {}
+}

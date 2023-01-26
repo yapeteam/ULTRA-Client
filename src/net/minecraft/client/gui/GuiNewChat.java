@@ -31,7 +31,7 @@ public class GuiNewChat extends Gui {
         this.mc = mcIn;
     }
 
-    static final cn.timer.ultra.gui.Font.FontRenderer font = FontLoaders.jello18;
+    static final cn.timer.ultra.gui.Font.FontRenderer font = FontLoaders.msFont18;
 
     public void drawChat(final int p_146230_1_) {
         if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {

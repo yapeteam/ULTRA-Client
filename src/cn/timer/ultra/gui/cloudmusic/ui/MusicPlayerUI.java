@@ -4,6 +4,7 @@ import cn.timer.ultra.Client;
 import cn.timer.ultra.gui.cloudmusic.MusicManager;
 import cn.timer.ultra.gui.cloudmusic.api.CloudMusicAPI;
 import cn.timer.ultra.gui.cloudmusic.impl.Track;
+import cn.timer.ultra.utils.AnimationUtils;
 import cn.timer.ultra.utils.ColorUtils;
 import cn.timer.ultra.utils.RenderUtil;
 import javafx.embed.swing.JFXPanel;
@@ -52,19 +53,18 @@ public class MusicPlayerUI extends GuiScreen {
         super.initGui();
     }
 
+    AnimationUtils animationUtils = new AnimationUtils();
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
         //侧边栏
-        sidebarAnimation = width + 5;
-
-        if (Math.ceil(sidebarAnimation) > 1) {
+        sidebarAnimation = animationUtils.animate(extended ? width + 5 : 0, sidebarAnimation, 0.2f);
+        if (sidebarAnimation > 0) {
             float newX = x + sidebarAnimation;
             float newWidth = x + width + sidebarAnimation;
             RenderUtil.drawRoundedRect(newX, y, newWidth, y + height, 2, 0xff2f3136);
 
             //歌单导入输入框
-
             textField.draw(newX + 6, y + 2);
             RenderUtil.drawRoundedRect(newWidth - 26, y + 5, newWidth - 7, y + 17, 2, RenderUtil.isHovering(newWidth - 26, y + 5, newWidth - 7, y + 17, mouseX, mouseY) || MusicManager.INSTANCE.analyzeThread != null ? new Color(80, 80, 80).getRGB() : 0xff34373c);
             Minecraft.getMinecraft().fontRendererObj.drawString("导入", (int) (newWidth - 23f), (int) (y + 6f), Color.GRAY.getRGB());
@@ -87,11 +87,14 @@ public class MusicPlayerUI extends GuiScreen {
                 Mouse.getDWheel(); //用于刷新滚轮数据
             }
 
-            scrollAni=scrollY;
+            scrollAni = scrollY;
             float startY = y + 21 + this.scrollAni;
             float yShouldbe = 0;
             //RenderUtil.startGLScissor((int) (newX + 6), (int) (y + 21), 137, 224, false, 1f);
             //RenderUtil.drawRect(newX + 6, y + 21, newX + 143, y + 245, Colors.GREEN.c);
+
+            GL11.glEnable(GL11.GL_SCISSOR_TEST);
+            RenderUtil.doGlScissor(x + sidebarAnimation, y + 21, width, height - 21);
 
             for (TrackSlot s : slots) {
                 if (startY > y && startY < y + height - 4) {
@@ -100,6 +103,7 @@ public class MusicPlayerUI extends GuiScreen {
                 startY += 22;
                 yShouldbe += 22;
             }
+            GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
             //RenderUtil.endGLScissor();
 
@@ -127,6 +131,9 @@ public class MusicPlayerUI extends GuiScreen {
         } else {
             Mouse.getDWheel(); //用于刷新滚轮数据
         }
+
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        RenderUtil.doGlScissor(x, y, width, height);
 
         //主框架
         RenderUtil.drawRoundedRect(x, y, x + width, y + height, 2, 0xff2f3136);
@@ -214,13 +221,14 @@ public class MusicPlayerUI extends GuiScreen {
         //RenderUtil.drawOutlinedRect(x + width - 15, y + 5, x + width - 5, y + 15, .5f, Color.RED.getRGB()); //展开侧栏
         //RenderUtil.drawOutlinedRect(x + 5, y + 5, x + 15, y + 15, .5f, Color.RED.getRGB()); //二维码登录
         //RenderUtil.drawOutlinedRect(x + width - 20, y + height - 29, x + width - 10, y + height - 19, .5f, Color.RED.getRGB()); //单曲循环
-        RenderUtil.drawOutlinedRect(x + 10, y + height - 29, x + 20, y + height - 19, .5f, Color.RED.getRGB()); //歌词按钮
+        //RenderUtil.drawOutlinedRect(x + 10, y + height - 29, x + 20, y + height - 19, .5f, Color.RED.getRGB()); //歌词按钮
         //RenderUtil.drawOutlinedRect(x + (width / 2) - 12, y + height - 36, x + (width / 2) + 12, y + height - 12, .5f, Color.RED.getRGB()); //播放和暂停
         //RenderUtil.drawOutlinedRect(x + 39, y + height - 32, x + 55, y + height - 16, .5f, Color.RED.getRGB()); //上一曲
         //RenderUtil.drawOutlinedRect(x + 96, y + height - 32, x + 112, y + height - 16, .5f, Color.RED.getRGB()); //下一曲
 
         this.dragWindow(mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
     }
 
     @Override

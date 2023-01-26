@@ -28,6 +28,45 @@ public class RenderUtil {
         }
     }
 
+    public static void drawTexturedRect(final float x, final float y, final float width, final float height, final String image) {
+        GL11.glPushMatrix();
+        final boolean enableBlend = GL11.glIsEnabled(3042);
+        final boolean disableAlpha = !GL11.glIsEnabled(3008);
+        if (!enableBlend) {
+            GL11.glEnable(3042);
+        }
+        if (!disableAlpha) {
+            GL11.glDisable(3008);
+        }
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("client/" + image + ".png"));
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0f, 0.0f, (int) width, (int) height, width, height);
+        if (!enableBlend) {
+            GL11.glDisable(3042);
+        }
+        if (!disableAlpha) {
+            GL11.glEnable(3008);
+        }
+        GL11.glPopMatrix();
+    }
+
+    public static void drawShadow(final float x, final float y, final float width, final float height) {
+        drawTexturedRect(x - 9.0f, y - 9.0f, 9.0f, 9.0f, "shadow/paneltopleft");
+        drawTexturedRect(x - 9.0f, y + height, 9.0f, 9.0f, "shadow/panelbottomleft");
+        drawTexturedRect(x + width, y + height, 9.0f, 9.0f, "shadow/panelbottomright");
+        drawTexturedRect(x + width, y - 9.0f, 9.0f, 9.0f, "shadow/paneltopright");
+        drawTexturedRect(x - 9.0f, y, 9.0f, height, "shadow/panelleft");
+        drawTexturedRect(x + width, y, 9.0f, height, "shadow/panelright");
+        drawTexturedRect(x, y - 9.0f, width, 9.0f, "shadow/paneltop");
+        drawTexturedRect(x, y + height, width, 9.0f, "shadow/panelbottom");
+    }
+
+    public static void drawShadow2(final float left, final float top, final float right, final float bottom) {
+        final float width = right - left;
+        final float height = bottom - top;
+        drawShadow(left, top, width, height);
+    }
+
     public static void resetCaps() {
         for (int i = 0; i < 40000; i++)
             GL11.glDisable(i);
@@ -313,10 +352,10 @@ public class RenderUtil {
     }
 
     public static void drawRoundedRect(double x, double y, double right, double bottom, double round, int color) {
-        x = (float) ((double) x + ((double) (round / 2.0f) + 0.5));
-        y = (float) ((double) y + ((double) (round / 2.0f) + 0.5));
-        right = (float) ((double) right - ((double) (round / 2.0f) + 0.5));
-        bottom = (float) ((double) bottom - ((double) (round / 2.0f) + 0.5));
+        x = (float) (x + ((round / 2.0f) + 0.5));
+        y = (float) (y + ((round / 2.0f) + 0.5));
+        right = (float) (right - ((round / 2.0f) + 0.5));
+        bottom = (float) (bottom - ((round / 2.0f) + 0.5));
         RenderUtil.drawRect(x, y, right, bottom, color);
         RenderUtil.circle(right - round / 2.0f, y + round / 2.0f, round, color);
         RenderUtil.circle(x + round / 2.0f, bottom - round / 2.0f, round, color);
@@ -328,20 +367,22 @@ public class RenderUtil {
         RenderUtil.drawRect(x + round / 2.0f, y, right - round / 2.0f, bottom + round / 2.0f + 0.5f, color);
     }
 
-    public static void drawRoundedRect2(float x, float y, float x2, float y2, final float round, final int color) {
-        x += (float) (round / 2.0f + 0.5);
-        y += (float) (round / 2.0f + 0.5);
-        x2 -= (float) (round / 2.0f + 0.5);
-        y2 -= (float) (round / 2.0f + 0.5);
-        drawRect(x, y, x2, y2, color);
-        circle(x2 - round / 2.0f, y + round / 2.0f, round, color);
-        circle(x + round / 2.0f, y2 - round / 2.0f, round, color);
-        circle(x + round / 2.0f, y + round / 2.0f, round, color);
-        circle(x2 - round / 2.0f, y2 - round / 2.0f, round, color);
-        drawRect(x - round / 2.0f - 0.5f, y + round / 2.0f, x2, y2 - round / 2.0f, color);
-        drawRect(x, y + round / 2.0f, x2 + round / 2.0f + 0.5f, y2 - round / 2.0f, color);
-        drawRect(x + round / 2.0f, y - round / 2.0f - 0.5f, x2 - round / 2.0f, y2 - round / 2.0f, color);
-        drawRect(x + round / 2.0f, y, x2 - round / 2.0f, y2 + round / 2.0f + 0.5f, color);
+    public static void drawRoundedRect2(float x, float y, float width, float height, final float round, final int color) {
+        float right = (float) getRight(x, width);
+        float bottom = (float) getBottom(y, height);
+        x = (float) (x + ((round / 2.0f) + 0.5));
+        y = (float) (y + ((round / 2.0f) + 0.5));
+        right = (float) (right - ((round / 2.0f) + 0.5));
+        bottom = (float) (bottom - ((round / 2.0f) + 0.5));
+        RenderUtil.drawRect(x, y, right, bottom, color);
+        RenderUtil.circle(right - round / 2.0f, y + round / 2.0f, round, color);
+        RenderUtil.circle(x + round / 2.0f, bottom - round / 2.0f, round, color);
+        RenderUtil.circle(x + round / 2.0f, y + round / 2.0f, round, color);
+        RenderUtil.circle(right - round / 2.0f, bottom - round / 2.0f, round, color);
+        RenderUtil.drawRect(x - round / 2.0f - 0.5f, y + round / 2.0f, right, bottom - round / 2.0f, color);
+        RenderUtil.drawRect(x, y + round / 2.0f, right + round / 2.0f + 0.5f, bottom - round / 2.0f, color);
+        RenderUtil.drawRect(x + round / 2.0f, y - round / 2.0f - 0.5f, right - round / 2.0f, bottom - round / 2.0f, color);
+        RenderUtil.drawRect(x + round / 2.0f, y, right - round / 2.0f, bottom + round / 2.0f + 0.5f, color);
     }
 
     public static void drawRoundedRect2(float x, float y, float x1, float y1, int color) {
@@ -349,6 +390,38 @@ public class RenderUtil {
         circle(x + r, y + r, r - 0.5f, color);
         circle(x1 - r, y + r, r - 0.5f, color);
         drawRect(x + r, y, x1 - r, y1, color);
+    }
+
+    public static double getX(double left) {
+        return left;
+    }
+
+    public static double getY(double top) {
+        return top;
+    }
+
+    public static double getWidth(double right, double x) {
+        return right - x;
+    }
+
+    public static double getHeight(double bottom, double y) {
+        return bottom - y;
+    }
+
+    public static double getLeft(double x) {
+        return x;
+    }
+
+    public static double getTop(double y) {
+        return y;
+    }
+
+    public static double getRight(double x, double width) {
+        return x + width;
+    }
+
+    public static double getBottom(double y, double height) {
+        return y + height;
     }
 
     public static void doGlScissor(final float x, final float y, final float windowWidth2, final float windowHeight2) {

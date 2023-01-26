@@ -1,0 +1,59 @@
+{
+  "MicrosoftAuthLogin": {
+    "key": 0
+  },
+  "Derp": {
+    "key": 0
+  },
+  "ClickGUI": {
+    "key": 54
+  },
+  "FreeCam": {
+    "key": 21
+  },
+  "SnapLook": {
+    "key": 0
+  },
+  "FreeLook": {
+    "key": 0
+  },
+  "HUD": {
+    "key": 0
+  },
+  "CPS": {
+    "key": 0
+  },
+  "FPS": {
+    "key": 0
+  },
+  "MusicPlayer": {
+    "key": 0
+  },
+  "MusicOverlay": {
+    "key": 0
+  },
+  "MotionBlur": {
+    "key": 0
+  },
+  "Rotations": {
+    "key": 0
+  },
+  "KeyStrokes": {
+    "key": 0
+  },
+  "TabGUI": {
+    "key": 0
+  },
+  "ArmorStatus": {
+    "key": 0
+  },
+  "KillAura": {
+    "key": 19
+  },
+  "Criticals": {
+    "key": 0
+  },
+  "AntiInvisible": {
+    "key": 0
+  }
+}

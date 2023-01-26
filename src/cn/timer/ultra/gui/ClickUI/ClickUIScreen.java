@@ -129,6 +129,7 @@ public class ClickUIScreen extends GuiScreen {
             GlStateManager.scale(percent2, percent2, 0);
             GlStateManager.translate(-sr.getScaledWidth() / 2f, -sr.getScaledHeight() / 2f, 0);
         }
+        RenderUtil.drawShadow(x, y, width, height);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         RenderUtil.doGlScissor(x - 5, y - 5, width + 10, height + 10);
         if (dragging) {

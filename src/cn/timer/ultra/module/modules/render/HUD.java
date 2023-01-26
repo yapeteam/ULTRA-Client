@@ -22,7 +22,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class HUD extends Module {
     public HUD() {
@@ -96,7 +95,6 @@ public class HUD extends Module {
         if (Client.instance.tabgui.showModules) {
             int categoryIndex = Client.instance.tabgui.currentCategory;
             Category category = Client.instance.tabgui.cats.get(categoryIndex);
-            List<Module> modules = Client.instance.getModuleManager().getByCategory(category);
             int currentModule = category.selectedIndex;
 
             category.lastSelectedTrans = category.selectedTrans;
@@ -116,7 +114,7 @@ public class HUD extends Module {
             RenderUtil.setAlphaLimit(0);
             FontLoaders.logo.drawString("ULTRA", 5, 25, 0xffffffff);
         });
-        if (Client.instance.getModuleManager().getModuleByName("KeyStrokes").isEnabled()) {
+        if (Client.instance.getModuleManager().getByClass(KeyStrokes.class).isEnabled()) {
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
             GlStateManager.enableBlend();
@@ -262,8 +260,6 @@ public class HUD extends Module {
                     c.seenTrans = 0;
                 }
                 c.seenTrans = CatA[x].animate(selected ? 7 : 0, c.seenTrans, 0.1f);
-                //mc.getTextureManager().bindTexture(new ResourceLocation("Jello/" + c.name + ".png"));
-                //Gui.drawModalRectWithCustomSizedTexture(TabX + c.seenTrans, TabY + x * 15, 0, 0, 75, 17, 75, 17);
                 CFontLoaders.jello21.drawString(c.name, TabX + c.seenTrans + 4, TabY + x * 15 + (17 - CFontLoaders.jello21.getHeight()) / 2f, -1);
                 x++;
             }

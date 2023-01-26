@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.InputStream;
 import java.util.HashMap;
 
-public class FontLoaders {
+public class FontLoaders { //only use .ttf Font (java8)
     public static FontRenderer arial14 = getArial(14, true);
     public static FontRenderer arial16 = getArial(16, true);
     public static FontRenderer arial18 = getArial(18, true);
@@ -32,10 +32,10 @@ public class FontLoaders {
     public static FontRenderer joystick18 = getArial(18, true);
     public static FontRenderer logo = getFont("payback.ttf", 68, true);
 
-    public static FontRenderer getSyyh(int size, boolean antiAlias) { //only use .ttf Font (java8)
+    public static FontRenderer getSyyh(int size, boolean antiAlias) {
         Font font;
         try {
-            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("client/Fonts/syyh.otf")).getInputStream();
+            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("client/Fonts/syyh.ttf")).getInputStream();
             font = Font.createFont(0, is);
             font = font.deriveFont(Font.PLAIN, size);
         } catch (Exception ex) {

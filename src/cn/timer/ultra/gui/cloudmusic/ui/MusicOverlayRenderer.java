@@ -63,7 +63,7 @@ public enum MusicOverlayRenderer {
 
         if (MusicManager.INSTANCE.lyric) {
             {
-                FontRenderer font = FontLoaders.arial18;
+                FontRenderer font = FontLoaders.msFont18;
                 //int addonYlyr = 50;
                 //Lyric
                 int col = new Color(255, 255, 255).getRGB();

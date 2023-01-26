@@ -2,11 +2,14 @@ package cn.timer.ultra.gui.lunar.ui;
 
 import java.awt.Color;
 
+import cn.timer.ultra.Client;
 import cn.timer.ultra.gui.lunar.font.FontUtil;
+import cn.timer.ultra.gui.lunar.ui.buttons.CustomImageButton;
 import cn.timer.ultra.gui.particles.ParticleEngine;
 import cn.timer.ultra.gui.lunar.ui.buttons.ImageButton;
 import cn.timer.ultra.gui.lunar.ui.buttons.MainButton;
 import cn.timer.ultra.gui.lunar.ui.buttons.QuitButton;
+import cn.timer.ultra.module.modules.player.MicrosoftAuthLogin;
 import cn.timer.ultra.utils.*;
 import cn.timer.ultra.utils.jello.GLUtils;
 import net.minecraft.client.gui.*;
@@ -30,6 +33,7 @@ public class MainMenu extends GuiScreen {
     private ImageButton btnCosmetics;
     private ImageButton btnMinecraftOptions;
     private ImageButton btnLanguage;
+    private CustomImageButton btnLogin;
 
     private QuitButton btnQuit;
 
@@ -43,7 +47,7 @@ public class MainMenu extends GuiScreen {
         pe.particles.clear();
         aniX = GLUtils.getMouseX();
         aniY = GLUtils.getMouseY();
-        this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", new DynamicTexture(256, 256));
+        //this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", new DynamicTexture(256, 256));
 
         this.logo = new ResourceLocation("lunar/logo.png");
 
@@ -66,6 +70,9 @@ public class MainMenu extends GuiScreen {
         });
         this.btnLanguage = new ImageButton("LANGUAGE", new ResourceLocation("lunar/icons/globe.png"), this.width / 2 + 15, yPos, () -> {
             this.mc.displayGuiScreen(new GuiLanguage(this, this.mc.gameSettings, this.mc.getLanguageManager()));
+        });
+        this.btnLogin = new CustomImageButton("MicrosoftAuthLogin", new ResourceLocation("client/Microsoftlogin.png"), 5, 5, (int) (400 / 3.5), (int) (132 / 3.5), () -> {
+            Client.instance.getModuleManager().getByClass(MicrosoftAuthLogin.class).onEnable();
         });
 
         this.btnQuit = new QuitButton(this.width - 17, 7);
@@ -124,6 +131,7 @@ public class MainMenu extends GuiScreen {
         this.btnCosmetics.drawButton(mouseX, mouseY);
         this.btnMinecraftOptions.drawButton(mouseX, mouseY);
         this.btnLanguage.drawButton(mouseX, mouseY);
+        this.btnLogin.drawButton(mouseX, mouseY);
 
         this.btnQuit.drawButton(mouseX, mouseY);
 

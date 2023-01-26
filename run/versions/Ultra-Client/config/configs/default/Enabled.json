@@ -1,0 +1,59 @@
+{
+  "MicrosoftAuthLogin": {
+    "enable": false
+  },
+  "Derp": {
+    "enable": false
+  },
+  "ClickGUI": {
+    "enable": false
+  },
+  "FreeCam": {
+    "enable": false
+  },
+  "SnapLook": {
+    "enable": true
+  },
+  "FreeLook": {
+    "enable": true
+  },
+  "HUD": {
+    "enable": true
+  },
+  "CPS": {
+    "enable": true
+  },
+  "FPS": {
+    "enable": true
+  },
+  "MusicPlayer": {
+    "enable": false
+  },
+  "MusicOverlay": {
+    "enable": true
+  },
+  "MotionBlur": {
+    "enable": true
+  },
+  "Rotations": {
+    "enable": true
+  },
+  "KeyStrokes": {
+    "enable": true
+  },
+  "TabGUI": {
+    "enable": true
+  },
+  "ArmorStatus": {
+    "enable": true
+  },
+  "KillAura": {
+    "enable": false
+  },
+  "Criticals": {
+    "enable": false
+  },
+  "AntiInvisible": {
+    "enable": false
+  }
+}

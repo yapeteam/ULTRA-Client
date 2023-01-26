@@ -1,5 +1,6 @@
 package cn.timer.ultra.module.modules.player;
 
+import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.module.Category;
 import cn.timer.ultra.module.Module;
 import cn.timer.ultra.module.modules.player.alt.GuiTipScreen;
@@ -18,6 +19,7 @@ public class MicrosoftAuthLogin extends Module {
     }
 
     public static LoginThread t;
+    private GuiTipScreen gui;
 
     @Override
     public void onEnable() {
@@ -25,7 +27,9 @@ public class MicrosoftAuthLogin extends Module {
         t = new LoginThread();
         t.start();
         GuiTipScreen.su = false;
-        Minecraft.getMinecraft().displayGuiScreen(new GuiTipScreen("请在浏览器中登录", "code已复制到剪贴板"));
+        gui = new GuiTipScreen("请在浏览器中登录", "code已复制到剪贴板");
+        EventManager.instance.register(gui);
+        Minecraft.getMinecraft().displayGuiScreen(gui);
         try {
             Desktop.getDesktop().browse(new URI("https://www.microsoft.com/link"));
         } catch (Exception e) {
