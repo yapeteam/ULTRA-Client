@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.event.events.EventDrawGui;
 import cn.timer.ultra.event.events.EventRender3D;
+import cn.timer.ultra.event.events.EventRenderShadow;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 
@@ -1633,6 +1634,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (flag) {
             Shaders.endRender();
         }
+        EventManager.instance.call(new EventRenderShadow(partialTicks));
     }
 
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {

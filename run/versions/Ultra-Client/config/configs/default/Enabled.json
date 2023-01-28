@@ -3,7 +3,7 @@
     "enable": false
   },
   "Derp": {
-    "enable": false
+    "enable": true
   },
   "ClickGUI": {
     "enable": false
@@ -54,6 +54,6 @@
     "enable": false
   },
   "AntiInvisible": {
-    "enable": false
+    "enable": true
   }
 }

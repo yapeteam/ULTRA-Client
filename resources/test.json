@@ -1,0 +1,294 @@
+{
+  "needLogin": true,
+  "result": {
+    "searchQcReminder": null,
+    "songs": [
+      {
+        "name": "浪子闲话",
+        "id": 1989190856,
+        "pst": 0,
+        "t": 0,
+        "ar": [
+          {
+            "id": 47301146,
+            "name": "Zhou小喵",
+            "tns": [],
+            "alias": []
+          }
+        ],
+        "alia": [],
+        "pop": 100.0,
+        "st": 0,
+        "rt": "",
+        "fee": 8,
+        "v": 6,
+        "crbt": null,
+        "cf": "",
+        "al": {
+          "id": 153162157,
+          "name": "浪子闲话",
+          "picUrl": "http://p3.music.126.net/gKA_Wwi6QNkIrA-6a42EXQ==/109951167962861326.jpg",
+          "tns": [],
+          "pic_str": "109951167962861326",
+          "pic": 109951167962861326
+        },
+        "dt": 205791,
+        "h": {
+          "br": 320000,
+          "fid": 0,
+          "size": 8233840,
+          "vd": -58831.0,
+          "sr": 44100
+        },
+        "m": {
+          "br": 192000,
+          "fid": 0,
+          "size": 4940321,
+          "vd": -56269.0,
+          "sr": 44100
+        },
+        "l": {
+          "br": 128000,
+          "fid": 0,
+          "size": 3293562,
+          "vd": -54500.0,
+          "sr": 44100
+        },
+        "sq": {
+          "br": 970915,
+          "fid": 0,
+          "size": 24975797,
+          "vd": -58876.0,
+          "sr": 44100
+        },
+        "hr": null,
+        "a": null,
+        "cd": "01",
+        "no": 1,
+        "rtUrl": null,
+        "ftype": 0,
+        "rtUrls": [],
+        "djId": 0,
+        "copyright": 0,
+        "s_id": 0,
+        "mark": 64,
+        "originCoverType": 0,
+        "originSongSimpleData": null,
+        "tagPicList": null,
+        "resourceState": true,
+        "version": 6,
+        "songJumpInfo": null,
+        "entertainmentTags": null,
+        "single": 0,
+        "noCopyrightRcmd": null,
+        "rtype": 0,
+        "rurl": null,
+        "mst": 9,
+        "cp": 0,
+        "mv": 0,
+        "publishTime": 0,
+        "privilege": {
+          "id": 1989190856,
+          "fee": 8,
+          "payed": 0,
+          "st": 0,
+          "pl": 128000,
+          "dl": 0,
+          "sp": 7,
+          "cp": 1,
+          "subp": 1,
+          "cs": false,
+          "maxbr": 999000,
+          "fl": 128000,
+          "toast": false,
+          "flag": 2,
+          "preSell": false,
+          "playMaxbr": 999000,
+          "downloadMaxbr": 999000,
+          "maxBrLevel": "lossless",
+          "playMaxBrLevel": "lossless",
+          "downloadMaxBrLevel": "lossless",
+          "plLevel": "standard",
+          "dlLevel": "none",
+          "flLevel": "standard",
+          "rscl": null,
+          "freeTrialPrivilege": {
+            "resConsumable": false,
+            "userConsumable": false,
+            "listenType": null
+          },
+          "chargeInfoList": [
+            {
+              "rate": 128000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 0
+            },
+            {
+              "rate": 192000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            },
+            {
+              "rate": 320000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            },
+            {
+              "rate": 999000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "《浪子闲话》",
+        "id": 2013399037,
+        "pst": 0,
+        "t": 0,
+        "ar": [
+          {
+            "id": 52840935,
+            "name": "星光大道红豆",
+            "tns": [],
+            "alias": []
+          }
+        ],
+        "alia": [],
+        "pop": 70.0,
+        "st": 0,
+        "rt": "",
+        "fee": 8,
+        "v": 4,
+        "crbt": null,
+        "cf": "",
+        "al": {
+          "id": 157972129,
+          "name": "《浪子闲话》",
+          "picUrl": "http://p4.music.126.net/fd6zs5A7QMAw730-LfZO2w==/109951168224061464.jpg",
+          "tns": [],
+          "pic_str": "109951168224061464",
+          "pic": 109951168224061464
+        },
+        "dt": 247408,
+        "h": {
+          "br": 320000,
+          "fid": 0,
+          "size": 9899407,
+          "vd": -19147.0,
+          "sr": 44100
+        },
+        "m": {
+          "br": 192000,
+          "fid": 0,
+          "size": 5939662,
+          "vd": -16399.0,
+          "sr": 44100
+        },
+        "l": {
+          "br": 128000,
+          "fid": 0,
+          "size": 3959789,
+          "vd": -14381.0,
+          "sr": 44100
+        },
+        "sq": {
+          "br": 895548,
+          "fid": 0,
+          "size": 27695797,
+          "vd": -19393.0,
+          "sr": 44100
+        },
+        "hr": null,
+        "a": null,
+        "cd": "01",
+        "no": 1,
+        "rtUrl": null,
+        "ftype": 0,
+        "rtUrls": [],
+        "djId": 0,
+        "copyright": 1,
+        "s_id": 0,
+        "mark": 8192,
+        "originCoverType": 0,
+        "originSongSimpleData": null,
+        "tagPicList": null,
+        "resourceState": true,
+        "version": 4,
+        "songJumpInfo": null,
+        "entertainmentTags": null,
+        "single": 0,
+        "noCopyrightRcmd": null,
+        "rtype": 0,
+        "rurl": null,
+        "mst": 9,
+        "cp": 1416692,
+        "mv": 0,
+        "publishTime": 1673280000000,
+        "privilege": {
+          "id": 2013399037,
+          "fee": 8,
+          "payed": 0,
+          "st": 0,
+          "pl": 128000,
+          "dl": 0,
+          "sp": 7,
+          "cp": 1,
+          "subp": 1,
+          "cs": false,
+          "maxbr": 999000,
+          "fl": 128000,
+          "toast": false,
+          "flag": 260,
+          "preSell": false,
+          "playMaxbr": 999000,
+          "downloadMaxbr": 999000,
+          "maxBrLevel": "lossless",
+          "playMaxBrLevel": "lossless",
+          "downloadMaxBrLevel": "lossless",
+          "plLevel": "standard",
+          "dlLevel": "none",
+          "flLevel": "standard",
+          "rscl": null,
+          "freeTrialPrivilege": {
+            "resConsumable": false,
+            "userConsumable": false,
+            "listenType": null
+          },
+          "chargeInfoList": [
+            {
+              "rate": 128000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 0
+            },
+            {
+              "rate": 192000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            },
+            {
+              "rate": 320000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            },
+            {
+              "rate": 999000,
+              "chargeUrl": null,
+              "chargeMessage": null,
+              "chargeType": 1
+            }
+          ]
+        }
+      }
+    ],
+    "songCount": 20
+  },
+  "code": 200
+}

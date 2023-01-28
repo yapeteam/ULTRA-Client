@@ -77,177 +77,16 @@ public class MusicManager {
     // I'm stuck with JavaFX MediaPlayer :(
     private MediaPlayer mediaPlayer;
     private static File libs;
-
-    private synchronized static void loadLib(String libName) throws IOException {
-        String systemType = System.getProperty("os.name");
-        String libExtension = (systemType.toLowerCase().contains("win")) ? ".dll" : ".so";
-        String libFullName = libName + libExtension;
-        //String nativeTempDir = System.getProperty("java.io.tmpdir");
-        InputStream in = null;
-        BufferedInputStream reader;
-        FileOutputStream writer = null;
-        libs = new File(System.getProperty("java.library.path"));
-        if (!libs.exists())
-            libs.mkdirs();
-        File libfile = new File(libs.getAbsolutePath() + File.separator + libFullName);
-        if (libfile.exists())
-            return;
-        if (!libfile.exists()) {
-            try {
-                libfile.createNewFile();
-                in = MusicManager.class.getResourceAsStream(BIN_LIB + libFullName);
-                if (in == null)
-                    in = MusicManager.class.getResourceAsStream(BIN_LIB + libFullName);
-                MusicManager.class.getResource(BIN_LIB + libFullName);
-                reader = new BufferedInputStream(in);
-                writer = new FileOutputStream(libfile);
-                byte[] buffer = new byte[1024];
-                while (reader.read(buffer) > 0) {
-                    writer.write(buffer);
-                    buffer = new byte[1024];
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (in != null)
-                    in.close();
-                if (writer != null)
-                    writer.close();
-            }
-        }
-        //System.load(libfile.toString());
-    }
-
     public MusicManager() {
         // 实例化缓存文件夹
         // Minecraft 实例
         EventManager.instance.register(this);
         Minecraft mc = Minecraft.getMinecraft();
-        musicFolder = new File(mc.mcDataDir, "Simple/musicCache");
-        artPicFolder = new File(mc.mcDataDir, "Simple/artCache");
-        File cookie = new File(mc.mcDataDir, "Simple/cookies.txt");
+        musicFolder = new File(mc.mcDataDir, "Ultra/musicCache");
+        artPicFolder = new File(mc.mcDataDir, "Ultra/artCache");
+        File cookie = new File(mc.mcDataDir, "Ultra/cookies.txt");
         File cache = new File(mc.mcDataDir, ".cache");
         if (!cache.exists()) cache.mkdirs();
-        /*try {
-            /*
-            * Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----         2018/9/13     22:57          19208 api-ms-win-core-console-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-datetime-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-debug-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-errorhandling-l1-1-0.dll
--a----         2018/9/13     22:57          22280 api-ms-win-core-file-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-file-l1-2-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-file-l2-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-handle-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-heap-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-interlocked-l1-1-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-core-libraryloader-l1-1-0.dll
--a----         2018/9/13     22:57          21256 api-ms-win-core-localization-l1-2-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-memory-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-namedpipe-l1-1-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-core-processenvironment-l1-1-0.dll
--a----         2018/9/13     22:57          20744 api-ms-win-core-processthreads-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-processthreads-l1-1-1.dll
--a----         2018/9/13     22:57          18184 api-ms-win-core-profile-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-rtlsupport-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-string-l1-1-0.dll
--a----         2018/9/13     22:57          20744 api-ms-win-core-synch-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-synch-l1-2-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-core-sysinfo-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-core-timezone-l1-1-0.dll
--a----         2018/9/13     22:57          18696 api-ms-win-core-util-l1-1-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-crt-conio-l1-1-0.dll
--a----         2018/9/13     22:57          22792 api-ms-win-crt-convert-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-crt-environment-l1-1-0.dll
--a----         2018/9/13     22:57          20744 api-ms-win-crt-filesystem-l1-1-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-crt-heap-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-crt-locale-l1-1-0.dll
--a----         2018/9/13     22:57          27912 api-ms-win-crt-math-l1-1-0.dll
--a----         2018/9/13     22:57          26888 api-ms-win-crt-multibyte-l1-1-0.dll
--a----         2018/9/13     22:57          71432 api-ms-win-crt-private-l1-1-0.dll
--a----         2018/9/13     22:57          19720 api-ms-win-crt-process-l1-1-0.dll
--a----         2018/9/13     22:57          23304 api-ms-win-crt-runtime-l1-1-0.dll
--a----         2018/9/13     22:57          24840 api-ms-win-crt-stdio-l1-1-0.dll
--a----         2018/9/13     22:57          24840 api-ms-win-crt-string-l1-1-0.dll
--a----         2018/9/13     22:57          21256 api-ms-win-crt-time-l1-1-0.dll
--a----         2018/9/13     22:57          19208 api-ms-win-crt-utility-l1-1-0.dll
--a----         2018/9/13     22:57         334640 concrt140.dll
--a----         2018/9/13     22:57          81408 decora_sse.dll
--a----         2018/9/13     22:57         118784 fxplugins.dll
--a----         2018/9/13     22:57         264192 glass.dll
--a----         2018/9/13     22:57         643584 glib-lite.dll
--a----         2018/9/13     22:57         884736 gstreamer-lite.dll
--a----         2018/9/13     22:57          67072 javafx_font.dll
--a----         2018/9/13     22:57         147968 javafx_iio.dll
--a----         2018/9/13     22:57         138240 jfxmedia.dll
--a----         2018/9/13     22:57       59174400 jfxwebkit.dll
--a----         2018/9/13     22:57         675112 msvcp140.dll
--a----         2018/9/13     22:57          55808 prism_common.dll
--a----         2018/9/13     22:57         125952 prism_d3d.dll
--a----         2018/9/13     22:57          92672 prism_sw.dll
--a----         2018/9/13     22:57        1016584 ucrtbase.dll
--a----         2018/9/13     22:57          87864 vcruntime140.dll
-            loadLib("api-ms-win-core-console-l1-1-0");
-            loadLib("api-ms-win-core-datetime-l1-1-0");
-            loadLib("api-ms-win-core-debug-l1-1-0");
-            loadLib("api-ms-win-core-errorhandling-l1-1-0");
-            loadLib("api-ms-win-core-file-l1-1-0");
-            loadLib("api-ms-win-core-file-l1-2-0");
-            loadLib("api-ms-win-core-file-l2-1-0");
-            loadLib("api-ms-win-core-handle-l1-1-0");
-            loadLib("api-ms-win-core-heap-l1-1-0");
-            loadLib("api-ms-win-core-interlocked-l1-1-0");
-            loadLib("api-ms-win-core-libraryloader-l1-1-0");
-            loadLib("api-ms-win-core-localization-l1-2-0");
-            loadLib("api-ms-win-core-memory-l1-1-0");
-            loadLib("api-ms-win-core-namedpipe-l1-1-0");
-            loadLib("api-ms-win-core-processenvironment-l1-1-0");
-            loadLib("api-ms-win-core-processthreads-l1-1-0");
-            loadLib("api-ms-win-core-processthreads-l1-1-1");
-            loadLib("api-ms-win-core-profile-l1-1-0");
-            loadLib("api-ms-win-core-rtlsupport-l1-1-0");
-            loadLib("api-ms-win-core-string-l1-1-0");
-            loadLib("api-ms-win-core-synch-l1-1-0");
-            loadLib("api-ms-win-core-synch-l1-2-0");
-            loadLib("api-ms-win-core-sysinfo-l1-1-0");
-            loadLib("api-ms-win-core-timezone-l1-1-0");
-            loadLib("api-ms-win-core-util-l1-1-0");
-            loadLib("api-ms-win-crt-conio-l1-1-0");
-            loadLib("api-ms-win-crt-convert-l1-1-0");
-            loadLib("api-ms-win-crt-environment-l1-1-0");
-            loadLib("api-ms-win-crt-filesystem-l1-1-0");
-            loadLib("api-ms-win-crt-heap-l1-1-0");
-            loadLib("api-ms-win-crt-locale-l1-1-0");
-            loadLib("api-ms-win-crt-math-l1-1-0");
-            loadLib("api-ms-win-crt-multibyte-l1-1-0");
-            loadLib("api-ms-win-crt-private-l1-1-0");
-            loadLib("api-ms-win-crt-process-l1-1-0");
-            loadLib("api-ms-win-crt-runtime-l1-1-0");
-            loadLib("api-ms-win-crt-stdio-l1-1-0");
-            loadLib("api-ms-win-crt-string-l1-1-0");
-            loadLib("api-ms-win-crt-time-l1-1-0");
-            loadLib("api-ms-win-crt-utility-l1-1-0");
-            loadLib("concrt140");
-            loadLib("decora_sse");
-            loadLib("fxplugins");
-            loadLib("glass");
-            loadLib("glib-lite");
-            loadLib("gstreamer-lite");
-            loadLib("javafx_font");
-            loadLib("javafx_iio");
-            loadLib("jfxmedia");
-            loadLib("jfxwebkit");
-            loadLib("msvcp140");
-            loadLib("prism_common");
-            loadLib("prism_d3d");
-            loadLib("prism_sw");
-            loadLib("ucrtbase");
-            loadLib("vcruntime140");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
         if (!artPicFolder.exists())
             artPicFolder.mkdirs();
 
@@ -258,14 +97,6 @@ public class MusicManager {
         if (!circleImage.exists()) {
             circleImage.mkdirs();
         }
-
-//		songNameScroll = new ScrollingText(Helper.INSTANCE.fonts.siyuan16, "", Colors.WHITE.c);
-//		songNameScroll.setWidth(112);
-//		songNameScroll.setStepSize(.5f);
-
-//		artistsScroll = new ScrollingText(Helper.INSTANCE.fonts.siyuan13, "", Colors.WHITE.c);
-//		artistsScroll.setWidth(112);
-//		artistsScroll.setStepSize(.5f);
 
         // JavaFX 初始化
         if (cookie.exists()) {

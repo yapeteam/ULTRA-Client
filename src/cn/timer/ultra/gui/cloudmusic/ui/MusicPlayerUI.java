@@ -43,6 +43,7 @@ public class MusicPlayerUI extends GuiScreen {
     public float scrollY = 0;
     public float scrollAni = 0;
     public float minY = -100;
+    public search searchMode = search.name;
 
     public CustomTextField textField = new CustomTextField("");
 
@@ -70,7 +71,17 @@ public class MusicPlayerUI extends GuiScreen {
             Minecraft.getMinecraft().fontRendererObj.drawString("导入", (int) (newWidth - 23f), (int) (y + 6f), Color.GRAY.getRGB());
 
             if (textField.textString.isEmpty()) {
-                Minecraft.getMinecraft().fontRendererObj.drawString("输入歌单ID", (int) (newX + 8), (int) (y + 6f), Color.GRAY.getRGB());
+                switch (searchMode) {
+                    case list:
+                        Minecraft.getMinecraft().fontRendererObj.drawString("输入歌单ID", (int) (newX + 8), (int) (y + 6f), Color.GRAY.getRGB());
+                        break;
+                    case name:
+                        Minecraft.getMinecraft().fontRendererObj.drawString("搜索歌曲", (int) (newX + 8), (int) (y + 6f), Color.GRAY.getRGB());
+                        break;
+                    case song:
+                        Minecraft.getMinecraft().fontRendererObj.drawString("输入歌曲ID", (int) (newX + 8), (int) (y + 6f), Color.GRAY.getRGB());
+                        break;
+                }
             }
 
             if (RenderUtil.isHovering(newX + 5, y + 20, newWidth - 5, y + height - 4, mouseX, mouseY)) {
@@ -231,6 +242,14 @@ public class MusicPlayerUI extends GuiScreen {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
     }
 
+    enum search {
+        list,
+        song,
+        name
+    }
+
+    int count = 0;
+
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 
@@ -296,10 +315,32 @@ public class MusicPlayerUI extends GuiScreen {
                         try {
                             this.slots.clear();
 
-                            MusicManager.INSTANCE.playlist = (ArrayList<Track>) CloudMusicAPI.INSTANCE.getPlaylistDetail(this.textField.textString)[1];
+                            switch (searchMode) {
+                                case song:
+                                    ArrayList<Object[]> requestSo = CloudMusicAPI.INSTANCE.requestSong(CloudMusicAPI.INSTANCE.getSongJson(Long.parseLong(this.textField.textString)));
+                                    ArrayList<Track> listSo = new ArrayList<>();
+                                    for (Object[] strings : requestSo) {
+                                        listSo.add(new Track(Long.parseLong(strings[1].toString()), strings[0].toString(), strings[3].toString(), strings[2].toString()));
+                                    }
+                                    MusicManager.INSTANCE.playlist = listSo;
+                                    System.out.println(listSo);
+                                    System.out.println(2);
+                                    break;
+                                case name:
+                                    ArrayList<Object[]> requestSe = CloudMusicAPI.INSTANCE.requestSearch(CloudMusicAPI.INSTANCE.getSearchJson(this.textField.textString));
+                                    ArrayList<Track> listSe = new ArrayList<>();
+                                    for (Object[] strings : requestSe) {
+                                        listSe.add(new Track(Long.parseLong(strings[1].toString()), strings[0].toString(), strings[3].toString(), strings[2].toString()));
+                                    }
+                                    MusicManager.INSTANCE.playlist = listSe;
+                                    break;
+                                case list:
+                                    MusicManager.INSTANCE.playlist = (ArrayList<Track>) CloudMusicAPI.INSTANCE.getPlaylistDetail(this.textField.textString)[1];
+                                    break;
+                            }
 
-                            for (Track t : MusicManager.INSTANCE.playlist) {
-                                this.slots.add(new TrackSlot(t));
+                            for (int i = 0; i < MusicManager.INSTANCE.playlist.size(); i++) {
+                                this.slots.add(new TrackSlot(MusicManager.INSTANCE.playlist.get(i)));
                             }
 
                         } catch (Exception ex) {
@@ -312,6 +353,12 @@ public class MusicPlayerUI extends GuiScreen {
 
                     MusicManager.INSTANCE.analyzeThread.start();
                 }
+            }
+            if (mouseButton == 1) {
+                searchMode = search.values()[count];
+                count++;
+                if (count == 3)
+                    count = 0;
             }
 
             //歌曲列表

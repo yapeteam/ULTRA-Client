@@ -2,6 +2,9 @@ package net.minecraft.client.gui;
 
 import cn.timer.ultra.event.EventManager;
 import cn.timer.ultra.event.events.EventRender2D;
+import cn.timer.ultra.event.events.EventRenderShadow;
+import cn.timer.ultra.utils.GlUtils;
+import cn.timer.ultra.utils.ShadowUtils;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -21,6 +24,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -157,6 +161,8 @@ public class GuiIngame extends Gui {
         this.titleDisplayTime = 70;
         this.titleFadeOut = 20;
     }
+
+    private static Framebuffer shadowFramebuffer = new Framebuffer(1, 1, false);
 
     public void renderGameOverlay(float partialTicks) {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
@@ -356,6 +362,12 @@ public class GuiIngame extends Gui {
         }
 
         EventManager.instance.call(new EventRender2D(partialTicks));
+        shadowFramebuffer = GlUtils.createFrameBuffer(shadowFramebuffer);
+        shadowFramebuffer.framebufferClear();
+        shadowFramebuffer.bindFramebuffer(true);
+        EventManager.instance.call(new EventRenderShadow(partialTicks));
+        shadowFramebuffer.unbindFramebuffer();
+        ShadowUtils.renderShadow(shadowFramebuffer.framebufferTexture, 8, 2);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();

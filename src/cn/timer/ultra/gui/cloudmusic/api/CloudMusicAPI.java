@@ -3,6 +3,7 @@ package cn.timer.ultra.gui.cloudmusic.api;
 import cn.timer.ultra.gui.cloudmusic.MusicManager;
 import cn.timer.ultra.gui.cloudmusic.impl.Lyric;
 import cn.timer.ultra.gui.cloudmusic.impl.Track;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -25,6 +26,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ public enum CloudMusicAPI {
     INSTANCE;
 
     // Headers
-    final private String headers[][] = {
+    final private String[][] headers = {
             {"Accept", "*/*"},
             {"Accept-Language", "zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4"},
             {"Connection", "keep-alive"},
@@ -54,7 +57,7 @@ public enum CloudMusicAPI {
     // Json Parser
     private final JsonParser parser = new JsonParser();
     // Cookie
-    public String cookies[][] = {
+    public String[][] cookies = {
             {"os", "pc"},
             {"Referer", "https://music.163.com/"},
             {"__remember_me", "true"}
@@ -66,7 +69,6 @@ public enum CloudMusicAPI {
      * @param phoneNum 手机号
      * @param passwd   密码
      * @return new Object[] {返回内容, CookieStore实例}
-     * @throws Exception
      */
     public Object[] loginPhone(String phoneNum, String passwd) throws Exception {
         JsonObject obj = new JsonObject();
@@ -81,7 +83,6 @@ public enum CloudMusicAPI {
      * --获取二维码Key
      *
      * @return String 返回内容
-     * @throws Exception
      */
     public String QRKey() throws Exception {
         JsonObject obj = new JsonObject();
@@ -95,7 +96,6 @@ public enum CloudMusicAPI {
     /**
      * --查询二维码状态
      *
-     * @throws Exception
      * @return Object[] {响应码, Cookies或Null}
      */
     public Object[] QRState(String key) throws Exception {
@@ -114,7 +114,6 @@ public enum CloudMusicAPI {
     /**
      * --刷新登录状态
      *
-     * @throws Exception
      * @return Object[] {返回内容, 无用返回}
      */
     public Object[] refreshState() throws Exception {
@@ -126,11 +125,10 @@ public enum CloudMusicAPI {
      *
      * @param userId 用户ID
      * @return new Object[] {返回码, 返回内容或null}
-     * @throws Exception
      */
     public Object[] getPlayList(String userId) throws Exception {
         String json = (String) this.httpRequest(
-                "http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=" + userId, null, RequestType.GET)[0];
+                "https://music.163.com/api/user/playlist/?offset=0&limit=100&uid=" + userId, null, RequestType.GET)[0];
         JsonObject obj = (JsonObject) parser.parse(json);
 
         if (obj.get("code").getAsInt() != 200) {
@@ -153,7 +151,6 @@ public enum CloudMusicAPI {
      *
      * @param songId 音乐ID
      * @return String[] {返回码, 返回的内容}
-     * @throws Exception
      */
     public String getLyricJson(String songId) throws Exception {
         JsonObject obj = new JsonObject();
@@ -254,10 +251,8 @@ public enum CloudMusicAPI {
      *
      * @param playListId 歌单ID
      * @return new Object[] {返回码, 数组或null}
-     * @throws Exception
      */
     public Object[] getPlaylistDetail(String playListId) throws Exception {
-
         JsonObject request = new JsonObject();
         request.addProperty("id", playListId);
         request.addProperty("n", 100000);
@@ -297,13 +292,76 @@ public enum CloudMusicAPI {
         return new Object[]{"200", temp};
     }
 
+    public String getSongJson(long id) throws Exception {
+        return getString("https://music.163.com/api/song/detail/?id=" + id + "&ids=[" + id + "]");
+    }
+
+    public ArrayList<Object[]> requestSong(String result) {//name,id,picUrl
+        JsonObject obj = (JsonObject) this.parser.parse(result);
+        JsonObject s = (JsonObject) obj.get("result");
+        ArrayList<Object[]> temp = new ArrayList<>();
+        JsonArray r = s.getAsJsonArray("songs");
+        for (int i = 0; i < r.getAsJsonArray().size(); ++i) {
+            JsonObject ar = (JsonObject) r.get(i).getAsJsonObject().get("ar").getAsJsonArray().get(0);
+            JsonObject al = r.get(i).getAsJsonObject().get("al").getAsJsonObject();
+            temp.add(new Object[]{
+                    r.get(i).getAsJsonObject().get("name").getAsString(),
+                    r.get(i).getAsJsonObject().get("id").getAsString(),
+                    al.get("picUrl").getAsString(),
+                    ar.get("name").getAsString()
+            });
+        }
+        return temp;
+    }
+
+    /**
+     * --获取搜索结果
+     *
+     * @param text 歌曲名称
+     * @return json
+     */
+    public String getSearchJson(String text) throws Exception {
+        return getString("https://music.163.com/api/cloudsearch/get/web?csrf_token=hlpretag=&hlposttag=&type=1&offset=0&total=true&limit=100&s=" + URLEncoder.encode(text, StandardCharsets.UTF_8.name()));
+    }
+
+    public static String getString(String url) throws Exception {
+        URL test = new URL(url);
+        URLConnection uc = test.openConnection();
+        uc.addRequestProperty("User-Agent", "Mozilla/4.0");
+        BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+        String inputLine;
+        StringBuilder sb = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            sb.append(inputLine);
+        }
+        in.close();
+        return sb.toString();
+    }
+
+    public ArrayList<Object[]> requestSearch(String result) {//name,id,picUrl
+        JsonObject obj = (JsonObject) this.parser.parse(result);
+        JsonObject s = (JsonObject) obj.get("result");
+        ArrayList<Object[]> temp = new ArrayList<>();
+        JsonArray r = s.getAsJsonArray("songs");
+        for (int i = 0; i < r.getAsJsonArray().size(); ++i) {
+            JsonObject ar = (JsonObject) r.get(i).getAsJsonObject().get("ar").getAsJsonArray().get(0);
+            JsonObject al = r.get(i).getAsJsonObject().get("al").getAsJsonObject();
+            temp.add(new Object[]{
+                    r.get(i).getAsJsonObject().get("name").getAsString(),
+                    r.get(i).getAsJsonObject().get("id").getAsString(),
+                    al.get("picUrl").getAsString(),
+                    ar.get("name").getAsString()
+            });
+        }
+        return temp;
+    }
+
     /**
      * --获取歌曲下载地址
      *
      * @param songId  歌曲ID
      * @param bitRate 歌曲比特率
      * @return new Object[] {返回码, 下载地址或null}
-     * @throws Exception
      */
     public Object[] getDownloadUrl(String songId, long bitRate) throws Exception {
         JsonObject obj = new JsonObject();
@@ -318,8 +376,7 @@ public enum CloudMusicAPI {
             return new Object[]{"获取下载地址时发生错误, 错误码 " + result.get("code").getAsInt(), null};
         }
 
-        return new Object[]{"200",
-                result.get("data").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString()};
+        return new Object[]{"200", result.get("data").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString()};
     }
 
     public Object[] httpRequest(String url, String data, RequestType type) throws Exception {

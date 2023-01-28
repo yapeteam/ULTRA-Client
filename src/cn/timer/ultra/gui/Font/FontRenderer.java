@@ -555,7 +555,7 @@ public class FontRenderer implements IResourceManagerReloadListener, IBFFontRend
     }
 
     public int drawString(String text, float x, float y, int color) {
-        this.drawString(text, (float) x, (float) y, color, false);
+        this.drawString(text, x, y, color, false);
         return getStringWidth(text);
     }
 
@@ -564,14 +564,7 @@ public class FontRenderer implements IResourceManagerReloadListener, IBFFontRend
      */
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
         this.enableAlpha();
-//        text = I18NUtils.getGlobal(text);
-//        if (this.blend) {
-//            GlStateManager.getBlendState(this.oldBlendState);
-//            GlStateManager.enableBlend();
-//            GlStateManager.blendFunc(770, 771);
-//        }
 
-//        RenderUtil.drawRect(0,0,0,0,0);
         GlStateManager.disableBlend();
         this.resetStyles();
         int i;
@@ -582,10 +575,6 @@ public class FontRenderer implements IResourceManagerReloadListener, IBFFontRend
         } else {
             i = this.renderString(text, x, y, color, false);
         }
-
-//        if (this.blend) {
-//            GlStateManager.setBlendState(this.oldBlendState);
-//        }
 
         return i;
     }

@@ -183,14 +183,13 @@ public class HUD extends Module {
             y += FontLoaders.jello18.FONT_HEIGHT;
         }
         if (Client.instance.getModuleManager().getByClass(TabGUI.class).isEnabled()) {
+            GL11.glPushMatrix();
             Module module = Client.instance.getModuleManager().getByClass(TabGUI.class);
             float TabX = ((TabGUI) module).getXPosition();
             float TabY = ((TabGUI) module).getYPosition();
             mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUIShadow.png"));
             Gui.drawModalRectWithCustomSizedTexture(TabX - 4.5f, TabY - 4.5f, 0, 0, 84, 86, 84, 86);
-            GlStateManager.disableAlpha();
-            GlStateManager.enableBlend();
-            GL11.glEnable(3042);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1, 1, 1, 1);
 
             if (Client.instance.tabgui.showModules) {
@@ -205,9 +204,7 @@ public class HUD extends Module {
                 float smoothTrans = smoothTrans(trans, lastTrans);
 
                 if (size != 0) {
-                    GlStateManager.disableAlpha();
-                    GlStateManager.enableBlend();
-                    GL11.glEnable(3042);
+                    GL11.glEnable(GL11.GL_BLEND);
                     GL11.glColor4f(1, 1, 1, 1);
 
                     mc.getTextureManager().bindTexture(new ResourceLocation("Jello/TabGUISelector.png"));
@@ -263,6 +260,7 @@ public class HUD extends Module {
                 CFontLoaders.jello21.drawString(c.name, TabX + c.seenTrans + 4, TabY + x * 15 + (17 - CFontLoaders.jello21.getHeight()) / 2f, -1);
                 x++;
             }
+            GL11.glPopMatrix();
         }
     }
 

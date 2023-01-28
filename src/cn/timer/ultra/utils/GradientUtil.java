@@ -65,6 +65,7 @@ public class GradientUtil {
     }
 
     public static void applyGradient(float x, float y, float width, float height, float alpha, Color bottomLeft, Color topLeft, Color bottomRight, Color topRight, Runnable content) {
+        GL11.glPushMatrix();
         RenderUtil.resetColor();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -90,6 +91,6 @@ public class GradientUtil {
 
         gradientMaskShader.unload();
         GlStateManager.disableBlend();
-
+        GL11.glPopMatrix();
     }
 }

@@ -2,7 +2,7 @@
   "MicrosoftAuthLogin": {},
   "Derp": {
     "Spiny": true,
-    "Increment": 1.0,
+    "Increment": 39.62592697143555,
     "Fake Derp": true
   },
   "ClickGUI": {},
@@ -11,15 +11,15 @@
   "FreeLook": {},
   "HUD": {},
   "CPS": {
-    "posX": 387.0,
-    "posY": 55.0,
+    "posX": 183.0,
+    "posY": 136.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free",
     "Show Background": true
   },
   "FPS": {
-    "posX": 383.0,
-    "posY": 27.0,
+    "posX": 521.0,
+    "posY": 126.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free",
     "Show Background": true
@@ -27,20 +27,20 @@
   "MusicPlayer": {},
   "MusicOverlay": {},
   "MotionBlur": {
-    "FrameMultiplier": 0.0
+    "FrameMultiplier": 1.9225757122039795
   },
   "Rotations": {
     "Silent": true
   },
   "KeyStrokes": {
-    "posX": 15.0,
-    "posY": 207.0,
+    "posX": 14.0,
+    "posY": 197.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   },
   "TabGUI": {
-    "posX": 15.0,
-    "posY": 107.0,
+    "posX": 16.0,
+    "posY": 97.0,
     "HorizontalFacing": "Free",
     "VerticalFacing": "Free"
   },
@@ -52,11 +52,11 @@
   },
   "KillAura": {
     "Priority": "Distance",
-    "Range": 4.2,
+    "Range": 8.0,
     "AutoBlock": false,
-    "CPS": 10.0,
+    "CPS": 20.0,
     "PlayerOnly": false,
-    "Team": true,
+    "Team": false,
     "AttackInvisibleEntity": true
   },
   "Criticals": {},

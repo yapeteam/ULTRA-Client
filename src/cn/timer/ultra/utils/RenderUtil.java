@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
+import static cn.timer.ultra.utils.ColorUtils.glColor;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.glScissor;
 
@@ -298,6 +299,56 @@ public class RenderUtil {
         glScissor((int) finalX, (int) (finalY - finalHeight), (int) finalWidth, (int) finalHeight);
     }
 
+    public static void drawRoundedRect3(double x, double y, double x2, double y2, double radius, int color){
+        final double X1 = Math.min(x,x2);
+        final double X2 = Math.max(x,x2);
+        final double Y1 = Math.min(y,y2);
+        final double Y2 = Math.max(y,y2);
+
+        if (radius*2>X2-X1 || radius*2>Y2-Y1) return;
+        drawRect(X1,Y1+radius,X2,Y2-radius,color);
+        drawRect(X1+radius,Y1,X2-radius,Y1+radius,color);
+        drawRect(X1+radius,Y2-radius,X2-radius,Y2,color);
+
+        drawSector(X2-radius,Y2-radius,0,90,radius,color);
+        drawSector(X1+radius,Y2-radius,90,180,radius,color);
+        drawSector(X1+radius,Y1+radius,180,270,radius,color);
+        drawSector(X2-radius,Y1+radius,270,360,radius,color);
+    }
+    public static void drawSector(final double x,final double y,int angle1,int angle2,final double radius,final int color) {
+        boolean blend = GL11.glIsEnabled(GL11.GL_BLEND);
+        boolean alpha = GL11.glIsEnabled(GL11.GL_ALPHA_TEST);
+        boolean glTexture2D = GL11.glIsEnabled(GL11.GL_TEXTURE_2D);
+        if (angle1 >angle2) {
+            int temp = angle2;
+            angle2 = angle1;
+            angle1 = temp;
+        }
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        glColor(color);
+        GL11.glBegin(GL11.GL_TRIANGLE_FAN);
+        GL11.glVertex2d(x, y);
+        for (double i = angle2; i >= angle1; i-=1) {
+            double ldx = Math.cos(i * Math.PI / 180.0) * radius;
+            double ldy = Math.sin(i * Math.PI / 180.0) * radius;
+            GL11.glVertex2d(x + ldx, y + ldy);
+        }
+        GL11.glVertex2d(x, y);
+        GL11.glEnd();
+        if (glTexture2D) {
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+        }
+        if (!blend) {
+            GL11.glDisable(GL11.GL_BLEND);
+        }
+        if (!alpha) {
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
+        }
+    }
+
     // This will set the alpha limit to a specified value ranging from 0-1
     public static void setAlphaLimit(float limit) {
         GlStateManager.enableAlpha();
@@ -336,6 +387,8 @@ public class RenderUtil {
     }
 
     public static void drawRoundedRect(float x, float y, float right, float bottom, float round, int color) {
+        GL11.glPushMatrix();
+        GlStateManager.disableAlpha();
         x = (float) ((double) x + ((double) (round / 2.0f) + 0.5));
         y = (float) ((double) y + ((double) (round / 2.0f) + 0.5));
         right = (float) ((double) right - ((double) (round / 2.0f) + 0.5));
@@ -349,6 +402,7 @@ public class RenderUtil {
         RenderUtil.drawRect(x, y + round / 2.0f, right + round / 2.0f + 0.5f, bottom - round / 2.0f, color);
         RenderUtil.drawRect(x + round / 2.0f, y - round / 2.0f - 0.5f, right - round / 2.0f, bottom - round / 2.0f, color);
         RenderUtil.drawRect(x + round / 2.0f, y, right - round / 2.0f, bottom + round / 2.0f + 0.5f, color);
+        GL11.glPopMatrix();
     }
 
     public static void drawRoundedRect(double x, double y, double right, double bottom, double round, int color) {
@@ -455,7 +509,7 @@ public class RenderUtil {
     public static void arcEllipse(final float x, final float y, float start, float end, final float w, final float h, final int color) {
         GlStateManager.color(0.0f, 0.0f, 0.0f);
         GL11.glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
-        float temp = 0.0f;
+        float temp;
         if (start > end) {
             temp = end;
             end = start;
@@ -465,8 +519,6 @@ public class RenderUtil {
         final float var12 = (color >> 16 & 0xFF) / 255.0f;
         final float var13 = (color >> 8 & 0xFF) / 255.0f;
         final float var14 = (color & 0xFF) / 255.0f;
-        final Tessellator var15 = Tessellator.getInstance();
-        final WorldRenderer var16 = var15.getWorldRenderer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -676,7 +728,7 @@ public class RenderUtil {
         GL11.glBegin(3);
 
         for (int i = startPoint; (double) i <= arc; ++i) {
-            if (rainbow) ColorUtils.glColor(ColorUtils.rainbow(-30000000L * i, 1).getRGB());
+            if (rainbow) glColor(ColorUtils.rainbow(-30000000L * i, 1).getRGB());
             double x = Math.sin((double) i * Math.PI / 180.0) * r;
             double y = Math.cos((double) i * Math.PI / 180.0) * r;
             GL11.glVertex2d((double) x1 + x, (double) y1 + y);
