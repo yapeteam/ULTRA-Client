@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="cn.timer.ultra.gui.loadFrame.LoadFrame">
+  <grid id="27dc6" binding="JP" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="337" height="107"/>
+    </constraints>
+    <properties>
+      <font size="24"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="4203c" class="javax.swing.JLabel" binding="text">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <font size="12"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+      <component id="f86b7" class="javax.swing.JProgressBar" binding="progressBar">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="true"/>
+          <enabled value="true"/>
+          <stringPainted value="true"/>
+        </properties>
+      </component>
+      <component id="9b94d" class="javax.swing.JLabel" binding="logo">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="42"/>
+          <text value="ULTRA"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
